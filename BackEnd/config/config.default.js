@@ -26,7 +26,7 @@ module.exports = appInfo => {
   config.mongoose = {
     url:
       process.env.EGG_MONGODB_URL ||
-      'mongodb://sellardoor:bigbang86@59.110.43.170:27017/admin',
+      'mongodb://账号:密码@域名:端口/数据库', // 线上数据库这里不提供具体连接账号密码
     options: {},
   };
 
