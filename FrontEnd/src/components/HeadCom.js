@@ -53,32 +53,22 @@ export default function HeadCom(props) {
             style={{ borderBottom: 'none', height: 60 }}
           >
             <Menu.Item
-              style={{ width: 95, borderBottom: 'none', lineHeight: '60px' }}
+              style={{ width: '33%', borderBottom: 'none', lineHeight: '60px', textAlign:'center' }}
               key="index"
             >
               <Link to="/">
                 <Icon type="home" />
-                <span style={{ fontSize: '16px', marginLeft: -7 }}>首页</span>
+                <span style={{ fontSize: '16px' }}>首页</span>
               </Link>
             </Menu.Item>
             <Menu.Item
-              style={{ width: 95, borderBottom: 'none', lineHeight: '60px' }}
+              style={{ width: '33%', borderBottom: 'none', lineHeight: '60px', textAlign:'center' }}
               key="artical"
             >
-              <Link to="/detail">
+              <Link to="/articlelist">
                 <Icon type="youtube" />
-                <span style={{ fontSize: '16px', marginLeft: -7 }}>文章</span>
+                <span style={{ fontSize: '16px' }}>文章列表</span>
               </Link>
-            </Menu.Item>
-            <Menu.Item
-              style={{ width: 95, borderBottom: 'none', lineHeight: '60px' }}
-              key="others"
-            >
-              <Link to="/crud">
-              <Icon type="instagram" />
-              <span style={{ fontSize: '16px', marginLeft: -7 }}>crud测试</span>
-              </Link>
-              
             </Menu.Item>
           </Menu>
         </Col>

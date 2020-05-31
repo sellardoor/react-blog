@@ -6,7 +6,7 @@ import moment from 'moment';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai-sublime.css';
-import '../pages/Detail/index.less';
+import '../pages/index.less';
 
 export default function ListCom(props) {
   const [data, setData] = useState([]);
@@ -22,7 +22,7 @@ export default function ListCom(props) {
   }, []);
 
   const articleDetail = _id => {
-    window.open(`/detail?_id=${_id}`, '_self');
+    window.open(`/articledetail?_id=${_id}`, '_self');
   };
 
   const renderer = new marked.Renderer();
