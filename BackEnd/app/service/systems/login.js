@@ -11,10 +11,7 @@ class LoginService extends Service {
         {
           username: ctx.request.body.username,
         },
-        app.config.jwt.secret,
-        {
-          expiresIn: '60m',
-        }
+        app.config.jwt.secret
       );
       return token;
     }

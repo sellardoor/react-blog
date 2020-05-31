@@ -26,7 +26,8 @@ module.exports = appInfo => {
   config.mongoose = {
     url:
       process.env.EGG_MONGODB_URL ||
-      'mongodb://账号:密码@域名:端口/数据库', // 线上数据库这里不提供具体连接账号密码
+      // 'mongodb://账号:密码@域名:端口/数据库', // 线上数据库这里不提供具体连接账号密码
+      'mongodb://sellardoor:bigbang86@59.110.43.170:27017/admin',
     options: {},
   };
 
@@ -40,6 +41,8 @@ module.exports = appInfo => {
     origin: '*', // 允许跨域请求的地址
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS', // 允许跨域请求的方式
   };
+
+  config.uploadDir = 'app/public/imgs';
 
   config.jwt = {
     secret: 'bigbang',

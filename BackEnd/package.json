@@ -11,7 +11,10 @@
     "egg-cors": "^2.2.3",
     "egg-jwt": "^3.1.7",
     "egg-mongoose": "^3.2.0",
-    "egg-scripts": "^2.11.0"
+    "egg-scripts": "^2.11.0",
+    "mkdirp": "^1.0.4",
+    "pump": "^3.0.0",
+    "silly-datetime": "^0.1.2"
   },
   "devDependencies": {
     "autod": "^3.0.1",

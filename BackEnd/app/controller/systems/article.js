@@ -1,13 +1,12 @@
 'use strict';
+const pump = require('pump');
+const fs = require('fs');
 
 const { Controller } = require('egg');
 class ArticleController extends Controller {
   async index() {
     const { ctx } = this;
-    const result = await ctx.model.Article.create({
-      ...ctx.request.body,
-      img: '123',
-    });
+    const result = await ctx.model.Article.create(ctx.request.body);
     ctx.body = {
       success: true,
       result,
@@ -45,6 +44,42 @@ class ArticleController extends Controller {
       success: true,
       result,
     };
+  }
+  async saveAvatar() {
+    const { ctx } = this;
+    const parts = ctx.multipart({ autoFields: true });
+    let files = {};
+    let stream;
+    while ((stream = await parts()) != null) {
+      if (!stream.filename) {
+        break;
+      }
+      const fieldname = stream.fieldname; // file表单的名字
+      // 上传图片的目录
+      const dir = await this.service.systems.uploadTools.getUploadFile(stream.filename);
+      const target = dir.uploadDir;
+      const writeStream = fs.createWriteStream(target);
+
+      await pump(stream, writeStream);
+
+      files = Object.assign(files, {
+        [fieldname]: dir.saveDir,
+      });
+    }
+
+    if (Object.keys(files).length > 0) {
+      ctx.body = {
+        code: 200,
+        message: '图片上传成功',
+        data: files,
+      };
+    } else {
+      ctx.body = {
+        code: 500,
+        message: '图片上传失败',
+        data: {},
+      };
+    }
   }
 }
 

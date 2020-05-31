@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Row, Col, Button, Breadcrumb, Spin, message } from 'antd';
+import { Input, Row, Col, Button, Breadcrumb, Spin, message, Upload, Icon } from 'antd';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai-sublime.css';
@@ -13,18 +13,28 @@ const ArticleEdit = props => {
   const [info, setInfo] = useState('');
   const [type, setType] = useState('');
   const [load, setLoad] = useState(false);
+  const [fileList, setFileList] = useState([]);
+  const [avatar, setAvatar] = useState('');
 
   useEffect(() => {
     const div = document.getElementById('contentdiv');
     div.scrollTop = div.scrollHeight;
     setLoad(true);
     articleDetailApi(props.location.query).then(res => {
+      console.log(res)
       if (res?.success && res.result.length > 0) {
         setLoad(false);
         setText(res.result[0].content);
         setTitle(res.result[0].title);
         setInfo(res.result[0].info);
         setType(res.result[0].type);
+        setAvatar(res.result[0].img);
+        setFileList([{
+          uid: '-1',
+          name: 'old.png',
+          status: 'done',
+          url: res.result[0].img,
+        }])
       }
     });
   }, []);
@@ -49,6 +59,38 @@ const ArticleEdit = props => {
   const infoChange = e => setInfo(e.target.value);
   const typeChange = e => setType(e.target.value);
 
+  const uploadChange = info => {
+    let fileList = [...info.fileList];
+    fileList = fileList.slice(-1);
+    fileList = fileList.map(file => {
+      if (file.response) {
+        file.url = file.response.data.file;
+      }
+      return file;
+    });
+    if (info.file.status === 'done') {
+      const { response } = info.file;
+      setAvatar(response?.data?.file ?? '');
+      message.success(`${info.file.name} 上传成功`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} 上传失败`);
+    }
+    setFileList(fileList)
+  }
+
+  const beforeUpload = file => {
+    const isJpgOrPng =
+        file.type === 'image/jpeg' || file.type === 'image/png';
+      if (!isJpgOrPng) {
+        message.error('封面支持的格式为JPG/PNG');
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        message.error('最大支持2MB!');
+      }
+      return isJpgOrPng && isLt2M;
+  }
+
   const handleSubmit = () => {
     if (!title) {
       message.error('文章标题不可为空');
@@ -56,6 +98,10 @@ const ArticleEdit = props => {
     }
     if (!type) {
       message.error('文章类型不可为空');
+      return;
+    }
+    if (!avatar) {
+      message.error('文章封面不可为空');
       return;
     }
     if (!info) {
@@ -70,18 +116,19 @@ const ArticleEdit = props => {
     articleUpdateApi({
       _id: props.location.query,
       update: {
-          title,
-          info,
-          content: text,
-          type,
-      }
+        title,
+        info,
+        content: text,
+        type,
+        img: avatar
+      },
     }).then(res => {
-        if(res?.success) {
-            message.success('修改成功');
-            setLoad(false);
-            props.history.push('/articlelist');
-        }
-    })
+      if (res?.success) {
+        message.success('修改成功');
+        setLoad(false);
+        props.history.push('/articlelist');
+      }
+    });
   };
   return (
     <Spin size="large" spinning={load}>
@@ -113,11 +160,8 @@ const ArticleEdit = props => {
             />
           </Col>
           <Col span={1}></Col>
-          <Col span={8}>
-            <p style={{ marginBottom: 5 }}>文章类型 :</p>
-            <Input value={type} onChange={typeChange} placeholder="文章类型" />
-          </Col>
-          <Col span={7} style={{ textAlign: 'right', paddingTop: 25 }}>
+
+          <Col span={15} style={{ textAlign: 'right', paddingTop: 25 }}>
             <Button
               type="primary"
               onClick={handleSubmit}
@@ -128,6 +172,31 @@ const ArticleEdit = props => {
             <Button>
               <Link to="/articlelist">返回</Link>
             </Button>
+          </Col>
+        </Row>
+        <Row style={{ marginBottom: 20 }}>
+          <Col span={8}>
+            <p style={{ marginBottom: 5 }}>文章类型 :</p>
+            <Input value={type} onChange={typeChange} placeholder="文章类型" />
+          </Col>
+        </Row>
+        <Row style={{ marginBottom: 20 }}>
+          <Col span={8}>
+            <p style={{ marginBottom: 5 }}>上传封面 :</p>
+            <Upload
+            name= 'file'
+            action= 'http://127.0.0.1:7001/api/systems/saveAvatar'
+            headers= {{
+              authorization: 'authorization-text',
+            }}
+            onChange={uploadChange}
+            beforeUpload={beforeUpload}
+            fileList={fileList}
+            >
+              <Button>
+                <Icon type="upload" /> 上传
+              </Button>
+            </Upload>
           </Col>
         </Row>
         <Row style={{ marginBottom: 20 }}>

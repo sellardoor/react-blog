@@ -17,4 +17,5 @@ module.exports = app => {
   router.post('/api/systems/detail', jwt, controller.systems.article.detail);
   router.post('/api/systems/delete', jwt, controller.systems.article.delete);
   router.post('/api/systems/update', jwt, controller.systems.article.update);
+  router.post('/api/systems/saveAvatar', controller.systems.article.saveAvatar);
 };
