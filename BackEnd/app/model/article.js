@@ -10,6 +10,7 @@ module.exports = app => {
     content: { type: String },
     date: { type: Number },
     img: { type: String },
+    hot: { type: Boolean },
   });
   return mongoose.model('Article', ArticleSchema);
 };

@@ -34,3 +34,17 @@ export async function uploadArticleApi(data) {
   });
 }
 
+export async function setArticleHotApi(data) {
+  return request('/api/systems/setArticleHot', {
+      method: 'post',
+      data,
+  });
+}
+
+export async function removeArticleHotApi(data) {
+  return request('/api/systems/removeArticleHot', {
+      method: 'post',
+      data,
+  });
+}
+

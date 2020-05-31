@@ -81,6 +81,22 @@ class ArticleController extends Controller {
       };
     }
   }
+  async setArticleHot() {
+    const { ctx } = this;
+    const result = await ctx.model.Article.update(ctx.request.body, { hot: true });
+    ctx.body = {
+      success: true,
+      result,
+    };
+  }
+  async removeArticleHot() {
+    const { ctx } = this;
+    const result = await ctx.model.Article.update(ctx.request.body, { hot: false });
+    ctx.body = {
+      success: true,
+      result,
+    };
+  }
 }
 
 module.exports = ArticleController;

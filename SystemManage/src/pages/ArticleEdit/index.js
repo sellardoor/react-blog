@@ -185,7 +185,8 @@ const ArticleEdit = props => {
             <p style={{ marginBottom: 5 }}>上传封面 :</p>
             <Upload
             name= 'file'
-            action= 'http://127.0.0.1:7001/api/systems/saveAvatar'
+            // action= 'http://127.0.0.1:7001/api/systems/saveAvatar'
+            action= 'http://59.110.43.170:7001/api/systems/saveAvatar'
             headers= {{
               authorization: 'authorization-text',
             }}

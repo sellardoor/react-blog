@@ -12,3 +12,9 @@ export async function articleDetailApi(data) {
     data,
   });
 }
+
+export async function hotArticleApi() {
+  return request('/api/blog/hotArticle', {
+    method: 'get',
+  });
+}

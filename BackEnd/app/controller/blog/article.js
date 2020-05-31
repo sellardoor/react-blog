@@ -20,6 +20,15 @@ class ArticleController extends Controller {
       result,
     };
   }
+
+  async hotArticle() {
+    const { ctx } = this;
+    const result = await ctx.model.Article.find({ hot: true });
+    ctx.body = {
+      success: true,
+      result,
+    };
+  }
 }
 
 module.exports = ArticleController;

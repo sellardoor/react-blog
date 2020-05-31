@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Breadcrumb, Icon, Spin } from 'antd';
+import { Row, Col, Breadcrumb, Icon, Spin, Affix } from 'antd';
 import HeadCom from '@/components/HeadCom';
 import BarCom from '@/components/BarCom';
 import HotCom from '@/components/HotCom';
@@ -15,10 +15,10 @@ export default function index(props) {
   const [detail, setDetail] = useState({ content: '' });
   const [load, setLoad] = useState(false);
   useEffect(() => {
-    setLoad(true)
+    setLoad(true);
     articleDetailApi(props.location.query).then(res => {
       setDetail(res.result[0]);
-      setLoad(false)
+      setLoad(false);
     });
   }, []);
 
@@ -90,17 +90,21 @@ export default function index(props) {
               />
               <span>0条</span>
             </div>
-            <Spin spinning={load} size='large'>
-            <div
-              style={{ marginTop: 50, paddingLeft: 20, paddingRight: 20 }}
-              dangerouslySetInnerHTML={{ __html: marked(detail.content) || '' }}
-            ></div>
+            <Spin spinning={load} size="large">
+              <div
+                style={{ marginTop: 50, paddingLeft: 20, paddingRight: 20 }}
+                dangerouslySetInnerHTML={{
+                  __html: marked(detail.content) || '',
+                }}
+              ></div>
             </Spin>
           </div>
         </Col>
         <Col span={4}>
           <BarCom />
-          <HotCom />
+          <Affix offsetTop={20}>
+            <HotCom />
+          </Affix>
         </Col>
         <Col span={2}></Col>
       </Row>
