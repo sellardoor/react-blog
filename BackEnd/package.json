@@ -12,8 +12,10 @@
     "egg-jwt": "^3.1.7",
     "egg-mongoose": "^3.2.0",
     "egg-scripts": "^2.11.0",
+    "md5": "^2.2.1",
     "mkdirp": "^1.0.4",
     "pump": "^3.0.0",
+    "qiniu": "^7.3.1",
     "silly-datetime": "^0.1.2"
   },
   "devDependencies": {

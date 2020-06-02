@@ -21,4 +21,5 @@ module.exports = app => {
   router.post('/api/systems/saveAvatar', controller.systems.article.saveAvatar);
   router.post('/api/systems/setArticleHot', controller.systems.article.setArticleHot);
   router.post('/api/systems/removeArticleHot', controller.systems.article.removeArticleHot);
+  router.post('/api/systems/qiniu', controller.systems.article.qiniu);
 };

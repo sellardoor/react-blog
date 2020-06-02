@@ -56,13 +56,14 @@ const Article = props => {
     fileList = fileList.slice(-1);
     fileList = fileList.map(file => {
       if (file.response) {
-        file.url = file.response.data.file;
+        file.url = `http://cdn.sellardoor.cn/${file.response.data.data.key}`;
       }
       return file;
     });
     if (info.file.status === 'done') {
       const { response } = info.file;
-      setAvatar(response?.data?.file ?? '');
+      console.log(response)
+      setAvatar(`http://cdn.sellardoor.cn/${response?.data?.data?.key ?? ''}`);
       message.success(`${info.file.name} 上传成功`);
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} 上传失败`);
@@ -173,8 +174,7 @@ const Article = props => {
             <p style={{ marginBottom: 5 }}>上传封面 :</p>
             <Upload
             name= 'file'
-            // action= 'http://127.0.0.1:7001/api/systems/saveAvatar'
-            action= 'http://59.110.43.170:7001/api/systems/saveAvatar'
+            action= 'http://node.sellardoor.cn/api/systems/qiniu'
             headers= {{
               authorization: 'authorization-text',
             }}

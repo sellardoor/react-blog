@@ -56,7 +56,9 @@ class ArticleController extends Controller {
       }
       const fieldname = stream.fieldname; // file表单的名字
       // 上传图片的目录
-      const dir = await this.service.systems.uploadTools.getUploadFile(stream.filename);
+      const dir = await this.service.systems.uploadTools.getUploadFile(
+        stream.filename
+      );
       const target = dir.uploadDir;
       const writeStream = fs.createWriteStream(target);
 
@@ -83,7 +85,9 @@ class ArticleController extends Controller {
   }
   async setArticleHot() {
     const { ctx } = this;
-    const result = await ctx.model.Article.update(ctx.request.body, { hot: true });
+    const result = await ctx.model.Article.update(ctx.request.body, {
+      hot: true,
+    });
     ctx.body = {
       success: true,
       result,
@@ -91,11 +95,30 @@ class ArticleController extends Controller {
   }
   async removeArticleHot() {
     const { ctx } = this;
-    const result = await ctx.model.Article.update(ctx.request.body, { hot: false });
+    const result = await ctx.model.Article.update(ctx.request.body, {
+      hot: false,
+    });
     ctx.body = {
       success: true,
       result,
     };
+  }
+  async qiniu() {
+    const { ctx } = this;
+    const result = await ctx.service.systems.qiniu.uploadFiles(ctx);
+    if (result) {
+      ctx.body = {
+        code: 200,
+        message: '图片上传成功',
+        data: result,
+      };
+    } else {
+      ctx.body = {
+        code: 500,
+        message: '图片上传失败',
+        data: {},
+      };
+    }
   }
 }
 
