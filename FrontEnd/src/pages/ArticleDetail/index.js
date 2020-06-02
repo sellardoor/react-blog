@@ -96,7 +96,7 @@ export default function index(props) {
                 dangerouslySetInnerHTML={{
                   __html: marked(detail.content) || '',
                 }}
-              ></div>
+            ></div>
             </Spin>
           </div>
         </Col>

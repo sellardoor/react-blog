@@ -6,7 +6,7 @@ import ListCom from '@/components/ListCom';
 import SystemCom from '@/components/SystemCom';
 import HotCom from '@/components/HotCom';
 import FooterCom from '@/components/FooterCom';
-import Advert from '@/components/Advert';
+// import Advert from '@/components/Advert';
 import styles from './index.less';
 
 export default function index() {
@@ -25,7 +25,7 @@ export default function index() {
                 <Col span={4}>
                     <BarCom />
                     <SystemCom />
-                    <Advert />
+                    {/* <Advert /> */}
                     <HotCom />
                 </Col>
                 <Col span={2}></Col>

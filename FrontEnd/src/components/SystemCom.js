@@ -3,7 +3,7 @@ import { Button } from 'antd';
 
 export default function SystemCom() {
   const ToSystems = () => {
-    window.open('http://59.110.43.170:81');
+    window.open('http://system.sellardoor.cn');
   };
   return (
     <div
@@ -12,6 +12,7 @@ export default function SystemCom() {
         borderRadius: 10,
         textAlign: 'center',
         paddingBottom: 20,
+        marginBottom: 20,
       }}
     >
       <div

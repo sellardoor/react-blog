@@ -22,7 +22,7 @@ const Login = props => {
             setTimeout(() => {
               props.history.push('/');
             }, 1000);
-          }else{
+          } else {
             setloading(false);
           }
         });
@@ -170,7 +170,6 @@ const mapStateFromProps = ({ login }) => ({
 const mapDispatchFromProps = {
   handleLogin: payload => ({ type: 'login/handleLogin', payload }),
 };
-// export default Login |> Form.create({ name: 'horizontal_login' }) |> connect(mapStateFromProps, mapDispatchFromProps)
 export default connect(
   mapStateFromProps,
   mapDispatchFromProps,

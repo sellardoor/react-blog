@@ -1,6 +1,5 @@
 import React from 'react';
 import { Avatar, Divider, Tooltip } from 'antd';
-import avatar from '../public/images/avatar.jpg';
 
 export default function BarCom() {
   return (
@@ -22,7 +21,7 @@ export default function BarCom() {
           个人资料
         </p>
       </div>
-      <Avatar src={avatar} style={{ width: 100, height: 100 }} />
+      <Avatar src='http://cdn.sellardoor.cn/imgs/avatar.jpg' style={{ width: 100, height: 100 }} />
       <p style={{ marginTop: 10, marginBottom: 5 }}>SellarDoor</p>
       <p style={{ marginBottom: 0, color: '#666', fontSize: 12 }}>
         前端努力爬坑中...
