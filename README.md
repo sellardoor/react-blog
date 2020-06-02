@@ -54,8 +54,7 @@ externals: {
   ]
   2. 静态资源上传七牛云cdn
   3. nginx.conf里对于server加入
-  ```
-  gzip on;
+        gzip on;
         gzip_buffers 32 4k;
         gzip_comp_level 6;
         gzip_min_length 200;
