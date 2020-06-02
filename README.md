@@ -9,9 +9,9 @@
 
 [centOS服务器mongodb的安装与使用](https://juejin.im/post/5ecbc331e51d457871619dc0)
 
-项目地址: http://59.110.43.170
+项目地址: [sellardoor.cn](sellardoor.cn)
 
-2020/5/31 发布1.0版本, 包含以下功能:
+📅2020/5/31 1.0版本, 包含以下功能:
 
 > umi博客页面
 1. 展示数据库文章列表
@@ -31,8 +31,31 @@
 3. egg-mongoose操作数据库
 4. egg-cors处理请求跨域
 
-#### 此网站作为学习网站, 1.0版本是自己为了体验前后端开发和部署的整个流程,后续一些学习的心得体会会写成文章上传到该[网站](http://59.100.43.170).
-
-#### 之后一些网站常用前后端需求或者学到的复杂需求会作为迭代更新到该[网站](http://59.100.43.170), 代码会传到github.
-
-#### 有问题可以直接wx我(18584812344)
+📅2020/6/2  博客,后台页面首屏优化(服务器带宽就1m, 然后没优化打开要二十多秒,忍不了.)目前2-3s.
+```
+package.json里scripts里加入
+"analyz": "cross-env ANALYZE=1 umi build"  // 看看模块占比, 需要按装cross-env解析ANALYZE
+1. 按需引入第三方库的cdn
+externals: {
+    [`highlight.js`]: 'window.hljs',
+    moment: 'window.moment',
+    react: 'window.React',
+    [`react-dom`]: 'window.ReactDOM',
+    marked: 'window.marked',
+  },
+  scripts: [
+    'https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.3/highlight.min.js',
+    'https://cdn.bootcdn.net/ajax/libs/moment.js/2.26.0/moment.min.js',
+    'https://cdn.bootcdn.net/ajax/libs/react/16.12.0/umd/react.production.min.js',
+    'https://cdn.bootcdn.net/ajax/libs/react-dom/16.12.0/umd/react-dom.production.min.js',
+    'https://cdn.bootcdn.net/ajax/libs/marked/1.1.0/marked.min.js',
+  ]
+  2. 静态资源上传七牛云cdn
+  3. nginx.conf里对于server加入
+        gzip on;
+        gzip_buffers 32 4k;
+        gzip_comp_level 6;
+        gzip_min_length 200;
+        gzip_types text/css text/xml application/javascript;
+        gzip_vary on;
+  ```
