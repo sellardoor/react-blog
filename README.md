@@ -59,3 +59,4 @@ externals: {
         gzip_types text/css text/xml application/javascript;
         gzip_vary on;
   ```
+📅2020/6/3  犹豫静态资源托管cdn, 文章封面的上传与修改功能从本地存储改为cdn存储.
