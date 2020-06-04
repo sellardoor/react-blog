@@ -34,7 +34,7 @@
 📅2020/6/2  博客,后台页面首屏优化(服务器带宽就1m, 然后没优化打开要二十多秒,忍不了.)目前2-3s.
 ```
 package.json里scripts里加入
-"analyz": "cross-env ANALYZE=1 umi build"  // 看看模块占比, 需要按装cross-env解析ANALYZE
+"analyz": "cross-env ANALYZE=1 umi build"  // 看看模块占比, 需要安装cross-env解析ANALYZE
 1. 按需引入第三方库的cdn
 externals: {
     [`highlight.js`]: 'window.hljs',
@@ -59,3 +59,4 @@ externals: {
         gzip_types text/css text/xml application/javascript;
         gzip_vary on;
   ```
+📅2020/6/3  由于静态资源托管cdn, 文章封面的上传与修改功能从本地存储改为cdn存储.
