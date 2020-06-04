@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Row, Col, Menu, Icon, Input } from 'antd';
 import { Link } from 'umi';
+import styles from './index.less';
 
 const { Search } = Input;
 
@@ -12,40 +13,25 @@ export default function HeadCom(props) {
   };
   return (
     <div>
-      <Row
-        style={{ height: 26, background: '#444', color: '#aaa', fontSize: 14 }}
-      >
-        <Col span={2}></Col>
-        <Col span={4}>
-          <span style={{ lineHeight: '26px' }}>欢迎访问我的博客</span>
-        </Col>
-        <Col span={4} offset={12} style={{ textAlign: 'right' }}>
-          <span>关于我</span>
-          <span style={{ marginLeft: 30, lineHeight: '26px' }}>联系我</span>
-        </Col>
-        <Col span={2}></Col>
-      </Row>
-      <Row style={{ background: '#fff', height: 60 }}>
-        <Col span={2}></Col>
-        <Col span={11}>
-          <Icon
-            style={{ fontSize: 30, color: '#1890ff' }}
-            type="fire"
-            theme="filled"
-          />
+      <Row style={{ background: '#fff', height: 60, borderTop:'1px solid #e8e8e8', borderTop:'1px solid #e8e8e8' , height: 100}}>
+        <Col span={5}></Col>
+        <Col span={5}>
           <span
             style={{
-              fontSize: 20,
-              lineHeight: '60px',
+              fontSize: 16,
+              lineHeight: '100px',
               fontWeight: '500',
-              marginLeft: 15,
-              color: '#1890ff',
+              color: '#000'
             }}
           >
-            网站制作中...
+            <Icon id='hj-icon1' style={{marginRight: 25}} type="github" theme="filled" />
+            <Icon id='hj-icon2' style={{marginRight: 25}} type="wechat" theme="filled" />
+            <Icon id='hj-icon3' style={{marginRight: 25}} type="instagram" theme="filled" />
+            <Icon id='hj-icon4' style={{marginRight: 25}} type="yuque" theme="filled" />
+            <Icon id='hj-icon5' type="weibo-circle" theme="filled" />
           </span>
         </Col>
-        <Col span={5}>
+        <Col span={9}>
           <Menu
             mode="horizontal"
             onClick={handleChange}
@@ -53,33 +39,56 @@ export default function HeadCom(props) {
             style={{ borderBottom: 'none', height: 60 }}
           >
             <Menu.Item
-              style={{ width: '33%', borderBottom: 'none', lineHeight: '60px', textAlign:'center' }}
+              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
               key="index"
             >
-              <Link to="/">
-                <Icon type="home" />
-                <span style={{ fontSize: '16px' }}>首页</span>
+              <Link to="/" style={{color: '#000'}}>
+                <span id='hj-menu1' style={{ fontSize: '16px' }}>HOME</span>
               </Link>
             </Menu.Item>
             <Menu.Item
-              style={{ width: '33%', borderBottom: 'none', lineHeight: '60px', textAlign:'center' }}
+              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
               key="artical"
             >
-              <Link to="/articlelist">
-                <Icon type="youtube" />
-                <span style={{ fontSize: '16px' }}>文章列表</span>
+              <Link to="/articlelist" style={{color: '#000'}}>
+                <span id='hj-menu2' style={{ fontSize: '16px' }}>ARTICAL</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item
+              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
+              key="artical"
+            >
+              <Link to="/articlelist" style={{color: '#000'}}>
+                <span id='hj-menu2' style={{ fontSize: '16px' }}>LIFESTYLE</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item
+              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
+              key="artical"
+            >
+              <Link to="/articlelist" style={{color: '#000'}}>
+                <span id='hj-menu2' style={{ fontSize: '16px' }}>ABOUT</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item
+              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
+              key="artical"
+            >
+              <Link to="/articlelist" style={{color: '#000', borderTop: '2px solid #fff'}}>
+                <span id='hj-menu2' style={{ fontSize: '16px' }}>PHOTO</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item
+              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
+              key="artical"
+            >
+              <Link to="/articlelist" style={{color: '#000'}}>
+                <span id='hj-menu2' style={{ fontSize: '16px' }}>TRAVEL</span>
               </Link>
             </Menu.Item>
           </Menu>
         </Col>
-        <Col span={4} style={{ lineHeight: '60px', textAlign: 'right' }}>
-          <Search
-            placeholder="input search text"
-            onSearch={value => console.log(value)}
-            style={{ width: 200 }}
-          />
-        </Col>
-        <Col span={2}></Col>
+        <Col span={5}></Col>
       </Row>
     </div>
   );

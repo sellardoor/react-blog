@@ -6,6 +6,7 @@ import 'highlight.js/styles/monokai-sublime.css';
 import '../Article/index.less';
 import { articleDetailApi, articleUpdateApi } from '@/server/articleList';
 import { Link } from 'umi';
+import { CDN, UPLOADURL } from '@/utils/constants';
 
 const ArticleEdit = props => {
   const [text, setText] = useState('');
@@ -64,13 +65,13 @@ const ArticleEdit = props => {
     fileList = fileList.slice(-1);
     fileList = fileList.map(file => {
       if (file.response) {
-        file.url = `http://cdn.sellardoor.cn/${file.response.data.data.key}`;
+        file.url = `${CDN}${file?.response?.data?.data?.key ?? ''}`;
       }
       return file;
     });
     if (info.file.status === 'done') {
       const { response } = info.file;
-      setAvatar(`http://cdn.sellardoor.cn/${response?.data?.data?.key ?? ''}`);
+      setAvatar(`${CDN}${response?.data?.data?.key ?? ''}`);
       message.success(`${info.file.name} 上传成功`);
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} 上传失败`);
@@ -185,7 +186,7 @@ const ArticleEdit = props => {
             <p style={{ marginBottom: 5 }}>上传封面 :</p>
             <Upload
             name= 'file'
-            action= 'http://node.sellardoor.cn/api/systems/qiniu'
+            action= {UPLOADURL}
             headers= {{
               authorization: 'authorization-text',
             }}

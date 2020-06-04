@@ -5,6 +5,7 @@ import BarCom from '@/components/BarCom';
 import HotCom from '@/components/HotCom';
 import FooterCom from '@/components/FooterCom';
 import { initIndexArticleListApi } from '@/services/article';
+import TitleCom from '@/components/TitleCom';
 import moment from 'moment';
 
 export default function index(props) {
@@ -22,9 +23,10 @@ export default function index(props) {
   }
   return (
     <div>
+      <TitleCom />
       <HeadCom />
       <Row
-        style={{ background: '#f2f2f2', paddingTop: 20, paddingBottom: 100 }}
+        style={{ background: '#fff', paddingTop: 20, paddingBottom: 100 }}
       >
         <Col span={2}></Col>
         <Col

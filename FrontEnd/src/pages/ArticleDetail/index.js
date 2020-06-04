@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Breadcrumb, Icon, Spin, Affix } from 'antd';
+import { Row, Col, Breadcrumb, Icon, Spin } from 'antd';
 import HeadCom from '@/components/HeadCom';
 import BarCom from '@/components/BarCom';
 import HotCom from '@/components/HotCom';
+import UserCom from '@/components/UserCom';
+import TagsCom from '@/components/TagsCom';
+import Instagram from '@/components/Instagram';
 import FooterCom from '@/components/FooterCom';
 import marked from 'marked';
 import hljs from 'highlight.js';
@@ -40,9 +43,7 @@ export default function index(props) {
   return (
     <div>
       <HeadCom />
-      <Row
-        style={{ background: '#f2f2f2', paddingTop: 20, paddingBottom: 100 }}
-      >
+      <Row style={{ background: '#fff', paddingTop: 20, paddingBottom: 100 }}>
         <Col span={2}></Col>
         <Col
           span={16}
@@ -96,15 +97,19 @@ export default function index(props) {
                 dangerouslySetInnerHTML={{
                   __html: marked(detail.content) || '',
                 }}
-            ></div>
+              ></div>
             </Spin>
           </div>
         </Col>
         <Col span={4}>
           <BarCom />
-          <Affix offsetTop={20}>
-            <HotCom />
-          </Affix>
+          <div style={{ textAlign: 'center' }}>
+            <img src="http://cdn.sellardoor.cn/banner-spot.jpg" alt="" />
+          </div>
+          <UserCom />
+          <HotCom />
+          <TagsCom />
+          <Instagram />
         </Col>
         <Col span={2}></Col>
       </Row>

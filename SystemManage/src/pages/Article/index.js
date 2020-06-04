@@ -16,11 +16,13 @@ import 'highlight.js/styles/monokai-sublime.css';
 import './index.less';
 import { uploadArticleApi } from '@/server/articleList';
 import { Link } from 'umi';
+import { CDN, UPLOADURL } from '@/utils/constants'
 
 const Article = props => {
   useEffect(() => {
     const div = document.getElementById('contentdiv');
     div.scrollTop = div.scrollHeight;
+    console.log(CDN)
   });
   const renderer = new marked.Renderer();
 
@@ -56,14 +58,14 @@ const Article = props => {
     fileList = fileList.slice(-1);
     fileList = fileList.map(file => {
       if (file.response) {
-        file.url = `http://cdn.sellardoor.cn/${file.response.data.data.key}`;
+        file.url = `${CDN}${file?.response?.data?.data?.key ?? ''}`;
       }
       return file;
     });
     if (info.file.status === 'done') {
       const { response } = info.file;
       console.log(response)
-      setAvatar(`http://cdn.sellardoor.cn/${response?.data?.data?.key ?? ''}`);
+      setAvatar(`${CDN}${response?.data?.data?.key ?? ''}`);
       message.success(`${info.file.name} 上传成功`);
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} 上传失败`);
@@ -174,7 +176,7 @@ const Article = props => {
             <p style={{ marginBottom: 5 }}>上传封面 :</p>
             <Upload
             name= 'file'
-            action= 'http://node.sellardoor.cn/api/systems/qiniu'
+            action= {UPLOADURL}
             headers= {{
               authorization: 'authorization-text',
             }}

@@ -1,11 +1,11 @@
 import { defineConfig } from 'umi';
+import { PROXY } from './src/utils/constants'
 
 export default defineConfig({
   title: 'sellardoor',
   proxy: {
     '/api': {
-      // target: 'http://127.0.0.1:7001/',
-      target: 'http://59.110.43.170:7001/',
+      target: PROXY,
     },
   },
   nodeModulesTransform: {
