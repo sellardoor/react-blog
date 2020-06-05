@@ -1,5 +1,7 @@
 import React from 'react';
 import { Icon, Row, Col } from 'antd';
+import styles from './index.less';
+import { FOOTERIMGS } from '@/utils/constants';
 
 export default function FooterCom() {
   return (
@@ -23,65 +25,26 @@ export default function FooterCom() {
         FOLLOW ON INSTAGRAM
       </div>
       <Row>
-        <Col span={3}>
-          <img
-            style={{ width: '100%', height: '100%', display: 'inline-block' }}
-            src="http://cdn.sellardoor.cn/inst-1.jpeg.jpg"
-            alt=""
-          />
-        </Col>
-        <Col span={3}>
-          <img
-            style={{ width: '100%', height: '100%', display: 'inline-block' }}
-            src="http://cdn.sellardoor.cn/inst-2.jpg"
-            alt=""
-          />
-        </Col>
-        <Col span={3}>
-          <img
-            style={{ width: '100%', height: '100%', display: 'inline-block' }}
-            src="http://cdn.sellardoor.cn/inst-3.jpeg.jpg"
-            alt=""
-          />
-        </Col>
-        <Col span={3}>
-          <img
-            style={{ width: '100%', height: '100%', display: 'inline-block' }}
-            src="http://cdn.sellardoor.cn/inst-4.jpg"
-            alt=""
-          />
-        </Col>
-        <Col span={3}>
-          <img
-            style={{ width: '100%', height: '100%', display: 'inline-block' }}
-            src="http://cdn.sellardoor.cn/inst-5.jpeg.jpg"
-            alt=""
-          />
-        </Col>
-        <Col span={3}>
-          <img
-            style={{ width: '100%', height: '100%', display: 'inline-block' }}
-            src="http://cdn.sellardoor.cn/inst-6.jpg"
-            alt=""
-          />
-        </Col>
-        <Col span={3}>
-          <img
-            style={{ width: '100%', height: '100%', display: 'inline-block' }}
-            src="http://cdn.sellardoor.cn/inst-7.jpeg.jpg"
-            alt=""
-          />
-        </Col>
-        <Col span={3}>
-          <img
-            style={{ width: '100%', height: '100%', display: 'inline-block' }}
-            src="http://cdn.sellardoor.cn/inst-8.jpg"
-            alt=""
-          />
-        </Col>
+        {FOOTERIMGS.map(url => (
+          <Col span={3}>
+            <div className={styles.info}>
+              <img
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  display: 'inline-block',
+                }}
+                src={url}
+                alt=""
+              />
+            </div>
+          </Col>
+        ))}
       </Row>
 
-      <div style={{backgroundColor: '#fff', paddingTop: 50, paddingBottom: 50}}>
+      <div
+        style={{ backgroundColor: '#fff', paddingTop: 50, paddingBottom: 50 }}
+      >
         <p style={{ paddingTop: 20 }}>基于React-Umi, NodeJs-Egg, Mongodb</p>
         <p>Powered By SellarDoor</p>
         <p>

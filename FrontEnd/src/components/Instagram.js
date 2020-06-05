@@ -6,6 +6,8 @@
  */
 import React from 'react';
 import { Divider } from 'antd';
+import styles from './index.less';
+import { INSTAGRAM } from '@/utils/constants';
 
 export default function Instagram() {
   return (
@@ -22,17 +24,28 @@ export default function Instagram() {
       </div>
       <div style={{ marginLeft: 34 }}>
         <div
-          style={{ width: 270, height: 270, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignContent: 'space-between' }}
+          style={{
+            width: 270,
+            height: 270,
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignContent: 'space-between',
+          }}
         >
-            <img src='http://cdn.sellardoor.cn/instagram-sidebar-1.jpeg.jpg' style={{width: 83, height: 83, cursor: 'pointer'}} />
-            <img src='http://cdn.sellardoor.cn/instagram-sidebar-2.jpg' style={{width: 83, height: 83, cursor: 'pointer'}} />
-            <img src='http://cdn.sellardoor.cn/instagram-sidebar-3.jpeg.jpg' style={{width: 83, height: 83, cursor: 'pointer'}} />
-            <img src='http://cdn.sellardoor.cn/instagram-sidebar-4.jpg' style={{width: 83, height: 83, cursor: 'pointer'}} />
-            <img src='http://cdn.sellardoor.cn/instagram-sidebar-5.jpeg.jpg' style={{width: 83, height: 83, cursor: 'pointer'}} />
-            <img src='http://cdn.sellardoor.cn/instagram-sidebar-6.jpg' style={{width: 83, height: 83, cursor: 'pointer'}} />
-            <img src='http://cdn.sellardoor.cn/instagram-sidebar-6.jpg' style={{width: 83, height: 83, cursor: 'pointer'}} />
-            <img src='http://cdn.sellardoor.cn/instagram-sidebar-8.jpg' style={{width: 83, height: 83, cursor: 'pointer'}} />
-            <img src='http://cdn.sellardoor.cn/instagram-sidebar-9.jpg' style={{width: 83, height: 83, cursor: 'pointer'}} />
+          {INSTAGRAM.map(url => (
+            <div
+              className={styles.ins}
+              style={{ width: 83, height: 83, cursor: 'pointer' }}
+            >
+              <img
+                style={{
+                  display: 'inline-block',
+                }}
+                src={url}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

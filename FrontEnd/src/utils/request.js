@@ -1,3 +1,9 @@
+/**
+ * @fileoverview 请求封装
+ * @description 错误码, 拦截器等处理
+ * @author sellardoor
+ * @date 2020/06/04
+ */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
 
