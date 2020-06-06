@@ -4,7 +4,7 @@
  * @author sellardoor
  * @date 2020/06/04
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Divider,
   Button,
@@ -15,21 +15,42 @@ import {
   Modal,
   Form,
   Input,
+  message,
 } from 'antd';
 import styles from './index.less';
+import { registerApi, loginApi, checkUsernameApi } from '@/services/users';
+import { connect } from 'dva';
+
+/**
+ * @description 模态框登录控件
+ * @param {*} props
+ */
 const Login = props => {
   const { getFieldDecorator } = props.form;
   const handleSubmit = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        loginApi(values).then(res => {
+          if (res?.success) {
+            message.success('登录成功');
+            props.closeModal();
+            props.initUser(res.result);
+            localStorage.setItem('login', JSON.stringify(res.result));
+          } else {
+            message.error('登录失败');
+          }
+        });
       }
     });
   };
   return (
     <Form
-      style={{ paddingLeft: 50, paddingRight: 50,display: props.registershow === true ? 'none' : 'block' }}
+      style={{
+        paddingLeft: 50,
+        paddingRight: 50,
+        display: props.registershow === true ? 'none' : 'block',
+      }}
       onSubmit={handleSubmit}
       className="login-form"
     >
@@ -70,20 +91,78 @@ const Login = props => {
     </Form>
   );
 };
-const LoginForm = Form.create()(Login);
+const loginmapDispatchFromProps = {
+  initUser: payload => ({ type: 'users/initUser', payload }),
+};
+const loginmapStateFromProps = ({ users }) => ({ users });
+const LoginForm = connect(
+  loginmapStateFromProps,
+  loginmapDispatchFromProps,
+)(Form.create()(Login));
+/**
+ * @description 模态框注册控件
+ * @param {*} props
+ */
 const Register = props => {
+  const [confirmDirty, setconfirmDirty] = useState(false);
   const { getFieldDecorator } = props.form;
   const handleSubmit = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        registerApi(values).then(res => {
+          if (res?.success) {
+            message.success(res.message);
+            props.closeModal();
+          }
+        });
       }
     });
   };
+  const handleConfirmBlur = e => {
+    const { value } = e.target;
+    setconfirmDirty(!!value);
+  };
+  const validateToNextPassword = (rule, value, callback) => {
+    const { form } = props;
+    if (value && confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
+    }
+    callback();
+  };
+  const compareToFirstPassword = (rule, value, callback) => {
+    const { form } = props;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('两次密码不一致');
+    } else {
+      callback();
+    }
+  };
+  /**
+   * @description 检查用户名是否重复
+   */
+  const checkUsername = () => {
+    const theName = props.form.getFieldValue('username');
+    if (theName) {
+      checkUsernameApi({ username: theName }).then(res => {
+        if (res?.success === false) {
+          props.form.setFields({
+            username: {
+              value: theName,
+              errors: [new Error(res.message)],
+            },
+          });
+        }
+      });
+    }
+  };
   return (
     <Form
-      style={{ paddingLeft: 50, paddingRight: 50, display: props.registershow === true ? 'block' : 'none' }}
+      style={{
+        paddingLeft: 50,
+        paddingRight: 50,
+        display: props.registershow === true ? 'block' : 'none',
+      }}
       onSubmit={handleSubmit}
       className="login-form"
     >
@@ -96,23 +175,72 @@ const Register = props => {
           ],
         })(
           <Input
+            onBlur={checkUsername}
             prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
             placeholder="Username"
           />,
         )}
       </Form.Item>
-      <Form.Item>
+      <Form.Item hasFeedback>
         {getFieldDecorator('password', {
           rules: [
-            { required: true, message: '请输入密码' },
+            {
+              required: true,
+              message: '请输入密码',
+            },
+            {
+              validator: validateToNextPassword,
+            },
             { max: 6, message: '最多6字符' },
             { min: 2, message: '最少2字符' },
           ],
         })(
-          <Input
+          <Input.Password
             prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
             type="password"
             placeholder="Password"
+          />,
+        )}
+      </Form.Item>
+      <Form.Item hasFeedback>
+        {getFieldDecorator('confirm', {
+          rules: [
+            {
+              required: true,
+              message: '请再次输入密码',
+            },
+            {
+              validator: compareToFirstPassword,
+            },
+            { max: 6, message: '最多6字符' },
+            { min: 2, message: '最少2字符' },
+          ],
+        })(
+          <Input.Password
+            onBlur={handleConfirmBlur}
+            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            type="password"
+            placeholder="Confirm Password"
+          />,
+        )}
+      </Form.Item>
+      <Form.Item>
+        {getFieldDecorator('email', {
+          rules: [
+            {
+              type: 'email',
+              message: '邮箱格式不正确',
+            },
+            {
+              required: true,
+              message: '请输入邮箱',
+            },
+          ],
+        })(
+          <Input
+            prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            type="mail"
+            placeholder="E-mail"
           />,
         )}
       </Form.Item>
@@ -123,9 +251,13 @@ const Register = props => {
       </Form.Item>
     </Form>
   );
-}
+};
 const RegisterForm = Form.create()(Register);
 const UserCom = props => {
+  useEffect(() => {
+    const info = JSON.parse(localStorage.getItem('login'));
+    if (info?.avatar && info?.username) props.initUser(info);
+  });
   /**
    * @description 模态框显隐逻辑
    * @param {Boolean} visible
@@ -136,22 +268,21 @@ const UserCom = props => {
    * @param {Boolean} registershow
    */
   const [registershow, setRegistershow] = useState(false);
-  const checkRegister = () => setRegistershow(!registershow)
-  const showModal = () => {
-    setVisible(true);
+  const checkRegister = () => setRegistershow(!registershow);
+  const showModal = () => setVisible(true);
+  const closeModal = () => {
+    setRegistershow(false)
+    setVisible(false)
   };
 
-  const handleOk = e => {
-    setIslogin(true);
-    // setVisible(false);
-  };
-
-  const handleCancel = e => {
-    setIslogin(false);
-    // setVisible(false);
-  };
-  
   const { getFieldDecorator } = props.form;
+  /**
+   * @description 退出登录清除本地存储, 刷新页面
+   */
+  const loginout = () => {
+    localStorage.removeItem('login');
+    location.reload();
+  };
   return (
     <div
       className={styles.uesr}
@@ -162,14 +293,21 @@ const UserCom = props => {
         marginTop: 40,
       }}
     >
-      <Modal title={registershow ? '注册' : '登录'} visible={visible} footer={null}>
-        <LoginForm  registershow={registershow} />
-        <RegisterForm registershow={registershow} />
-        <div style={{padding: '0 50px'}}>
-          <span onClick={checkRegister} style={{color: '#24c2cb', cursor: 'pointer'}}>
-            {
-              registershow ? '返回登录' : '没有账号? 前往注册'
-            }
+      <Modal
+        title={registershow ? '注册' : '登录'}
+        visible={visible}
+        footer={null}
+        onCancel={closeModal}
+        maskClosable={false}
+      >
+        <LoginForm closeModal={closeModal} registershow={registershow} />
+        <RegisterForm closeModal={closeModal} registershow={registershow} />
+        <div style={{ padding: '0 50px' }}>
+          <span
+            onClick={checkRegister}
+            style={{ color: '#24c2cb', cursor: 'pointer' }}
+          >
+            {registershow ? '返回登录' : '没有账号? 前往注册'}
           </span>
         </div>
       </Modal>
@@ -177,13 +315,22 @@ const UserCom = props => {
         <Divider style={{ color: '#666' }}>USER</Divider>
       </div>
       <Card style={{ marginTop: 16 }} bordered={false}>
-        <Skeleton loading={true} avatar active>
+        <Skeleton loading={props.loading} avatar active>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <Avatar
-              style={{ marginBottom: 10 }}
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            />
-            <p>NAME</p>
+            <a
+              onClick={loginout}
+              style={{
+                display: 'block',
+                fontSize: 12,
+                textAlign: 'right',
+                color: '#24c2cb',
+                paddingRight: 70,
+              }}
+            >
+              注销
+            </a>
+            <Avatar style={{ marginBottom: 10 }} src={props.avatar} />
+            <p style={{ color: '#24c2cb' }}>{props.username}</p>
           </div>
         </Skeleton>
       </Card>
@@ -225,4 +372,15 @@ const UserCom = props => {
   );
 };
 
-export default UserCom |> Form.create();
+const mapStateFromProps = ({ users }) => ({
+  username: users.username,
+  avatar: users.avatar,
+  loading: users.loading,
+});
+const mapDispatchFromProps = {
+  initUser: payload => ({ type: 'users/initUser', payload }),
+};
+
+export default UserCom
+  |> Form.create()
+  |> connect(mapStateFromProps, mapDispatchFromProps);

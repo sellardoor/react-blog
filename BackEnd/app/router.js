@@ -10,6 +10,9 @@ module.exports = app => {
   router.get('/api/blog/initIndexArticleList', controller.blog.article.initIndex);
   router.post('/api/blog/articleDetail', controller.blog.article.articleDetail);
   router.get('/api/blog/hotArticle', controller.blog.article.hotArticle);
+  router.post('/api/blog/register', controller.blog.users.blogregister);
+  router.post('/api/blog/bloglogin', controller.blog.users.bloglogin);
+  router.post('/api/blog/checkUsername', controller.blog.users.checkUsername);
   // 后台系统
   const jwt = middleware.jwt(app.config.jwt);
   router.post('/api/systems/login', controller.systems.login.index);

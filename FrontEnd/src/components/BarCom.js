@@ -7,7 +7,7 @@ export default function BarCom() {
       <div style={{ padding: '0px 70px 0px 70px' }}>
         <Divider style={{ color: '#666' }}>ABOUT ME</Divider>
       </div>
-      <Avatar src='http://cdn.sellardoor.cn/imgs/avatar.jpg' style={{ width: 200, height: 200 }} />
+      <Avatar src='http://cdn.sellardoor.cn/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200606102302.jpg' style={{ width: 200, height: 200 }} />
       <div style={{  color: '#666', fontSize: 12, padding: '0 50px', marginTop: 20, }}>
       每天努力一点点
       </div>
