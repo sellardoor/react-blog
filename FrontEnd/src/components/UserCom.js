@@ -18,8 +18,15 @@ import {
   message,
 } from 'antd';
 import styles from './index.less';
-import { registerApi, loginApi, checkUsernameApi } from '@/services/users';
+import {
+  registerApi,
+  loginApi,
+  checkUsernameApi,
+  githubLoginApi,
+} from '@/services/users';
 import { connect } from 'dva';
+import { getQueryVariable } from '@/utils/utils';
+import { LOGINLOCALPROD, GITHUBOAUTH } from '@/utils/constants'
 
 /**
  * @description 模态框登录控件
@@ -255,9 +262,22 @@ const Register = props => {
 const RegisterForm = Form.create()(Register);
 const UserCom = props => {
   useEffect(() => {
+    if (getQueryVariable('code')) {
+      props.changeGlobaLoading({ load: true });
+      githubLoginApi({ code: getQueryVariable('code') }).then(res => {
+        if (res?.success) {
+          props.initUser(res.result);
+          localStorage.setItem('login', JSON.stringify(res.result));
+          window.open(LOGINLOCALPROD, '_self')
+        } else {
+          message.error('网络异常, 请稍后再试')
+          props.changeGlobaLoading({ load: false });
+        }
+      });
+    }
     const info = JSON.parse(localStorage.getItem('login'));
     if (info?.avatar && info?.username) props.initUser(info);
-  });
+  }, []);
   /**
    * @description 模态框显隐逻辑
    * @param {Boolean} visible
@@ -271,8 +291,8 @@ const UserCom = props => {
   const checkRegister = () => setRegistershow(!registershow);
   const showModal = () => setVisible(true);
   const closeModal = () => {
-    setRegistershow(false)
-    setVisible(false)
+    setRegistershow(false);
+    setVisible(false);
   };
 
   const { getFieldDecorator } = props.form;
@@ -281,7 +301,14 @@ const UserCom = props => {
    */
   const loginout = () => {
     localStorage.removeItem('login');
-    location.reload();
+    window.open(LOGINLOCALPROD, '_self');
+  };
+
+  const toGithub = () => {
+    window.open(
+      GITHUBOAUTH,
+      '_self',
+    );
   };
   return (
     <div
@@ -329,7 +356,10 @@ const UserCom = props => {
             >
               注销
             </a>
-            <Avatar style={{ marginBottom: 10 }} src={props.avatar} />
+            <Avatar
+              style={{ marginBottom: 10, width: 50, height: 50 }}
+              src={props.avatar}
+            />
             <p style={{ color: '#24c2cb' }}>{props.username}</p>
           </div>
         </Skeleton>
@@ -353,6 +383,7 @@ const UserCom = props => {
           登录
         </button>
         <button
+          onClick={toGithub}
           style={{
             width: '100%',
             borderRadius: '0',
@@ -379,6 +410,10 @@ const mapStateFromProps = ({ users }) => ({
 });
 const mapDispatchFromProps = {
   initUser: payload => ({ type: 'users/initUser', payload }),
+  changeGlobaLoading: payload => ({
+    type: 'users/changeGlobaLoading',
+    payload,
+  }),
 };
 
 export default UserCom

@@ -28,3 +28,13 @@ export async function checkUsernameApi(data) {
     data,
   });
 }
+
+/**
+ * @description github登录
+ */
+export async function githubLoginApi(data) {
+  return request('/api/blog/githublogin', {
+    method: 'post',
+    data,
+  });
+}

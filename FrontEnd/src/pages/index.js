@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, BackTop } from 'antd';
+import { Row, Col, BackTop, Spin } from 'antd';
 import HeadCom from '@/components/HeadCom';
 import BarCom from '@/components/BarCom';
 import ListCom from '@/components/ListCom';
@@ -10,10 +10,12 @@ import UserCom from '@/components/UserCom';
 import TagsCom from '@/components/TagsCom';
 import Instagram from '@/components/Instagram';
 import styles from './index.less';
+import { connect } from 'dva'
 
-export default function index() {
+function Index(props) {
   return (
     <div>
+      <Spin spinning={props.globaLoading} size='large'>
       <BackTop>
         <div style={{width: 40, height: 40, background: '#24c2cb', lineHeight: '40px', borderRadius: 4, textAlign: 'center', fontSize: 20, color: '#fff'}}>UP</div>
       </BackTop>
@@ -101,6 +103,11 @@ export default function index() {
         <Col span={4}></Col>
       </Row>
       <FooterCom />
+      </Spin>
     </div>
   );
 }
+const mapStateFromProps = ({users}) => ({
+  globaLoading: users.globaLoading
+})
+export default Index |> connect(mapStateFromProps)

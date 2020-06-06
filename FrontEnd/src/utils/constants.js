@@ -39,3 +39,18 @@ export const INSTAGRAM = [
   'http://cdn.sellardoor.cn/instagram-sidebar-8.jpg',
   'http://cdn.sellardoor.cn/instagram-sidebar-9.jpg',
 ];
+
+/**
+ * @description 登录登出本地线上地址切换
+ * @dev http://localhost:8000
+ * @prod http://sellardoor.cn
+ */
+export const LOGINLOCALPROD = 'http://localhost:8000'
+
+/**
+ * @description github oauth地址
+ * @dev `https://github.com/login/oauth/authorize?client_id=d094df5206d99f67e373&redirect_uri=http://localhost:8000/`
+ * @prod `https://github.com/login/oauth/authorize?client_id=d094df5206d99f67e373&redirect_uri=http://sellardoor.cn/`
+ * @client_id d094df5206d99f67e373
+ */
+export const GITHUBOAUTH = `https://github.com/login/oauth/authorize?client_id=d094df5206d99f67e373&redirect_uri=http://localhost:8000/`

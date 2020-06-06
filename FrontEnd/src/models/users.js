@@ -5,6 +5,7 @@ export default {
         username: '',
         avatar: '',
         loading: true,
+        globaLoading: false,
     },
 
     effcts: {
@@ -18,6 +19,12 @@ export default {
                 username: payload.username,
                 avatar: payload.avatar,
                 loading: false,
+            }
+        },
+        changeGlobaLoading( state, { payload }){
+            return {
+                ...state,
+                globaLoading: payload.load
             }
         }
     }

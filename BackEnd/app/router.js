@@ -13,6 +13,7 @@ module.exports = app => {
   router.post('/api/blog/register', controller.blog.users.blogregister);
   router.post('/api/blog/bloglogin', controller.blog.users.bloglogin);
   router.post('/api/blog/checkUsername', controller.blog.users.checkUsername);
+  router.post('/api/blog/githublogin', controller.blog.users.githublogin);
   // 后台系统
   const jwt = middleware.jwt(app.config.jwt);
   router.post('/api/systems/login', controller.systems.login.index);
