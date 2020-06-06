@@ -9,7 +9,7 @@
 
 [centOS服务器mongodb的安装与使用](https://juejin.im/post/5ecbc331e51d457871619dc0)
 
-项目地址: [sellardoor.cn](sellardoor.cn)
+项目地址: [sellardoor.cn](http://sellardoor.cn)
 
 📅2020/5/31 1.0版本, 包含以下功能:
 
