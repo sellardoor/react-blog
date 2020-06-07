@@ -9,7 +9,7 @@
 
 [centOS服务器mongodb的安装与使用](https://juejin.im/post/5ecbc331e51d457871619dc0)
 
-项目地址: [sellardoor.cn](sellardoor.cn)
+项目地址: [sellardoor.cn](http://sellardoor.cn)
 
 📅2020/5/31 1.0版本, 包含以下功能:
 
@@ -65,4 +65,6 @@ externals: {
 
 ![blog](http://cdn.sellardoor.cn/blog-min.png)
 
-📅2020/6/6  用户系统完成用户登录注册, 之后补上github的Oauth.
+📅2020/6/6  用户系统完成用户登录注册前后端数据库联调完毕, 之后补上github的Oauth.
+
+📅2020/6/6  Oauth前后端数据库联调完毕, 已支持github第三方登录, 之后补上后台系统的用户管理模块, Blog补充留言板, 以及文章评论. 
