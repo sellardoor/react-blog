@@ -85,7 +85,7 @@ export default function index(props) {
                 type="eye"
                 theme="filled"
               />
-              <span style={{ marginRight: 15 }}>0</span>
+              <span style={{ marginRight: 15 }}>{detail.view}</span>
               <Icon
                 style={{ marginRight: 5, color: '#888' }}
                 type="wechat"

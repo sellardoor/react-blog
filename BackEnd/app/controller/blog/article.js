@@ -14,6 +14,12 @@ class ArticleController extends Controller {
 
   async articleDetail() {
     const { ctx } = this;
+    console.log(ctx.request.body);
+    // 阅读量加一
+    const res = await ctx.model.Article.updateOne(ctx.request.body, {
+      $inc: { view: 1 },
+    });
+    console.log(res);
     const result = await ctx.model.Article.find(ctx.request.body);
     ctx.body = {
       success: true,

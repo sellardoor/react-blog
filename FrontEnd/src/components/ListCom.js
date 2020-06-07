@@ -91,7 +91,7 @@ export default function ListCom(props) {
                       type="eye"
                       theme="filled"
                     />
-                    <span style={{ marginRight: 15 }}>0</span>
+                    <span style={{ marginRight: 15 }}>{item.view}</span>
                     <Icon
                       style={{ marginRight: 5, color: '#666' }}
                       type="wechat"
