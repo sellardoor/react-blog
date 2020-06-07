@@ -63,7 +63,7 @@ externals: {
 
 📅2020/6/4  重构了博客UI, 响应式后面再补, 后面先把UI细节完善一下, 响应式做掉, 然后再做用户系统以及Oauth.
 
-![blog](http://cdn.sellardoor.cn/blog-min.png)
+![UI](http://cdn.sellardoor.cn/blog-min.png)
 
 📅2020/6/6  用户系统完成用户登录注册前后端数据库联调完毕, 之后补上github的Oauth.
 
