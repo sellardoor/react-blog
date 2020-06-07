@@ -19,24 +19,24 @@ export default function Instagram() {
         marginTop: 40,
       }}
     >
-      <div style={{ padding: '0px 70px 0px 70px', marginBottom: 30 }}>
+      <div style={{ padding: '0px 28px 0px 28px', marginBottom: 30 }}>
         <Divider style={{ color: '#666' }}>INSTAGRAM</Divider>
       </div>
-      <div style={{ marginLeft: 34 }}>
+      <div>
         <div
           style={{
-            width: 270,
-            height: 270,
+            width: '100%',
+            height: '300px',
             display: 'flex',
             flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignContent: 'space-between',
+            justifyContent: 'space-around',
+            alignContent: 'space-around',
           }}
         >
           {INSTAGRAM.map(url => (
             <div
               className={styles.ins}
-              style={{ width: 83, height: 83, cursor: 'pointer' }}
+              style={{ width: '33%', height: '100px', cursor: 'pointer' }}
             >
               <img
                 style={{

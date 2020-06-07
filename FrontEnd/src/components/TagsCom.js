@@ -17,7 +17,7 @@ export default function TagsCom() {
         marginTop: 40,
       }}
     >
-      <div style={{ padding: '0px 70px 0px 70px', marginBottom: 30 }}>
+      <div style={{ padding: '0px 40px 0px 40px', marginBottom: 30 }}>
         <Divider style={{ color: '#666' }}>TAGS</Divider>
       </div>
       <div>

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Breadcrumb, List, Spin } from 'antd';
+import { Row, Col, Breadcrumb, List, Spin, Divider, Icon } from 'antd';
 import HeadCom from '@/components/HeadCom';
 import BarCom from '@/components/BarCom';
 import HotCom from '@/components/HotCom';
 import FooterCom from '@/components/FooterCom';
-import { initIndexArticleListApi } from '@/services/article';
 import TitleCom from '@/components/TitleCom';
+import UserCom from '@/components/UserCom';
+import TagsCom from '@/components/TagsCom';
+import Instagram from '@/components/Instagram';
+import { initIndexArticleListApi } from '@/services/article';
 import moment from 'moment';
 
 export default function index(props) {
@@ -19,25 +22,25 @@ export default function index(props) {
     });
   }, []);
   const handleDetail = id => {
-      props.history.push(`/articledetail?_id=${id}`)
-  }
+    props.history.push(`/articledetail?_id=${id}`);
+  };
   return (
     <div>
       <TitleCom />
       <HeadCom />
-      <Row
-        style={{ background: '#fff', paddingTop: 20, paddingBottom: 100 }}
-      >
-        <Col span={2}></Col>
+      <Row style={{ background: '#fff', paddingTop: 20, paddingBottom: 100 }}>
+        <Col xs={0} sm={0} md={0} lg={1} xl={4}></Col>
         <Col
-          span={16}
+          xs={24}
+          sm={24}
+          md={24}
+          lg={16}
+          xl={12}
           style={{ background: '#fff', borderRadius: 10, marginRight: 20 }}
         >
           <div style={{ paddingTop: 10, paddingLeft: 10, paddingRight: 10 }}>
             <div
               style={{
-                background: '#e6f7ff',
-                border: '1px solid #91d5ff',
                 borderRadius: 10,
                 padding: '5px 10px',
                 marginBottom: 30,
@@ -72,7 +75,7 @@ export default function index(props) {
                       borderBottom: '1px solid #f2f2f2',
                       justifyContent: 'space-between',
                       paddingLeft: 10,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
                     }}
                   >
                     <div>{item.title}</div>
@@ -80,14 +83,55 @@ export default function index(props) {
                   </List.Item>
                 )}
               />
+              <Divider style={{ color: '#666' }}>
+                <span
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '500',
+                    color: '#000',
+                  }}
+                >
+                  <Icon
+                    id="hj-icon1"
+                    style={{ marginRight: 25 }}
+                    type="github"
+                    theme="filled"
+                  />
+                  <Icon
+                    id="hj-icon2"
+                    style={{ marginRight: 25 }}
+                    type="wechat"
+                    theme="filled"
+                  />
+                  <Icon
+                    id="hj-icon3"
+                    style={{ marginRight: 25 }}
+                    type="instagram"
+                    theme="filled"
+                  />
+                  <Icon
+                    id="hj-icon4"
+                    style={{ marginRight: 25 }}
+                    type="yuque"
+                    theme="filled"
+                  />
+                  <Icon id="hj-icon5" type="weibo-circle" theme="filled" />
+                </span>
+              </Divider>
             </Spin>
           </div>
         </Col>
-        <Col span={4}>
+        <Col xs={0} sm={0} md={0} lg={6} xl={4}>
           <BarCom />
+          <div style={{ textAlign: 'center' }}>
+            <img src="http://cdn.sellardoor.cn/banner-spot.jpg" alt="" />
+          </div>
+          <UserCom />
           <HotCom />
+          <TagsCom />
+          <Instagram />
         </Col>
-        <Col span={2}></Col>
+        <Col xs={0} sm={0} md={0} lg={1} xl={4}></Col>
       </Row>
       <FooterCom />
     </div>

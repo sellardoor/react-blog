@@ -44,6 +44,7 @@ const Login = props => {
             props.closeModal();
             props.initUser(res.result);
             localStorage.setItem('login', JSON.stringify(res.result));
+            window.open(LOGINLOCALPROD, '_self');
           } else {
             message.error('登录失败');
           }
@@ -338,7 +339,7 @@ const UserCom = props => {
           </span>
         </div>
       </Modal>
-      <div style={{ padding: '0px 70px 0px 70px', marginBottom: 20 }}>
+      <div style={{ padding: '0px 40px 0px 40px', marginBottom: 20 }}>
         <Divider style={{ color: '#666' }}>USER</Divider>
       </div>
       <Card style={{ marginTop: 16 }} bordered={false}>

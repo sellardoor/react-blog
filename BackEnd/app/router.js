@@ -14,6 +14,10 @@ module.exports = app => {
   router.post('/api/blog/bloglogin', controller.blog.users.bloglogin);
   router.post('/api/blog/checkUsername', controller.blog.users.checkUsername);
   router.post('/api/blog/githublogin', controller.blog.users.githublogin);
+
+  router.get('/api/blog/initMessage', controller.blog.message.init);
+  router.post('/api/blog/editMessage', controller.blog.message.edit);
+
   // 后台系统
   const jwt = middleware.jwt(app.config.jwt);
   router.post('/api/systems/login', controller.systems.login.index);
@@ -26,4 +30,5 @@ module.exports = app => {
   router.post('/api/systems/setArticleHot', controller.systems.article.setArticleHot);
   router.post('/api/systems/removeArticleHot', controller.systems.article.removeArticleHot);
   router.post('/api/systems/qiniu', controller.systems.article.qiniu);
+  router.get('/api/systems/users/init', controller.systems.users.init);
 };

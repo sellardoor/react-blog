@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Icon, Spin, Card } from 'antd';
+import { Icon, Spin, Card, Col, Row } from 'antd';
 import { initIndexArticleListApi } from '@/services/article';
 import styles from './index.less';
 import moment from 'moment';
@@ -51,66 +51,67 @@ export default function ListCom(props) {
               bordered={false}
               style={{ marginBottom: 20, marginRight: 20 }}
             >
-              <img
-                style={{ width: 270, height: 220, marginRight: 30 }}
-                src={item.img}
-                alt=""
-              />
-              <div style={{ width: 500 }}>
-                <div
-                  style={{
-                    color: '#24c2cb',
-                    fontFamily: 'Josefin Sans',
-                    fontWeight: 600,
-                    fontSize: 14,
-                    lineHeight: '32px',
-                  }}
-                >
-                  {moment(item.date).format('DD MMMM YYYY')}
-                  <span style={{ marginLeft: 8, marginRight: 8, fontSize: 24 }}>
-                    .
-                  </span>
-                  {item.type}
-                </div>
-                <div
-                  style={{
-                    fontSize: 18,
-                    lineHeight: '28px',
-                    color: '#666',
-                    fontWeight: 600,
-                    letterSpacing: 2,
-                    marginBottom: 10,
-                  }}
-                >
-                  {item.title}
-                </div>
-                <div style={{ marginBottom: 10, fontSize: 12 }}>
-                  <Icon
-                    style={{ marginRight: 5, color: '#666' }}
-                    type="eye"
-                    theme="filled"
+              <Row>
+                <Col xs={0} sm={0} md={0} lg={0} xl={8}>
+                  <img style={{ width: '100%' }} src={item.img} alt="" />
+                </Col>
+                <Col xs={24} sm={24} md={24} lg={24} xl={16} style={{paddingLeft: 30}}>
+                  <div
+                    style={{
+                      color: '#24c2cb',
+                      fontFamily: 'Josefin Sans',
+                      fontWeight: 600,
+                      fontSize: 14,
+                      lineHeight: '32px',
+                    }}
+                  >
+                    {moment(item.date).format('DD MMMM YYYY')}
+                    <span
+                      style={{ marginLeft: 8, marginRight: 8, fontSize: 24 }}
+                    >
+                      .
+                    </span>
+                    {item.type}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 18,
+                      lineHeight: '28px',
+                      color: '#666',
+                      fontWeight: 600,
+                      letterSpacing: 2,
+                      marginBottom: 10,
+                    }}
+                  >
+                    {item.title}
+                  </div>
+                  <div style={{ marginBottom: 10, fontSize: 12 }}>
+                    <Icon
+                      style={{ marginRight: 5, color: '#666' }}
+                      type="eye"
+                      theme="filled"
+                    />
+                    <span style={{ marginRight: 15 }}>0</span>
+                    <Icon
+                      style={{ marginRight: 5, color: '#666' }}
+                      type="wechat"
+                      theme="filled"
+                    />
+                    <span>0条</span>
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: marked(item.info) }}
+                    style={{
+                      color: '#666',
+                      paddingRight: 20,
+                      lineHeight: '27px',
+                      fontSize: 14,
+                      fontWeight: 400,
+                      height: 108,
+                    }}
                   />
-                  <span style={{ marginRight: 15 }}>0</span>
-                  <Icon
-                    style={{ marginRight: 5, color: '#666' }}
-                    type="wechat"
-                    theme="filled"
-                  />
-                  <span>0条</span>
-                </div>
-                <div
-                  dangerouslySetInnerHTML={{ __html: marked(item.info) }}
-                  style={{
-                    color: '#666',
-                    paddingRight: 20,
-                    lineHeight: '27px',
-                    fontSize: 14,
-                    width: '540px',
-                    fontWeight: 400,
-                    height: 108,
-                  }}
-                />
-              </div>
+                </Col>
+              </Row>
             </Card>
           );
         })}

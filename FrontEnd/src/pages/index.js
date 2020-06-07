@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, BackTop, Spin } from 'antd';
+import { Row, Col, BackTop, Spin, Card } from 'antd';
 import HeadCom from '@/components/HeadCom';
 import BarCom from '@/components/BarCom';
 import ListCom from '@/components/ListCom';
@@ -86,21 +86,21 @@ function Index(props) {
         </div>
       </div>
       <Row style={{ paddingTop: 100, background: '#fff', paddingBottom: 100 }}>
-        <Col span={4}></Col>
-        <Col span={12}>
+        <Col xs={0} sm={0} md={0} lg={1} xl={4}></Col>
+        <Col  xs={24} sm={24} md={24} lg={16} xl={12}>
           <ListCom />
         </Col>
-        <Col span={4}>
+        <Col xs={0} sm={0} md={0} lg={6} xl={4}>
           <BarCom />
           <div style={{ textAlign: 'center' }}>
-            <img src="http://cdn.sellardoor.cn/banner-spot.jpg" alt="" />
+            <img style={{width:'100%'}} src="http://cdn.sellardoor.cn/banner-spot.jpg" alt="" />
           </div>
           <UserCom />
           <HotCom />
           <TagsCom />
           <Instagram />
         </Col>
-        <Col span={4}></Col>
+        <Col xs={0} sm={0} md={0} lg={1} xl={4}></Col>
       </Row>
       <FooterCom />
       </Spin>

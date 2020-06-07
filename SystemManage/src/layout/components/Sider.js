@@ -38,6 +38,12 @@ const Sider = props => {
             <span>文章列表</span>
           </Link>
         </Menu.Item>
+        <Menu.Item key="/userslist">
+          <Link to="/userslist">
+            <Icon type="fire" />
+            <span>用户管理</span>
+          </Link>
+        </Menu.Item>
       </Menu>
     </SiderComp>
   );

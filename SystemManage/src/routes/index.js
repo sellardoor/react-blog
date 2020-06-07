@@ -8,5 +8,6 @@ export const routes = [
             { path: '/articlelist/uploadarticle', component: '@/pages/Article' },
             { path: '/articlelist/articledetail', component: '@/pages/ArticleDetail' },
             { path: '/articlelist/articleedit', component: '@/pages/ArticleEdit' },
+            { path: '/Userslist', component: '@/pages/Userslist' },
         ] },
 ];

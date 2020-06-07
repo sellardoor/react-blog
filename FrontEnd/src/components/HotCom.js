@@ -25,7 +25,7 @@ export default function HotCom() {
         marginTop: 40,
       }}
     >
-      <div style={{ padding: '0px 70px 0px 70px' }}>
+      <div style={{ padding: '0px 30px 0px 30px' }}>
         <Divider style={{ color: '#666' }}>ARTICLES</Divider>
       </div>
       <List

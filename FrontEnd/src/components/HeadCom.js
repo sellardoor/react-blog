@@ -14,8 +14,8 @@ export default function HeadCom(props) {
   return (
     <div>
       <Row style={{ background: '#fff', height: 60, borderTop:'1px solid #e8e8e8', borderTop:'1px solid #e8e8e8' , height: 100}}>
-        <Col span={5}></Col>
-        <Col span={5}>
+        <Col xs={0} sm={0} md={1} lg={2} xl={5}></Col>
+        <Col xs={0} sm={10} md={9} lg={8} xl={5}>
           <span
             style={{
               fontSize: 16,
@@ -31,23 +31,23 @@ export default function HeadCom(props) {
             <Icon id='hj-icon5' type="weibo-circle" theme="filled" />
           </span>
         </Col>
-        <Col span={9}>
+        <Col xs={24} sm={14} md={13} lg={12} xl={9}>
           <Menu
             mode="horizontal"
             onClick={handleChange}
             selectedKeys={menuKeys}
-            style={{ borderBottom: 'none', height: 60 }}
+            style={{ borderBottom: 'none', height: 60, textAlign: 'right' }}
           >
             <Menu.Item
-              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
+              style={{ width: '20%', borderBottom: 'none', lineHeight: '100px', textAlign:'center', }}
               key="index"
             >
-              <Link to="/" style={{color: '#000'}}>
+              <Link to="/" style={{color: '#000', borderTop: '2px solid #fff'}}>
                 <span id='hj-menu1' style={{ fontSize: '16px' }}>HOME</span>
               </Link>
             </Menu.Item>
             <Menu.Item
-              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
+              style={{ width: '20%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
               key="artical"
             >
               <Link to="/articlelist" style={{color: '#000'}}>
@@ -55,40 +55,16 @@ export default function HeadCom(props) {
               </Link>
             </Menu.Item>
             <Menu.Item
-              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
-              key="artical"
+              style={{ width: '20%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
+              key="message"
             >
-              <Link to="/articlelist" style={{color: '#000'}}>
-                <span id='hj-menu2' style={{ fontSize: '16px' }}>LIFESTYLE</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item
-              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
-              key="artical"
-            >
-              <Link to="/articlelist" style={{color: '#000'}}>
-                <span id='hj-menu2' style={{ fontSize: '16px' }}>ABOUT</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item
-              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
-              key="artical"
-            >
-              <Link to="/articlelist" style={{color: '#000', borderTop: '2px solid #fff'}}>
-                <span id='hj-menu2' style={{ fontSize: '16px' }}>PHOTO</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item
-              style={{ width: '15%', borderBottom: 'none', lineHeight: '100px', textAlign:'center' }}
-              key="artical"
-            >
-              <Link to="/articlelist" style={{color: '#000'}}>
-                <span id='hj-menu2' style={{ fontSize: '16px' }}>TRAVEL</span>
+              <Link to="/message" style={{color: '#000'}}>
+                <span id='hj-menu2' style={{ fontSize: '16px' }}>MESSAGE</span>
               </Link>
             </Menu.Item>
           </Menu>
         </Col>
-        <Col span={5}></Col>
+        <Col xs={0} sm={0} md={1} lg={2} xl={5}></Col>
       </Row>
     </div>
   );
