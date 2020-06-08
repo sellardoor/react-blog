@@ -63,10 +63,12 @@ externals: {
 
 📅2020/6/4  重构了博客UI, 响应式后面再补, 后面先把UI细节完善一下, 响应式做掉, 然后再做用户系统以及Oauth.
 
-![blog](http://cdn.sellardoor.cn/blog-min.png)
+![UI](http://cdn.sellardoor.cn/blog-min.png)
 
 📅2020/6/6  用户系统完成用户登录注册前后端数据库联调完毕, 之后补上github的Oauth.
 
 📅2020/6/6  Oauth前后端数据库联调完毕, 已支持github第三方登录, 之后补上后台系统的用户管理模块, Blog补充留言板, 以及文章评论. 
 
 📅2020/6/7  留言板前后数据库联调完毕, 响应式done, 后台系统支持用户库浏览, 用户管理后面再补.
+
+📅2020/6/7  响应式小屏不显示sidebar, 新增按钮抽屉弹出sidebar, 新增文章阅读量展示.
