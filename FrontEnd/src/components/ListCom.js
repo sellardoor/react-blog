@@ -97,7 +97,7 @@ export default function ListCom(props) {
                       type="wechat"
                       theme="filled"
                     />
-                    <span>0条</span>
+                    <span>{item.msg}条</span>
                   </div>
                   <div
                     dangerouslySetInnerHTML={{ __html: marked(item.info) }}

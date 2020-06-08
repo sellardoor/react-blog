@@ -25,3 +25,30 @@ export async function hotArticleApi() {
     method: 'get',
   });
 }
+/**
+ * @description 初始化留言
+ */
+export async function initArticleMessageApi(data) {
+  return request('/api/blog/initArticleMessage', {
+    method: 'post',
+    data,
+  });
+}
+/**
+ * @description 添加留言
+ */
+export async function submitArticleMessageApi(data) {
+  return request('/api/blog/submitArticleMessage', {
+    method: 'post',
+    data,
+  });
+}
+/**
+ * @description 回复留言
+ */
+export async function replyArticleMessageApi(data) {
+  return request('/api/blog/replyArticleMessage', {
+    method: 'post',
+    data,
+  });
+}

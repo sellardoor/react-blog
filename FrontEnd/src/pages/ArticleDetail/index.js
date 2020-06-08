@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Breadcrumb, Icon, Spin, Divider } from 'antd';
 import HeadCom from '@/components/HeadCom';
+import TitleCom from '@/components/TitleCom';
 import BarCom from '@/components/BarCom';
 import HotCom from '@/components/HotCom';
 import UserCom from '@/components/UserCom';
@@ -13,8 +14,10 @@ import 'highlight.js/styles/monokai-sublime.css';
 import '../index.less';
 import { articleDetailApi } from '@/services/article';
 import moment from 'moment';
+import CommentsComp from './components/CommentsComp'
+import { connect } from 'dva'
 
-export default function index(props) {
+const ArticleDetail = props => {
   const [detail, setDetail] = useState({ content: '' });
   const [load, setLoad] = useState(false);
   useEffect(() => {
@@ -42,6 +45,7 @@ export default function index(props) {
   });
   return (
     <div>
+      <TitleCom />
       <HeadCom />
       <Row style={{ background: '#fff', paddingTop: 20, paddingBottom: 100 }}>
         <Col xs={0} sm={0} md={0} lg={1} xl={4}></Col>
@@ -91,7 +95,7 @@ export default function index(props) {
                 type="wechat"
                 theme="filled"
               />
-              <span>0条</span>
+              <span>{props.data.length}条</span>
             </div>
             <Spin spinning={load} size="large">
               <div
@@ -100,6 +104,9 @@ export default function index(props) {
                   __html: marked(detail.content) || '',
                 }}
               ></div>
+              <div>
+                <CommentsComp {...props} />
+              </div>
               <Divider style={{ color: '#666', marginTop: 100 }}>
                 <span
                   style={{
@@ -138,7 +145,7 @@ export default function index(props) {
             </Spin>
           </div>
         </Col>
-        <Col xs={0} sm={0} md={0} lg={6} xl={4}>
+        <Col xs={24} sm={0} md={0} lg={6} xl={4}>
           <BarCom />
           <div style={{ textAlign: 'center' }}>
             <img src="http://cdn.sellardoor.cn/banner-spot.jpg" alt="" />
@@ -154,3 +161,9 @@ export default function index(props) {
     </div>
   );
 }
+
+const mapStateFromProps = ({ article }) => ({
+  data: article.data,
+});
+
+export default ArticleDetail |> connect(mapStateFromProps)

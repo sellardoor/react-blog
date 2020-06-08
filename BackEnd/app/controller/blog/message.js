@@ -5,18 +5,23 @@ const { Controller } = require('egg');
 class MessageController extends Controller {
   async init() {
     const { ctx } = this;
-    const result = await ctx.model.Message.find();
+    const result = await ctx.model.Message.find({ type: 'message' });
     ctx.body = {
       result,
       success: true,
     };
   }
-  async edit() {
+  async submitMessage() {
     const { ctx } = this;
-    await ctx.model.Message.remove({ __v: 0 });
-    const result = await ctx.model.Message.create({
-      message: ctx.request.body,
-    });
+    const result = await ctx.model.Message.create(ctx.request.body);
+    ctx.body = {
+      result,
+      success: true,
+    };
+  }
+  async replyMessage() {
+    const { ctx } = this;
+    const result = await ctx.model.Message.create(ctx.request.body);
     ctx.body = {
       result,
       success: true,

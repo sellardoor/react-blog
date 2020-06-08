@@ -14,9 +14,14 @@ module.exports = app => {
   router.post('/api/blog/bloglogin', controller.blog.users.bloglogin);
   router.post('/api/blog/checkUsername', controller.blog.users.checkUsername);
   router.post('/api/blog/githublogin', controller.blog.users.githublogin);
-
+  // 留言板接口
   router.get('/api/blog/initMessage', controller.blog.message.init);
-  router.post('/api/blog/editMessage', controller.blog.message.edit);
+  router.post('/api/blog/submitMessage', controller.blog.message.submitMessage);
+  router.post('/api/blog/replyMessage', controller.blog.message.replyMessage);
+  // 文章留言接口
+  router.post('/api/blog/initArticleMessage', controller.blog.article.initArticleMessage);
+  router.post('/api/blog/submitArticleMessage', controller.blog.article.submitArticleMessage);
+  router.post('/api/blog/replyArticleMessage', controller.blog.article.replyArticleMessage);
 
   // 后台系统
   const jwt = middleware.jwt(app.config.jwt);

@@ -22,7 +22,7 @@ export default function FooterCom() {
           borderTop: '1px solid #e8e8e8',
         }}
       >
-        FOLLOW ON INSTAGRAM
+        FOLLOW ON GITHUB
       </div>
       <Row>
         {FOOTERIMGS.map(url => (

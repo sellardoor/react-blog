@@ -44,7 +44,7 @@ export default function HeadCom(props) {
           background: '#fff',
           height: 60,
           borderTop: '1px solid #e8e8e8',
-          borderTop: '1px solid #e8e8e8',
+          borderBottom: '1px solid #e8e8e8',
           height: 100,
         }}
       >
@@ -105,7 +105,7 @@ export default function HeadCom(props) {
                 style={{ color: '#000', borderTop: '2px solid #fff' }}
               >
                 <span id="hj-menu1" style={{ fontSize: '16px' }}>
-                  HOME
+                  首&nbsp;页
                 </span>
               </Link>
             </Menu.Item>
@@ -119,7 +119,7 @@ export default function HeadCom(props) {
             >
               <Link to="/articlelist" style={{ color: '#000' }}>
                 <span id="hj-menu2" style={{ fontSize: '16px' }}>
-                  ARTICAL
+                  文&nbsp;章
                 </span>
               </Link>
             </Menu.Item>
@@ -133,13 +133,13 @@ export default function HeadCom(props) {
             >
               <Link to="/message" style={{ color: '#000', width: '100%' }}>
                 <span id="hj-menu2" style={{ fontSize: '16px' }}>
-                  MESSAGE
+                  留&nbsp;言
                 </span>
               </Link>
             </Menu.Item>
           </Menu>
         </Col>
-        <Col xs={1} sm={1} md={1} lg={0} xl={0}>
+        <Col xs={0} sm={1} md={1} lg={0} xl={0}>
           <Affix offsetTop={200}>
             <Icon
               onClick={() => setVisible(true)}

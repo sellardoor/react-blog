@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Comment, List, Input, Button, Tooltip, message } from 'antd';
 import { connect } from 'dva';
+import { getQueryVariable } from '@/utils/utils'
 
 const CommentsHoc = Comp => props => {
   const [isShow, setIsShow] = useState(false);
@@ -28,7 +29,7 @@ const CommentsHoc = Comp => props => {
             content: value,
             pid: props._id,
             date: +new Date(),
-            type: 'message',
+            type: getQueryVariable('_id'),
             fathername: props.author,
           })
           .then(() => {
@@ -45,7 +46,7 @@ const CommentsHoc = Comp => props => {
             content: value,
             pid: props.pid,
             date: +new Date(),
-            type: 'message',
+            type: getQueryVariable('_id'),
             fathername: props.author,
           })
           .then(() => {
@@ -163,10 +164,10 @@ const CommentsHoc = Comp => props => {
     );
   }
 };
-const mapStateFromProps = ({ message }) => ({ message });
+const mapStateFromProps = ({ article }) => ({ article });
 const mapDispatchFromProps = {
-  replyMessage: payload => ({ type: 'message/replyMessage', payload }),
-  toogleSpin: payload => ({ type: 'message/toogleSpin', payload }),
+  replyMessage: payload => ({ type: 'article/replyMessage', payload }),
+  toogleSpin: payload => ({ type: 'article/toogleSpin', payload }),
 };
 const CommentsComp = connect(
   mapStateFromProps,

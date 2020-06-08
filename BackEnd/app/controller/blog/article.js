@@ -6,20 +6,23 @@ class ArticleController extends Controller {
   async initIndex() {
     const { ctx } = this;
     const result = await ctx.model.Article.find();
+    result.forEach(async item => {
+      const len = (await ctx.model.Message.find({ type: item._id })).length;
+      await ctx.model.Article.update({ _id: item._id }, { msg: len });
+    });
+    const res = await ctx.model.Article.find();
     ctx.body = {
-      result,
+      result: res,
       success: true,
     };
   }
 
   async articleDetail() {
     const { ctx } = this;
-    console.log(ctx.request.body);
     // 阅读量加一
-    const res = await ctx.model.Article.updateOne(ctx.request.body, {
+    await ctx.model.Article.updateOne(ctx.request.body, {
       $inc: { view: 1 },
     });
-    console.log(res);
     const result = await ctx.model.Article.find(ctx.request.body);
     ctx.body = {
       success: true,
@@ -33,6 +36,30 @@ class ArticleController extends Controller {
     ctx.body = {
       success: true,
       result,
+    };
+  }
+  async initArticleMessage() {
+    const { ctx } = this;
+    const result = await ctx.model.Message.find(ctx.request.body);
+    ctx.body = {
+      result,
+      success: true,
+    };
+  }
+  async submitArticleMessage() {
+    const { ctx } = this;
+    const result = await ctx.model.Message.create(ctx.request.body);
+    ctx.body = {
+      result,
+      success: true,
+    };
+  }
+  async replyArticleMessage() {
+    const { ctx } = this;
+    const result = await ctx.model.Message.create(ctx.request.body);
+    ctx.body = {
+      result,
+      success: true,
     };
   }
 }

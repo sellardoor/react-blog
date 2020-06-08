@@ -8,10 +8,19 @@ export async function initMessageApi() {
   });
 }
 /**
- * @description 添加留言
+ * @description 留言板添加留言
  */
-export async function editMessageApi(data) {
-  return request('/api/blog/editMessage', {
+export async function submitMessageApi(data) {
+  return request('/api/blog/submitMessage', {
+    method: 'post',
+    data,
+  });
+}
+/**
+ * @description 留言板回复留言
+ */
+export async function replyMessageApi(data) {
+  return request('/api/blog/replyMessage', {
     method: 'post',
     data,
   });

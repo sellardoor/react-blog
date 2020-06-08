@@ -14,3 +14,23 @@ export function getQueryVariable(variable) {
   }
   return false;
 }
+/**
+ * 数组结构转树结构
+ * @param {Array} data 要转化的数组
+ */
+export function arrayToTree(data){
+  let result = []
+  let map = {}
+  data.forEach(item => {
+    map[item._id] = item
+  })
+  data.forEach(item => {
+    let parent = map[item.pid]
+    if(parent){
+      (parent.children || (parent.children = [])).push(item)
+    }else{
+      result.push(item)
+    }
+  })
+  return result
+}

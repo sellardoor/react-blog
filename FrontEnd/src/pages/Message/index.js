@@ -8,7 +8,7 @@ import UserCom from '@/components/UserCom';
 import TagsCom from '@/components/TagsCom';
 import Instagram from '@/components/Instagram';
 import { Row, Col, Breadcrumb, Divider, Icon } from 'antd';
-import CommentsCom from './components/CommentsCom';
+import CommentsComp from './components/CommentsComp'
 
 export class Message extends Component {
   render() {
@@ -57,7 +57,7 @@ export class Message extends Component {
                   一个普通的留言板
                 </p>
                 <div>
-                  <CommentsCom />
+                  <CommentsComp />
                   <Divider style={{ color: '#666' }}>
                     <span
                       style={{
@@ -97,7 +97,7 @@ export class Message extends Component {
               </div>
             </div>
           </Col>
-          <Col xs={0} sm={0} md={0} lg={6} xl={4}>
+          <Col xs={24} sm={0} md={0} lg={6} xl={4}>
             <BarCom />
             <div style={{ textAlign: 'center' }}>
               <img src="http://cdn.sellardoor.cn/banner-spot.jpg" alt="" />
