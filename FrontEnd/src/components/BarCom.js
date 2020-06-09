@@ -25,11 +25,41 @@ export default function BarCom() {
               color: '#000'
             }}
           >
-            <Icon id='hj-icon1' style={{marginRight: 25}} type="github" theme="filled" />
-            <Icon id='hj-icon2' style={{marginRight: 25}} type="wechat" theme="filled" />
-            <Icon id='hj-icon3' style={{marginRight: 25}} type="instagram" theme="filled" />
-            <Icon id='hj-icon4' style={{marginRight: 25}} type="yuque" theme="filled" />
-            <Icon id='hj-icon5' type="weibo-circle" theme="filled" />
+            <Tooltip title="https://github.com/sellardoor">
+              <Icon
+                id="hj-icon1"
+                style={{ marginRight: 25 }}
+                type="github"
+                theme="filled"
+              />
+            </Tooltip>
+            <Tooltip title="18584812344">
+              <Icon
+                id="hj-icon2"
+                style={{ marginRight: 25 }}
+                type="wechat"
+                theme="filled"
+              />
+            </Tooltip>
+            <Tooltip title="248833990">
+              <Icon
+                id="hj-icon3"
+                style={{ marginRight: 25 }}
+                type="qq-circle"
+                theme="filled"
+              />
+            </Tooltip>
+            <Tooltip title="https://www.yuque.com/gensan">
+              <Icon
+                id="hj-icon4"
+                style={{ marginRight: 25 }}
+                type="yuque"
+                theme="filled"
+              />
+            </Tooltip>
+            <Tooltip title="文明人不看微博">
+              <Icon id="hj-icon5" type="weibo-circle" theme="filled" />
+            </Tooltip>
           </span>
       </p>
     </Row>

@@ -63,7 +63,7 @@ const CommentsHoc = Comp => props => {
       <Comment
         actions={[
           <React.Fragment>
-            <span onClick={toggleComent}>Reply to</span>
+            <span onClick={toggleComent}>回复</span>
             {isShow && (
               <>
                 <Input.TextArea
@@ -119,7 +119,7 @@ const CommentsHoc = Comp => props => {
       <Comment
         actions={[
           <React.Fragment>
-            <span onClick={toggleComent}>Reply to</span>
+            <span onClick={toggleComent}>回复</span>
             {isShow && (
               <>
                 <Input.TextArea

@@ -14,8 +14,8 @@ import 'highlight.js/styles/monokai-sublime.css';
 import '../index.less';
 import { articleDetailApi } from '@/services/article';
 import moment from 'moment';
-import CommentsComp from './components/CommentsComp'
-import { connect } from 'dva'
+import CommentsComp from './components/CommentsComp';
+import { connect } from 'dva';
 
 const ArticleDetail = props => {
   const [detail, setDetail] = useState({ content: '' });
@@ -104,6 +104,17 @@ const ArticleDetail = props => {
                   __html: marked(detail.content) || '',
                 }}
               ></div>
+              <Divider orientation="left" style={{ color: '#666', marginTop: 100 }}>
+                <span
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '500',
+                    color: '#666',
+                  }}
+                >
+                  评论区
+                </span>
+              </Divider>
               <div>
                 <CommentsComp {...props} />
               </div>
@@ -160,10 +171,10 @@ const ArticleDetail = props => {
       <FooterCom />
     </div>
   );
-}
+};
 
 const mapStateFromProps = ({ article }) => ({
   data: article.data,
 });
 
-export default ArticleDetail |> connect(mapStateFromProps)
+export default ArticleDetail |> connect(mapStateFromProps);

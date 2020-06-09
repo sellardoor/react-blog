@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Menu, Icon, Input, Affix, Drawer } from 'antd';
+import { Row, Col, Menu, Icon, Input, Affix, Drawer, Tooltip } from 'antd';
 import { Link } from 'umi';
 import styles from './index.less';
 import BarCom from './BarCom';
@@ -20,7 +20,7 @@ export default function HeadCom(props) {
   return (
     <div>
       <Drawer
-      width='40%'
+        width="40%"
         placement="right"
         closable={false}
         onClose={() => setVisible(false)}
@@ -58,31 +58,41 @@ export default function HeadCom(props) {
               color: '#000',
             }}
           >
-            <Icon
-              id="hj-icon1"
-              style={{ marginRight: 25 }}
-              type="github"
-              theme="filled"
-            />
-            <Icon
-              id="hj-icon2"
-              style={{ marginRight: 25 }}
-              type="wechat"
-              theme="filled"
-            />
-            <Icon
-              id="hj-icon3"
-              style={{ marginRight: 25 }}
-              type="instagram"
-              theme="filled"
-            />
-            <Icon
-              id="hj-icon4"
-              style={{ marginRight: 25 }}
-              type="yuque"
-              theme="filled"
-            />
-            <Icon id="hj-icon5" type="weibo-circle" theme="filled" />
+            <Tooltip title="https://github.com/sellardoor">
+              <Icon
+                id="hj-icon1"
+                style={{ marginRight: 25 }}
+                type="github"
+                theme="filled"
+              />
+            </Tooltip>
+            <Tooltip title="18584812344">
+              <Icon
+                id="hj-icon2"
+                style={{ marginRight: 25 }}
+                type="wechat"
+                theme="filled"
+              />
+            </Tooltip>
+            <Tooltip title="248833990">
+              <Icon
+                id="hj-icon3"
+                style={{ marginRight: 25 }}
+                type="qq-circle"
+                theme="filled"
+              />
+            </Tooltip>
+            <Tooltip title="https://www.yuque.com/gensan">
+              <Icon
+                id="hj-icon4"
+                style={{ marginRight: 25 }}
+                type="yuque"
+                theme="filled"
+              />
+            </Tooltip>
+            <Tooltip title="文明人不看微博">
+              <Icon id="hj-icon5" type="weibo-circle" theme="filled" />
+            </Tooltip>
           </span>
         </Col>
         <Col xs={23} sm={14} md={13} lg={12} xl={9}>
@@ -115,6 +125,20 @@ export default function HeadCom(props) {
                 lineHeight: '100px',
                 textAlign: 'center',
               }}
+              key="message"
+            >
+              <Link to="/file" style={{ color: '#000', width: '100%' }}>
+                <span id="hj-menu2" style={{ fontSize: '16px' }}>
+                  归&nbsp;档
+                </span>
+              </Link>
+            </Menu.Item>
+            {/* <Menu.Item
+              style={{
+                borderBottom: 'none',
+                lineHeight: '100px',
+                textAlign: 'center',
+              }}
               key="artical"
             >
               <Link to="/articlelist" style={{ color: '#000' }}>
@@ -122,7 +146,8 @@ export default function HeadCom(props) {
                   文&nbsp;章
                 </span>
               </Link>
-            </Menu.Item>
+            </Menu.Item> */}
+
             <Menu.Item
               style={{
                 borderBottom: 'none',
