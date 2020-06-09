@@ -26,7 +26,8 @@ import {
 } from '@/services/users';
 import { connect } from 'dva';
 import { getQueryVariable } from '@/utils/utils';
-import { LOGINLOCALPROD, GITHUBOAUTH } from '@/utils/constants'
+import { LOGINLOCALPROD, GITHUBOAUTH } from '@/utils/constants';
+import LazyLoad from 'react-lazyload';
 
 /**
  * @description 模态框登录控件
@@ -269,9 +270,9 @@ const UserCom = props => {
         if (res?.success) {
           props.initUser(res.result);
           localStorage.setItem('login', JSON.stringify(res.result));
-          window.open(LOGINLOCALPROD, '_self')
+          window.open(LOGINLOCALPROD, '_self');
         } else {
-          message.error('网络异常, 请稍后再试')
+          message.error('网络异常, 请稍后再试');
           props.changeGlobaLoading({ load: false });
         }
       });
@@ -306,10 +307,7 @@ const UserCom = props => {
   };
 
   const toGithub = () => {
-    window.open(
-      GITHUBOAUTH,
-      '_self',
-    );
+    window.open(GITHUBOAUTH, '_self');
   };
   return (
     <div
@@ -357,10 +355,12 @@ const UserCom = props => {
             >
               注销
             </a>
-            <Avatar
-              style={{ marginBottom: 10, width: 50, height: 50 }}
-              src={props.avatar}
-            />
+            <LazyLoad offset={100}>
+              <Avatar
+                style={{ marginBottom: 10, width: 50, height: 50 }}
+                src={props.avatar}
+              />
+            </LazyLoad>
             <p style={{ color: '#24c2cb' }}>{props.username}</p>
           </div>
         </Skeleton>

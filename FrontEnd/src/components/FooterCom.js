@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon, Row, Col } from 'antd';
 import styles from './index.less';
 import { FOOTERIMGS } from '@/utils/constants';
+import LazyLoad from 'react-lazyload';
 
 export default function FooterCom() {
   return (
@@ -28,15 +29,17 @@ export default function FooterCom() {
         {FOOTERIMGS.map(url => (
           <Col span={3}>
             <div className={styles.info}>
-              <img
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'inline-block',
-                }}
-                src={url}
-                alt=""
-              />
+              <LazyLoad offset={100}>
+                <img
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'inline-block',
+                  }}
+                  src={url}
+                  alt=""
+                />
+              </LazyLoad>
             </div>
           </Col>
         ))}
@@ -62,7 +65,9 @@ export default function FooterCom() {
           </a>
         </p>
         <p style={{ paddingBottom: 20 }}>
-          <img src="http://cdn.sellardoor.cn/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87%20%281%29.png"></img>
+          <LazyLoad offset={100}>
+            <img src="http://cdn.sellardoor.cn/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87%20%281%29.png" />
+          </LazyLoad>
           &nbsp;
           <a
             style={{ color: '#666' }}

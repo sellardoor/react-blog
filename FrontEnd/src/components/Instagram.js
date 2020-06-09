@@ -8,6 +8,7 @@ import React from 'react';
 import { Divider } from 'antd';
 import styles from './index.less';
 import { INSTAGRAM } from '@/utils/constants';
+import LazyLoad from 'react-lazyload';
 
 export default function Instagram() {
   return (
@@ -38,12 +39,14 @@ export default function Instagram() {
               className={styles.ins}
               style={{ width: '33%', height: '100px', cursor: 'pointer' }}
             >
-              <img
-                style={{
-                  display: 'inline-block',
-                }}
-                src={url}
-              />
+              <LazyLoad offset={100}>
+                <img
+                  style={{
+                    display: 'inline-block',
+                  }}
+                  src={url}
+                />
+              </LazyLoad>
             </div>
           ))}
         </div>

@@ -11,6 +11,7 @@ import TagsCom from '@/components/TagsCom';
 import Instagram from '@/components/Instagram';
 import styles from './index.less';
 import { connect } from 'dva';
+import LazyLoad from 'react-lazyload';
 
 function Index(props) {
   return (
@@ -105,14 +106,16 @@ function Index(props) {
           <Col xs={24} sm={24} md={24} lg={16} xl={12}>
             <ListCom />
           </Col>
-          <Col xs={24} sm={0} md={0} lg={6} xl={4}>
+          <Col xs={{ span: 18, offset: 3 }} sm={0} md={0} lg={6} xl={4}>
             <BarCom />
             <div style={{ textAlign: 'center' }}>
-              <img
-                style={{ width: '100%' }}
-                src="http://cdn.sellardoor.cn/banner-spot.jpg"
-                alt=""
-              />
+              <LazyLoad offset={100}>
+                <img
+                  style={{ width: '100%' }}
+                  src="http://cdn.sellardoor.cn/banner-spot.jpg"
+                  alt=""
+                />
+              </LazyLoad>
             </div>
             <UserCom />
             <HotCom />

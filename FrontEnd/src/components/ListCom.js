@@ -7,6 +7,7 @@ import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai-sublime.css';
 import '../pages/index.less';
+import LazyLoad from 'react-lazyload';
 
 export default function ListCom(props) {
   const [data, setData] = useState([]);
@@ -53,9 +54,18 @@ export default function ListCom(props) {
             >
               <Row>
                 <Col xs={0} sm={0} md={0} lg={0} xl={8}>
-                  <img style={{ width: '100%' }} src={item.img} alt="" />
+                  <LazyLoad offset={100}>
+                    <img style={{ width: '100%' }} src={item.img} alt="" />
+                  </LazyLoad>
                 </Col>
-                <Col xs={24} sm={24} md={24} lg={24} xl={16} style={{paddingLeft: 30}}>
+                <Col
+                  xs={24}
+                  sm={24}
+                  md={24}
+                  lg={24}
+                  xl={16}
+                  style={{ paddingLeft: 30 }}
+                >
                   <div
                     style={{
                       color: '#24c2cb',

@@ -9,7 +9,7 @@
  * @dev http://127.0.0.1:7001
  * @prod http://59.110.43.170:7001
  */
-export const PROXY = 'http://59.110.43.170:7001';
+export const PROXY = 'http://127.0.0.1:7001';
 
 /**
  * @description 底部图片CDN地址
