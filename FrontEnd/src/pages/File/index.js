@@ -8,7 +8,7 @@ import {
   Divider,
   Icon,
   Timeline,
-  Tooltip
+  Tooltip,
 } from 'antd';
 import HeadCom from '@/components/HeadCom';
 import BarCom from '@/components/BarCom';
@@ -30,13 +30,13 @@ export default function index(props) {
     setLoad(true);
     initIndexArticleListApi().then(res => {
       if (res?.success) {
-        setTotal(res.result.length);
+        setTotal(res.result.list.length);
         /**
          * @description 将返回的所有文章数组,转为key为年份, value为当前年份数组的对象
          * @description 这里为啥年份额外加个字符串key是因为, 数字或者字符串数字的key即使排序也只会按从小到大排,无法改变顺序
          */
         let obj = {};
-        res.result.forEach(item => {
+        res.result.list.forEach(item => {
           let year = moment(item.date).format('YYYY');
           obj[year + 'key'] = [
             ...(obj[year + 'key'] || (obj[year + 'key'] = [])),
@@ -92,14 +92,17 @@ export default function index(props) {
             </div>
             <Spin spinning={load} size="large">
               <Timeline style={{ marginBottom: 100 }}>
-                <Timeline.Item color="#24c2cb" style={{ fontSize: 18, paddingBottom: 20 }}>
+                <Timeline.Item
+                  color="#24c2cb"
+                  style={{ fontSize: 18, paddingBottom: 20 }}
+                >
                   <span>Total {total} items</span>
                 </Timeline.Item>
                 {Object.keys(data).map(item => {
                   return (
                     <>
                       <Timeline.Item
-                      color="#24c2cb"
+                        color="#24c2cb"
                         dot={
                           <Icon
                             type="clock-circle-o"
@@ -177,7 +180,13 @@ export default function index(props) {
             </Spin>
           </div>
         </Col>
-        <Col xs={24} sm={0} md={0} lg={6} xl={4}>
+        <Col
+          xs={{ span: 18, offset: 3 }}
+          sm={{ span: 0, offset: 0 }}
+          md={{ span: 0, offset: 0 }}
+          lg={{ span: 6, offset: 0 }}
+          xl={{ span: 4, offset: 0 }}
+        >
           <BarCom />
           <div style={{ textAlign: 'center' }}>
             <img src="http://cdn.sellardoor.cn/banner-spot.jpg" alt="" />

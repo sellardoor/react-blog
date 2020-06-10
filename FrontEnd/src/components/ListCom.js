@@ -16,7 +16,7 @@ export default function ListCom(props) {
     setLoad(true);
     initIndexArticleListApi().then(res => {
       if (res?.success) {
-        setData(res.result);
+        setData(res.result.list);
         setLoad(false);
       }
     });

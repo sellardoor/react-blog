@@ -11,8 +11,18 @@ class ArticleController extends Controller {
       await ctx.model.Article.update({ _id: item._id }, { msg: len });
     });
     const res = await ctx.model.Article.find();
+    const map = {};
+    res.forEach(item => {
+      map[item.type] = 0;
+    });
+    res.forEach(count => {
+      map[count.type] += 1;
+    });
     ctx.body = {
-      result: res,
+      result: {
+        list: res,
+        tags: map,
+      },
       success: true,
     };
   }
@@ -61,6 +71,22 @@ class ArticleController extends Controller {
       result,
       success: true,
     };
+  }
+  async checkTagArticle() {
+    const { ctx } = this;
+    if (ctx.request.body.type === 'All') {
+      const result = await ctx.model.Article.find();
+      ctx.body = {
+        result,
+        success: true,
+      };
+    } else {
+      const result = await ctx.model.Article.find(ctx.request.body);
+      ctx.body = {
+        result,
+        success: true,
+      };
+    }
   }
 }
 

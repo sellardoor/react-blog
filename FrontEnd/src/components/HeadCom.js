@@ -133,21 +133,6 @@ export default function HeadCom(props) {
                 </span>
               </Link>
             </Menu.Item>
-            {/* <Menu.Item
-              style={{
-                borderBottom: 'none',
-                lineHeight: '100px',
-                textAlign: 'center',
-              }}
-              key="artical"
-            >
-              <Link to="/articlelist" style={{ color: '#000' }}>
-                <span id="hj-menu2" style={{ fontSize: '16px' }}>
-                  文&nbsp;章
-                </span>
-              </Link>
-            </Menu.Item> */}
-
             <Menu.Item
               style={{
                 borderBottom: 'none',

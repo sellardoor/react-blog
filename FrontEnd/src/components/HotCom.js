@@ -49,8 +49,7 @@ export default function HotCom() {
               cursor: 'pointer',
             }}
           >
-            <div>{item.title}</div>
-            <div>{moment(item.date).format('YYYY-MM-DD')}</div>
+            <div style={{width: '100%', textAlign: 'center'}}>{item.title}</div>
           </List.Item>
         )}
       />

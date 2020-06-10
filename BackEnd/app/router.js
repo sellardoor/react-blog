@@ -22,6 +22,9 @@ module.exports = app => {
   router.post('/api/blog/initArticleMessage', controller.blog.article.initArticleMessage);
   router.post('/api/blog/submitArticleMessage', controller.blog.article.submitArticleMessage);
   router.post('/api/blog/replyArticleMessage', controller.blog.article.replyArticleMessage);
+  router.post('/api/blog/checkTagArticle', controller.blog.article.checkTagArticle);
+  // 徽标
+  router.get('/api/blog/initTags', controller.blog.tags.init);
 
   // 后台系统
   const jwt = middleware.jwt(app.config.jwt);

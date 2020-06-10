@@ -52,3 +52,12 @@ export async function replyArticleMessageApi(data) {
     data,
   });
 }
+/**
+ * @description 以类型获取文章
+ */
+export async function checkTagArticleApi(data) {
+  return request('/api/blog/checkTagArticle', {
+    method: 'post',
+    data,
+  });
+}

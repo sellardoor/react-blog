@@ -111,7 +111,13 @@ export class Message extends Component {
               </div>
             </div>
           </Col>
-          <Col xs={24} sm={0} md={0} lg={6} xl={4}>
+          <Col
+            xs={{ span: 18, offset: 3 }}
+            sm={{ span: 0, offset: 0 }}
+            md={{ span: 0, offset: 0 }}
+            lg={{ span: 6, offset: 0 }}
+            xl={{ span: 4, offset: 0 }}
+          >
             <BarCom />
             <div style={{ textAlign: 'center' }}>
               <img src="http://cdn.sellardoor.cn/banner-spot.jpg" alt="" />
