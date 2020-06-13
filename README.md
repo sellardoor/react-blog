@@ -78,3 +78,5 @@ externals: {
 📅2020/6/9  feat: react-lazyload懒加载图片, 文章列表改为时间轴形式的归档. 
 
 📅2020/6/10  feat: tags标签已联调, 展示文章有哪些类别有多少篇, 点击跳转文章分类列表页. 优化一些问题. 
+
+📅2020/6/13  feat: 前端blog代码已用typescript重构.
