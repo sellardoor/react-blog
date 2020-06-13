@@ -1,15 +1,25 @@
+/**
+ * @description Comment组件封装
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import React, { useState } from 'react';
 import { Comment, List, Input, Button, Tooltip, message } from 'antd';
 import { connect } from 'dva';
+import moment from 'moment';
+import { connectState, DispatchType } from '@/models/connect';
 
-const CommentsHoc = Comp => props => {
-  const [isShow, setIsShow] = useState(false);
-  const [value, setValue] = useState('');
+type CommentHocType = ReturnType<typeof mapStateFromProps> &
+  DispatchType &
+  CommentsListArrType & { fathername: string };
+const CommentsHoc = () => (props: CommentHocType) => {
+  const [isShow, setIsShow] = useState<boolean>(false);
+  const [value, setValue] = useState<string>('');
   const toggleComent = () => {
     setIsShow(!isShow);
     setValue('');
   };
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
   const handlesubmit = () => {
@@ -18,38 +28,53 @@ const CommentsHoc = Comp => props => {
       return;
     }
     if (localStorage.getItem('login')) {
-      const { username, avatar } = JSON.parse(localStorage.getItem('login'));
+      const { username, avatar } = JSON.parse(
+        localStorage.getItem('login') || '{}',
+      );
       if (props.pid === '0') {
-        props.toogleSpin(true);
+        props.dispatch({ type: 'message/toogleSpin', payload: { spin: true } });
         props
-          .replyMessage({
-            author: username,
-            avatar: avatar,
-            content: value,
-            pid: props._id,
-            date: +new Date(),
-            type: 'message',
-            fathername: props.author,
+          .dispatch({
+            type: 'message/replyMessage',
+            payload: {
+              author: username,
+              avatar: avatar,
+              content: value,
+              pid: props._id,
+              date: +new Date(),
+              type: 'message',
+              fathername: props.author,
+            },
           })
           .then(() => {
-            props.toogleSpin(false);
+            props.dispatch({
+              type: 'message/toogleSpin',
+              payload: { spin: false },
+            });
             setIsShow(!isShow);
             setValue('');
           });
       } else {
-        props.toogleSpin(true);
+        props.dispatch({ type: 'message/toogleSpin', payload: { spin: true } });
         props
-          .replyMessage({
-            author: username,
-            avatar: avatar,
-            content: value,
-            pid: props.pid,
-            date: +new Date(),
-            type: 'message',
-            fathername: props.author,
+          .dispatch({
+            type: 'message/replyMessage',
+            payload: {
+              author: username,
+              avatar: avatar,
+              content: value,
+              pid: props.pid,
+              date: +new Date(),
+              type: 'message',
+              fathername: props.author,
+            },
           })
+
           .then(() => {
-            props.toogleSpin(false);
+            props.dispatch({
+              type: 'message/toogleSpin',
+              payload: { spin: false },
+            });
             setIsShow(!isShow);
             setValue('');
           });
@@ -163,17 +188,25 @@ const CommentsHoc = Comp => props => {
     );
   }
 };
-const mapStateFromProps = ({ message }) => ({ message });
-const mapDispatchFromProps = {
-  replyMessage: payload => ({ type: 'message/replyMessage', payload }),
-  toogleSpin: payload => ({ type: 'message/toogleSpin', payload }),
-};
-const CommentsComp = connect(
-  mapStateFromProps,
-  mapDispatchFromProps,
-)(CommentsHoc(Comment));
+const mapStateFromProps = ({ message }: connectState) => ({ message });
+const CommentsComp = connect(mapStateFromProps)(CommentsHoc());
 
-const CommentsList = props => {
+export interface CommentsListArrType {
+  author: string;
+  avatar: string;
+  children?: CommentsListArrType[];
+  content: string;
+  date: number;
+  pid: string;
+  type: string;
+  _id: string;
+  [key: string]: any;
+}
+export interface CommentsListType {
+  data: CommentsListArrType[];
+}
+
+const CommentsList = (props: CommentsListType) => {
   return (
     <List
       itemLayout="horizontal"

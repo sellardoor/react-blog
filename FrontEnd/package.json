@@ -21,6 +21,8 @@
     ]
   },
   "dependencies": {
+    "@types/highlight.js": "^9.12.4",
+    "@types/react-lazyload": "^2.6.0",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.2.2",
     "antd": "3.26.16",

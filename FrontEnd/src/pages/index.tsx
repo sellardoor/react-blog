@@ -1,5 +1,10 @@
+/**
+ * @description 主页index
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import React from 'react';
-import { Row, Col, BackTop, Spin, Card, Drawer } from 'antd';
+import { Row, Col, BackTop, Spin } from 'antd';
 import HeadCom from '@/components/HeadCom';
 import BarCom from '@/components/BarCom';
 import ListCom from '@/components/ListCom';
@@ -12,8 +17,11 @@ import Instagram from '@/components/Instagram';
 import styles from './index.less';
 import { connect } from 'dva';
 import LazyLoad from 'react-lazyload';
+import { connectState, DispatchType } from '@/models/connect';
 
-function Index(props) {
+type Iprops = ReturnType<typeof mapStateToProps> & DispatchType
+
+const Index: React.FC<Iprops> = props => {
   return (
     <div>
       <Spin spinning={props.globaLoading} size="large">
@@ -63,7 +71,6 @@ function Index(props) {
           >
             <div
               style={{
-                height: 20,
                 borderBottom: '2px solid #fff',
                 width: 50,
                 height: 5,
@@ -134,8 +141,10 @@ function Index(props) {
       </Spin>
     </div>
   );
-}
-const mapStateFromProps = ({ users }) => ({
+};
+
+const mapStateToProps = ({ users }: connectState) => ({
   globaLoading: users.globaLoading,
 });
-export default Index |> connect(mapStateFromProps);
+
+export default connect(mapStateToProps)(Index);

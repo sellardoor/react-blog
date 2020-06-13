@@ -1,34 +1,49 @@
+/**
+ * @description 将具有独立状态的Comment递归渲染List
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import React, { useState, useEffect } from 'react';
 import CommentsList from './CommentsList';
 import { arrayToTree } from '@/utils/utils';
 import { Comment, Form, Avatar, Button, Input, message, Spin } from 'antd';
 import { connect } from 'dva';
+import { connectState, DispatchType } from '@/models/connect';
 
 const { TextArea } = Input;
-function Editor(props) {
-  const [value, setValue] = useState('');
-  const onChange = e => setValue(e.target.value);
+
+type EditComType = DispatchType;
+
+const EditCom: React.FC<EditComType> = props => {
+  const { dispatch } = props;
+  const [value, setValue] = useState<string>('');
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setValue(e.target.value);
   const onSubmit = () => {
     if (value === '') {
       message.info('内容不能为空');
       return;
     }
     if (localStorage.getItem('login')) {
-      const { username, avatar } = JSON.parse(localStorage.getItem('login'));
-      props.toogleSpin(true)
-      props
-        .submitMessage({
+      const { username, avatar } = JSON.parse(
+        localStorage.getItem('login') || '{}',
+      );
+      dispatch({ type: 'message/toogleSpin', payload: { spin: true } });
+      dispatch({
+        type: 'message/submitMessage',
+        payload: {
           author: username,
           avatar: avatar,
           content: value,
           pid: '0',
           date: +new Date(),
           type: 'message',
-        })
-        .then(() => {
-          props.toogleSpin(false)
-          setValue('');
-        });
+        },
+      }).then(() => {
+        dispatch({ type: 'message/toogleSpin', payload: { spin: false } });
+
+        setValue('');
+      });
     } else {
       message.error('尚未登录');
     }
@@ -37,11 +52,11 @@ function Editor(props) {
     <div>
       {localStorage.getItem('login') ? (
         <Comment
-          author={JSON.parse(localStorage.getItem('login')).username}
+          author={JSON.parse(localStorage.getItem('login') || '{}').username}
           avatar={
             <Avatar
-              src={JSON.parse(localStorage.getItem('login')).avatar}
-              alt={JSON.parse(localStorage.getItem('login')).username}
+              src={JSON.parse(localStorage.getItem('login') || '{}').avatar}
+              alt={JSON.parse(localStorage.getItem('login') || '{}').username}
             />
           }
           content={
@@ -76,34 +91,32 @@ function Editor(props) {
       )}
     </div>
   );
-}
+};
+const Editor = connect()(EditCom);
 
-const CommentsComp = props => {
+type CommentsComp = ReturnType<typeof mapStateFromProps> & DispatchType;
+const CommentsComp: React.FC<CommentsComp> = props => {
+  const { dispatch } = props;
   useEffect(() => {
-    props.toogleSpin(true)
-    props.initMessage().then(() => {
-      props.toogleSpin(false)
+    dispatch({ type: 'message/toogleSpin', payload: { spin: true } });
+    dispatch({ type: 'message/initMessage' }).then(() => {
+      dispatch({ type: 'message/toogleSpin', payload: { spin: false } });
     });
   }, []);
   const data = arrayToTree(props.data);
   return (
     <div>
-      <Spin spinning={props.spin} size='large'>
+      <Spin spinning={props.spin} size="large">
         <CommentsList data={data} />
       </Spin>
-      <Editor toogleSpin={props.toogleSpin} submitMessage={props.submitMessage} />
+      <Editor />
     </div>
   );
 };
 
-const mapStateFromProps = ({ message }) => ({
+const mapStateFromProps = ({ message }: connectState) => ({
   data: message.data,
   spin: message.spin,
 });
-const mapDispatchFromProps = {
-  initMessage: () => ({ type: 'message/initMessage' }),
-  submitMessage: payload => ({ type: 'message/submitMessage', payload }),
-  toogleSpin: payload => ({type: 'message/toogleSpin', payload})
-};
 
-export default CommentsComp |> connect(mapStateFromProps, mapDispatchFromProps);
+export default connect(mapStateFromProps)(CommentsComp);

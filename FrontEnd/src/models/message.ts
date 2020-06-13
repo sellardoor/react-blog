@@ -1,11 +1,33 @@
+/**
+ * @description 留言区model
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import {
   initMessageApi,
   submitMessageApi,
   replyMessageApi,
 } from '@/services/message';
 import { message } from 'antd';
+import { ArticleModelState} from './article';
+import { Effect, Reducer } from 'umi';
 
-export default {
+export type MessageModelState = ArticleModelState
+
+export interface MessageModelType {
+  namespace: 'message';
+  state: MessageModelState;
+  effects: {
+    initMessage: Effect;
+    submitMessage: Effect;
+    replyMessage: Effect;
+  };
+  reducers: {
+    initData: Reducer<MessageModelState>;
+    toogleSpin: Reducer<MessageModelState>;
+  };
+}
+const MessageModel: MessageModelType = {
   namespace: 'message',
 
   state: {
@@ -17,7 +39,7 @@ export default {
     *initMessage(_, { call, put }) {
       const result = yield call(initMessageApi);
       if (result?.success) {
-        yield put({ type: 'initData', payload: result.result });
+        yield put({ type: 'initData', payload: { data: result.result } });
       }
     },
     *submitMessage({ payload }, { call, put }) {
@@ -44,14 +66,16 @@ export default {
     initData(state, { payload }) {
       return {
         ...state,
-        data: payload,
+        ...payload,
       };
     },
     toogleSpin(state, { payload }) {
       return {
         ...state,
-        spin: payload,
+        ...payload,
       };
     },
   },
 };
+
+export default MessageModel;

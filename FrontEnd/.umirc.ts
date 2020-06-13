@@ -12,7 +12,7 @@ export default defineConfig({
     type: 'none',
   },
   routes: [
-    { path: '/', component: '@/pages/index.js', exact: true },
+    { path: '/', component: '@/pages/index', exact: true },
     { path: '/articledetail', component: '@/pages/ArticleDetail', exact: true },
     { path: '/articlelist', component: '@/pages/ArticleList', exact: true },
     { path: '/message', component: '@/pages/Message', exact: true },

@@ -1,3 +1,8 @@
+/**
+ * @description tags分类文章列表
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import React, { useState, useEffect } from 'react';
 import {
   Row,
@@ -16,7 +21,6 @@ import HotCom from '@/components/HotCom';
 import FooterCom from '@/components/FooterCom';
 import TitleCom from '@/components/TitleCom';
 import UserCom from '@/components/UserCom';
-import TagsCom from '@/components/TagsCom';
 import Instagram from '@/components/Instagram';
 import {
   initIndexArticleListApi,
@@ -24,10 +28,22 @@ import {
 } from '@/services/article';
 import moment from 'moment';
 import styles from './index.less';
+import { IRouteComponentProps } from '@/models/connect';
+import { ArticleType } from '../File/index';
 
 const { CheckableTag } = Tag;
 
-const TagsComp = props => {
+interface MapType {
+  [key: string]: boolean;
+}
+
+interface TagsCompType {
+  item: string;
+  clickTags: (item: string) => void;
+  map: MapType;
+}
+
+const TagsComp: React.FC<TagsCompType> = props => {
   const tagsChange = () => {
     props.clickTags(props.item);
   };
@@ -50,19 +66,24 @@ const TagsComp = props => {
   );
 };
 
-export default function index(props) {
+type Iprops = IRouteComponentProps;
+interface TagsType {
+  [key: string]: number;
+}
+
+const ArticleList: React.FC<Iprops> = props => {
   // 列表数据
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ArticleType[]>([]);
   // { tags名字: 数量 }
-  const [tags, setTags] = useState({});
+  const [tags, setTags] = useState<TagsType>({});
   // loading状态
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState<boolean>(false);
   // { tags名字 : boolean } 是否是激活状态
-  const [map, setMap] = useState({});
+  const [map, setMap] = useState<MapType>({});
   useEffect(() => {
     document.documentElement.scrollTop = document.body.scrollTop = 0;
     setLoad(true);
-    const type = props?.location?.query?.type;
+    const { type = '' }: any = props.location.query;
     initIndexArticleListApi().then(res => {
       setData(res.result.list);
       setTags({ All: 0, ...res.result.tags });
@@ -86,10 +107,10 @@ export default function index(props) {
       }
     });
   }, []);
-  const handleDetail = id => {
+  const handleDetail = (id: string) => {
     props.history.push(`/articledetail?_id=${id}`);
   };
-  const clickTags = item => {
+  const clickTags = (item: string) => {
     const mapobj = map;
     for (let key in mapobj) {
       mapobj[key] = false;
@@ -139,9 +160,9 @@ export default function index(props) {
                 textAlign: 'center',
               }}
             >
-              {Object.keys(tags).map(item => {
+              {Object.keys(tags).map((item, idx) => {
                 return (
-                  <Badge count={tags[item]} offset={[-5, 0]}>
+                  <Badge key={idx} count={tags[item]} offset={[-5, 0]}>
                     <TagsComp map={map} clickTags={clickTags} item={item} />
                   </Badge>
                 );
@@ -183,35 +204,39 @@ export default function index(props) {
                 <span
                   style={{
                     fontSize: 16,
-                    fontWeight: '500',
+                    fontWeight: 500,
                     color: '#000',
                   }}
                 >
                   <Icon
-                    id="hj-icon1"
+                    className="hj-icon1"
                     style={{ marginRight: 25 }}
                     type="github"
                     theme="filled"
                   />
                   <Icon
-                    id="hj-icon2"
+                    className="hj-icon2"
                     style={{ marginRight: 25 }}
                     type="wechat"
                     theme="filled"
                   />
                   <Icon
-                    id="hj-icon3"
+                    className="hj-icon3"
                     style={{ marginRight: 25 }}
                     type="instagram"
                     theme="filled"
                   />
                   <Icon
-                    id="hj-icon4"
+                    className="hj-icon4"
                     style={{ marginRight: 25 }}
                     type="yuque"
                     theme="filled"
                   />
-                  <Icon id="hj-icon5" type="weibo-circle" theme="filled" />
+                  <Icon
+                    className="hj-icon5"
+                    type="weibo-circle"
+                    theme="filled"
+                  />
                 </span>
               </Divider>
             </Spin>
@@ -231,4 +256,5 @@ export default function index(props) {
       <FooterCom />
     </div>
   );
-}
+};
+export default ArticleList;

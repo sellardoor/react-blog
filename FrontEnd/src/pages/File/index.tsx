@@ -1,9 +1,13 @@
+/**
+ * @description 归档组件
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import React, { useState, useEffect } from 'react';
 import {
   Row,
   Col,
   Breadcrumb,
-  List,
   Spin,
   Divider,
   Icon,
@@ -22,10 +26,26 @@ import { initIndexArticleListApi } from '@/services/article';
 import moment from 'moment';
 import { Link } from 'umi';
 
-export default function index(props) {
-  const [data, setData] = useState([]);
-  const [load, setLoad] = useState(false);
-  const [total, setTotal] = useState(0);
+export interface ArticleType {
+  content: string;
+  date: number;
+  img: string;
+  info: string;
+  msg: number;
+  title: string;
+  type: string;
+  view: number;
+  _id: string;
+  [key: string]: any;
+}
+interface DataType {
+  [key: string]: ArticleType[];
+}
+
+export default function index() {
+  const [data, setData] = useState<DataType>({});
+  const [load, setLoad] = useState<boolean>(false);
+  const [total, setTotal] = useState<number>(0);
   useEffect(() => {
     setLoad(true);
     initIndexArticleListApi().then(res => {
@@ -35,8 +55,9 @@ export default function index(props) {
          * @description 将返回的所有文章数组,转为key为年份, value为当前年份数组的对象
          * @description 这里为啥年份额外加个字符串key是因为, 数字或者字符串数字的key即使排序也只会按从小到大排,无法改变顺序
          */
-        let obj = {};
-        res.result.list.forEach(item => {
+        let obj: DataType = {};
+        res.result.list.forEach((item: ArticleType) => {
+          console.log(item);
           let year = moment(item.date).format('YYYY');
           obj[year + 'key'] = [
             ...(obj[year + 'key'] || (obj[year + 'key'] = [])),
@@ -46,7 +67,7 @@ export default function index(props) {
         /**
          * @description 将上述对象按key的年份顺序倒序
          */
-        let orderObj = {};
+        let orderObj: DataType = {};
         Object.keys(obj)
           .sort((a, b) => parseInt(b) - parseInt(a))
           .forEach(key => {
@@ -102,7 +123,6 @@ export default function index(props) {
                   return (
                     <>
                       <Timeline.Item
-                        color="#24c2cb"
                         dot={
                           <Icon
                             type="clock-circle-o"
@@ -136,13 +156,13 @@ export default function index(props) {
                 <span
                   style={{
                     fontSize: 16,
-                    fontWeight: '500',
+                    fontWeight: 500,
                     color: '#000',
                   }}
                 >
                   <Tooltip title="https://github.com/sellardoor">
                     <Icon
-                      id="hj-icon1"
+                      className="hj-icon1"
                       style={{ marginRight: 25 }}
                       type="github"
                       theme="filled"
@@ -150,7 +170,7 @@ export default function index(props) {
                   </Tooltip>
                   <Tooltip title="18584812344">
                     <Icon
-                      id="hj-icon2"
+                      className="hj-icon2"
                       style={{ marginRight: 25 }}
                       type="wechat"
                       theme="filled"
@@ -158,7 +178,7 @@ export default function index(props) {
                   </Tooltip>
                   <Tooltip title="248833990">
                     <Icon
-                      id="hj-icon3"
+                      className="hj-icon3"
                       style={{ marginRight: 25 }}
                       type="qq-circle"
                       theme="filled"
@@ -166,14 +186,18 @@ export default function index(props) {
                   </Tooltip>
                   <Tooltip title="https://www.yuque.com/gensan">
                     <Icon
-                      id="hj-icon4"
+                      className="hj-icon4"
                       style={{ marginRight: 25 }}
                       type="yuque"
                       theme="filled"
                     />
                   </Tooltip>
                   <Tooltip title="文明人不看微博">
-                    <Icon id="hj-icon5" type="weibo-circle" theme="filled" />
+                    <Icon
+                      className="hj-icon5"
+                      type="weibo-circle"
+                      theme="filled"
+                    />
                   </Tooltip>
                 </span>
               </Divider>

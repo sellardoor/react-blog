@@ -1,3 +1,8 @@
+/**
+ * @description 文章详情,文章留言组件
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Breadcrumb, Icon, Spin, Divider } from 'antd';
 import HeadCom from '@/components/HeadCom';
@@ -16,13 +21,32 @@ import { articleDetailApi } from '@/services/article';
 import moment from 'moment';
 import CommentsComp from './components/CommentsComp';
 import { connect } from 'dva';
+import { connectState, IRouteComponentProps } from '@/models/connect';
 
-const ArticleDetail = props => {
-  const [detail, setDetail] = useState({ content: '' });
-  const [load, setLoad] = useState(false);
+interface DetailType {
+  content: string;
+  date: number;
+  hot: true;
+  img: string;
+  info: string;
+  msg: number;
+  title: string;
+  type: string;
+  view: number;
+  _id: string;
+  [key: string]: any;
+}
+
+type ArticleDetailType = ReturnType<typeof mapStateFromProps> &
+  IRouteComponentProps;
+
+const ArticleDetail: React.FC<ArticleDetailType> = props => {
+  const [detail, setDetail] = useState<Partial<DetailType>>({ content: '' });
+  const [load, setLoad] = useState<boolean>(false);
   useEffect(() => {
     setLoad(true);
-    articleDetailApi(props.location.query).then(res => {
+    const { _id = '' }: any = props.location.query;
+    articleDetailApi({ _id }).then(res => {
       setDetail(res.result[0]);
       setLoad(false);
     });
@@ -35,7 +59,6 @@ const ArticleDetail = props => {
     gfm: true,
     pedantic: false,
     sanitize: false,
-    tables: true,
     breaks: false,
     smartLists: true,
     smartypants: false,
@@ -101,7 +124,7 @@ const ArticleDetail = props => {
               <div
                 style={{ marginTop: 50, paddingLeft: 20, paddingRight: 20 }}
                 dangerouslySetInnerHTML={{
-                  __html: marked(detail.content) || '',
+                  __html: marked(detail.content || ''),
                 }}
               ></div>
               <Divider
@@ -111,7 +134,7 @@ const ArticleDetail = props => {
                 <span
                   style={{
                     fontSize: 16,
-                    fontWeight: '500',
+                    fontWeight: 500,
                     color: '#666',
                   }}
                 >
@@ -125,35 +148,39 @@ const ArticleDetail = props => {
                 <span
                   style={{
                     fontSize: 16,
-                    fontWeight: '500',
+                    fontWeight: 500,
                     color: '#000',
                   }}
                 >
                   <Icon
-                    id="hj-icon1"
+                    className="hj-icon1"
                     style={{ marginRight: 25 }}
                     type="github"
                     theme="filled"
                   />
                   <Icon
-                    id="hj-icon2"
+                    className="hj-icon2"
                     style={{ marginRight: 25 }}
                     type="wechat"
                     theme="filled"
                   />
                   <Icon
-                    id="hj-icon3"
+                    className="hj-icon3"
                     style={{ marginRight: 25 }}
                     type="instagram"
                     theme="filled"
                   />
                   <Icon
-                    id="hj-icon4"
+                    className="hj-icon4"
                     style={{ marginRight: 25 }}
                     type="yuque"
                     theme="filled"
                   />
-                  <Icon id="hj-icon5" type="weibo-circle" theme="filled" />
+                  <Icon
+                    className="hj-icon5"
+                    type="weibo-circle"
+                    theme="filled"
+                  />
                 </span>
               </Divider>
             </Spin>
@@ -182,8 +209,8 @@ const ArticleDetail = props => {
   );
 };
 
-const mapStateFromProps = ({ article }) => ({
+const mapStateFromProps = ({ article }: connectState) => ({
   data: article.data,
 });
 
-export default ArticleDetail |> connect(mapStateFromProps);
+export default connect(mapStateFromProps)(ArticleDetail);

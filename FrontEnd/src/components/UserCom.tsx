@@ -28,14 +28,16 @@ import { connect } from 'dva';
 import { getQueryVariable } from '@/utils/utils';
 import { LOGINLOCALPROD, GITHUBOAUTH } from '@/utils/constants';
 import LazyLoad from 'react-lazyload';
+import { DispatchType, FormType, connectState } from '@/models/connect';
 
 /**
  * @description 模态框登录控件
  * @param {*} props
  */
-const Login = props => {
+type LoginPorps = DispatchType & RegisterProps;
+const Login: React.FC<LoginPorps> = props => {
   const { getFieldDecorator } = props.form;
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
@@ -43,7 +45,7 @@ const Login = props => {
           if (res?.success) {
             message.success('登录成功');
             props.closeModal();
-            props.initUser(res.result);
+            props.dispatch({ type: 'users/initUser', payload: res.result });
             localStorage.setItem('login', JSON.stringify(res.result));
             window.open(LOGINLOCALPROD, '_self');
           } else {
@@ -100,22 +102,20 @@ const Login = props => {
     </Form>
   );
 };
-const loginmapDispatchFromProps = {
-  initUser: payload => ({ type: 'users/initUser', payload }),
-};
-const loginmapStateFromProps = ({ users }) => ({ users });
-const LoginForm = connect(
-  loginmapStateFromProps,
-  loginmapDispatchFromProps,
-)(Form.create()(Login));
+const LoginForm = connect()(Form.create<LoginPorps>()(Login));
 /**
  * @description 模态框注册控件
  * @param {*} props
  */
-const Register = props => {
+interface RegisterProps extends FormType {
+  closeModal: () => void;
+  registershow: boolean;
+}
+
+const Register: React.FC<RegisterProps> = props => {
   const [confirmDirty, setconfirmDirty] = useState(false);
   const { getFieldDecorator } = props.form;
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
@@ -128,18 +128,20 @@ const Register = props => {
       }
     });
   };
-  const handleConfirmBlur = e => {
+  const handleConfirmBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setconfirmDirty(!!value);
   };
-  const validateToNextPassword = (rule, value, callback) => {
+  const validateToNextPassword = (rule: any, value: string, callback: any) => {
+    console.log(rule);
+    console.log(callback);
     const { form } = props;
     if (value && confirmDirty) {
       form.validateFields(['confirm'], { force: true });
     }
     callback();
   };
-  const compareToFirstPassword = (rule, value, callback) => {
+  const compareToFirstPassword = (rule: any, value: string, callback: any) => {
     const { form } = props;
     if (value && value !== form.getFieldValue('password')) {
       callback('两次密码不一致');
@@ -261,24 +263,35 @@ const Register = props => {
     </Form>
   );
 };
-const RegisterForm = Form.create()(Register);
-const UserCom = props => {
+const RegisterForm = Form.create<RegisterProps>()(Register);
+
+type UserProps = ReturnType<typeof mapStateFromProps> & DispatchType & FormType;
+
+const UserCom: React.FC<UserProps> = props => {
   useEffect(() => {
     if (getQueryVariable('code')) {
-      props.changeGlobaLoading({ load: true });
+      props.dispatch({
+        type: 'users/changeGlobaLoading',
+        payload: { load: true },
+      });
       githubLoginApi({ code: getQueryVariable('code') }).then(res => {
         if (res?.success) {
-          props.initUser(res.result);
+          props.dispatch({ type: 'users/initUser', payload: res.result });
           localStorage.setItem('login', JSON.stringify(res.result));
           window.open(LOGINLOCALPROD, '_self');
         } else {
           message.error('网络异常, 请稍后再试');
-          props.changeGlobaLoading({ load: false });
+          props.dispatch({
+            type: 'users/changeGlobaLoading',
+            payload: { load: false },
+          });
         }
       });
     }
-    const info = JSON.parse(localStorage.getItem('login'));
-    if (info?.avatar && info?.username) props.initUser(info);
+    const local: string = localStorage.getItem('login') || '{}';
+    const info = JSON.parse(local);
+    if (info?.avatar && info?.username)
+      props.dispatch({ type: 'users/initUser', payload: info });
   }, []);
   /**
    * @description 模态框显隐逻辑
@@ -404,19 +417,10 @@ const UserCom = props => {
   );
 };
 
-const mapStateFromProps = ({ users }) => ({
+const mapStateFromProps = ({ users }: connectState) => ({
   username: users.username,
   avatar: users.avatar,
   loading: users.loading,
 });
-const mapDispatchFromProps = {
-  initUser: payload => ({ type: 'users/initUser', payload }),
-  changeGlobaLoading: payload => ({
-    type: 'users/changeGlobaLoading',
-    payload,
-  }),
-};
 
-export default UserCom
-  |> Form.create()
-  |> connect(mapStateFromProps, mapDispatchFromProps);
+export default connect(mapStateFromProps)(Form.create<UserProps>()(UserCom));

@@ -1,4 +1,15 @@
+/**
+ * @description 文章相关接口
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import request from '@/utils/request';
+import {
+  articleIdType,
+  articleMsgInitType,
+  addMsgType,
+  replyMsgType,
+} from './services';
 /**
  * @description 初始化文章列表
  */
@@ -11,7 +22,7 @@ export async function initIndexArticleListApi() {
  * @description 以ID获取文章详情
  * @param {Object} data _id对象
  */
-export async function articleDetailApi(data) {
+export async function articleDetailApi(data: articleIdType) {
   return request('/api/blog/articleDetail', {
     method: 'post',
     data,
@@ -27,8 +38,9 @@ export async function hotArticleApi() {
 }
 /**
  * @description 初始化留言
+ * @param {Object} data {type: 文章_id}
  */
-export async function initArticleMessageApi(data) {
+export async function initArticleMessageApi(data: articleMsgInitType) {
   return request('/api/blog/initArticleMessage', {
     method: 'post',
     data,
@@ -37,7 +49,7 @@ export async function initArticleMessageApi(data) {
 /**
  * @description 添加留言
  */
-export async function submitArticleMessageApi(data) {
+export async function submitArticleMessageApi(data: addMsgType) {
   return request('/api/blog/submitArticleMessage', {
     method: 'post',
     data,
@@ -46,7 +58,7 @@ export async function submitArticleMessageApi(data) {
 /**
  * @description 回复留言
  */
-export async function replyArticleMessageApi(data) {
+export async function replyArticleMessageApi(data: replyMsgType) {
   return request('/api/blog/replyArticleMessage', {
     method: 'post',
     data,
@@ -54,8 +66,9 @@ export async function replyArticleMessageApi(data) {
 }
 /**
  * @description 以类型获取文章
+ * @param {Object} data {type: 文章type}
  */
-export async function checkTagArticleApi(data) {
+export async function checkTagArticleApi(data: articleMsgInitType) {
   return request('/api/blog/checkTagArticle', {
     method: 'post',
     data,

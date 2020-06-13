@@ -1,11 +1,20 @@
+/**
+ * @description 热门文章展示组件
+ * @author sellardoor
+ * @date 2020/6/13
+ */
 import React, { useEffect, useState } from 'react';
-import { Icon, Divider, List } from 'antd';
-import moment from 'moment';
+import { Divider, List } from 'antd';
 import { hotArticleApi } from '@/services/article';
 
+interface DataProps {
+  _id: string;
+  title: string;
+  [key: string]: any;
+}
+
 export default function HotCom() {
-  const [hotarticle, setHotarticle] = useState([]);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<DataProps[]>([]);
 
   useEffect(() => {
     hotArticleApi().then(res => {
@@ -13,9 +22,9 @@ export default function HotCom() {
     });
   }, []);
 
-  const handleDetail = id => {
-    window.open(`/articledetail?_id=${id}`, '_self')
-  }
+  const handleDetail = (id: string) => {
+    window.open(`/articledetail?_id=${id}`, '_self');
+  };
   return (
     <div
       style={{
@@ -34,7 +43,7 @@ export default function HotCom() {
           borderRadius: 10,
           background: '#fff',
           marginRight: 20,
-          fontSize: 12
+          fontSize: 12,
         }}
         dataSource={data}
         split={false}
@@ -49,7 +58,9 @@ export default function HotCom() {
               cursor: 'pointer',
             }}
           >
-            <div style={{width: '100%', textAlign: 'center'}}>{item.title}</div>
+            <div style={{ width: '100%', textAlign: 'center' }}>
+              {item.title}
+            </div>
           </List.Item>
         )}
       />

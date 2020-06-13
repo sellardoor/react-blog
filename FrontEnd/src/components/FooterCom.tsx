@@ -1,3 +1,8 @@
+/**
+ * @description 底部图片, 说明等
+ * @author sellardoor
+ * @date 2020/6/13
+ */
 import React from 'react';
 import { Icon, Row, Col } from 'antd';
 import styles from './index.less';
@@ -26,8 +31,8 @@ export default function FooterCom() {
         FOLLOW ON GITHUB
       </div>
       <Row>
-        {FOOTERIMGS.map(url => (
-          <Col span={3}>
+        {FOOTERIMGS.map((url, idx) => (
+          <Col span={3} key={idx}>
             <div className={styles.info}>
               <LazyLoad offset={100}>
                 <img

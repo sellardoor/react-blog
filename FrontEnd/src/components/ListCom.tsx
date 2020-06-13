@@ -1,7 +1,12 @@
+/**
+ * @description 首页List文章组件
+ * @author sellardoor
+ * @date 2020/06/04
+ */
 import React, { useEffect, useState } from 'react';
 import { Icon, Spin, Card, Col, Row } from 'antd';
 import { initIndexArticleListApi } from '@/services/article';
-import styles from './index.less';
+import './index.less';
 import moment from 'moment';
 import marked from 'marked';
 import hljs from 'highlight.js';
@@ -9,9 +14,21 @@ import 'highlight.js/styles/monokai-sublime.css';
 import '../pages/index.less';
 import LazyLoad from 'react-lazyload';
 
-export default function ListCom(props) {
-  const [data, setData] = useState([]);
-  const [load, setLoad] = useState(false);
+interface DataProps {
+  date: number;
+  img: string;
+  info: string;
+  msg: number;
+  title: string;
+  type: string;
+  view: number;
+  _id: string;
+  [key: string]: any;
+}
+
+export default function ListCom() {
+  const [data, setData] = useState<DataProps[]>([]);
+  const [load, setLoad] = useState<boolean>(false);
   useEffect(() => {
     setLoad(true);
     initIndexArticleListApi().then(res => {
@@ -22,7 +39,7 @@ export default function ListCom(props) {
     });
   }, []);
 
-  const articleDetail = _id => {
+  const articleDetail = (_id: string) => {
     window.open(`/articledetail?_id=${_id}`, '_self');
   };
 
@@ -33,7 +50,6 @@ export default function ListCom(props) {
     gfm: true,
     pedantic: false,
     sanitize: false,
-    tables: true,
     breaks: false,
     smartLists: true,
     smartypants: false,

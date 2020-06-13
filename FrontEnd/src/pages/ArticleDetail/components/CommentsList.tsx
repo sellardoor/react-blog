@@ -1,16 +1,29 @@
+/**
+ * @description Comment组件封装
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import React, { useState } from 'react';
 import { Comment, List, Input, Button, Tooltip, message } from 'antd';
 import { connect } from 'dva';
-import { getQueryVariable } from '@/utils/utils'
+import { getQueryVariable } from '@/utils/utils';
+import moment from 'moment';
+import { connectState, DispatchType } from '@/models/connect';
+import { CommentsListArrType, CommentsListType } from '../../Message/components/CommentsList';
 
-const CommentsHoc = Comp => props => {
-  const [isShow, setIsShow] = useState(false);
-  const [value, setValue] = useState('');
+type CommentsHocType = ReturnType<typeof mapStateFromProps> &
+  DispatchType &
+  CommentsListArrType & { fathername: string };
+
+const CommentsHoc = () => (props: CommentsHocType) => {
+  const { dispatch } = props;
+  const [isShow, setIsShow] = useState<boolean>(false);
+  const [value, setValue] = useState<string>('');
   const toggleComent = () => {
     setIsShow(!isShow);
     setValue('');
   };
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
   const handlesubmit = () => {
@@ -19,11 +32,14 @@ const CommentsHoc = Comp => props => {
       return;
     }
     if (localStorage.getItem('login')) {
-      const { username, avatar } = JSON.parse(localStorage.getItem('login'));
+      const { username, avatar } = JSON.parse(
+        localStorage.getItem('login') || '{}',
+      );
       if (props.pid === '0') {
-        props.toogleSpin(true);
-        props
-          .replyMessage({
+        dispatch({ type: 'article/toogleSpin', payload: { spin: true } });
+        dispatch({
+          type: 'article/replyMessage',
+          payload: {
             author: username,
             avatar: avatar,
             content: value,
@@ -31,16 +47,17 @@ const CommentsHoc = Comp => props => {
             date: +new Date(),
             type: getQueryVariable('_id'),
             fathername: props.author,
-          })
-          .then(() => {
-            props.toogleSpin(false);
-            setIsShow(!isShow);
-            setValue('');
-          });
+          },
+        }).then(() => {
+          dispatch({ type: 'article/toogleSpin', payload: { spin: false } });
+          setIsShow(!isShow);
+          setValue('');
+        });
       } else {
-        props.toogleSpin(true);
-        props
-          .replyMessage({
+        dispatch({ type: 'article/toogleSpin', payload: { spin: true } });
+        dispatch({
+          type: 'article/replyMessage',
+          payload: {
             author: username,
             avatar: avatar,
             content: value,
@@ -48,12 +65,12 @@ const CommentsHoc = Comp => props => {
             date: +new Date(),
             type: getQueryVariable('_id'),
             fathername: props.author,
-          })
-          .then(() => {
-            props.toogleSpin(false);
-            setIsShow(!isShow);
-            setValue('');
-          });
+          },
+        }).then(() => {
+          dispatch({ type: 'article/toogleSpin', payload: { spin: false } });
+          setIsShow(!isShow);
+          setValue('');
+        });
       }
     } else {
       message.error('尚未登录');
@@ -164,17 +181,11 @@ const CommentsHoc = Comp => props => {
     );
   }
 };
-const mapStateFromProps = ({ article }) => ({ article });
-const mapDispatchFromProps = {
-  replyMessage: payload => ({ type: 'article/replyMessage', payload }),
-  toogleSpin: payload => ({ type: 'article/toogleSpin', payload }),
-};
-const CommentsComp = connect(
-  mapStateFromProps,
-  mapDispatchFromProps,
-)(CommentsHoc(Comment));
+const mapStateFromProps = ({ article }: connectState) => ({ article });
+const CommentsComp = connect(mapStateFromProps)(CommentsHoc());
 
-const CommentsList = props => {
+
+const CommentsList = (props: CommentsListType) => {
   return (
     <List
       itemLayout="horizontal"

@@ -1,6 +1,5 @@
 /**
- * @fileoverview instagram组件
- * @description 九宫格图
+ * @description 九宫格图组件
  * @author sellardoor
  * @date 2020/06/04
  */
@@ -33,17 +32,18 @@ export default function Instagram() {
             alignContent: 'space-around',
           }}
         >
-          {INSTAGRAM.map(url => (
+          {INSTAGRAM.map((url, idx) => (
             <div
+              key={idx}
               className={styles.ins}
               style={{ width: '33%', height: '100px', cursor: 'pointer' }}
             >
-                <img
-                  style={{
-                    display: 'inline-block',
-                  }}
-                  src={url}
-                />
+              <img
+                style={{
+                  display: 'inline-block',
+                }}
+                src={url}
+              />
             </div>
           ))}
         </div>

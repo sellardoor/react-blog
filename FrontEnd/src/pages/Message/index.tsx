@@ -1,3 +1,8 @@
+/**
+ * @description 留言组件
+ * @author sellardoor
+ * @date 2020/06/13
+ */
 import React, { Component } from 'react';
 import HeadCom from '@/components/HeadCom';
 import BarCom from '@/components/BarCom';
@@ -62,13 +67,13 @@ export class Message extends Component {
                     <span
                       style={{
                         fontSize: 16,
-                        fontWeight: '500',
+                        fontWeight: 500,
                         color: '#000',
                       }}
                     >
                       <Tooltip title="https://github.com/sellardoor">
                         <Icon
-                          id="hj-icon1"
+                          className="hj-icon1"
                           style={{ marginRight: 25 }}
                           type="github"
                           theme="filled"
@@ -76,7 +81,7 @@ export class Message extends Component {
                       </Tooltip>
                       <Tooltip title="18584812344">
                         <Icon
-                          id="hj-icon2"
+                          className="hj-icon2"
                           style={{ marginRight: 25 }}
                           type="wechat"
                           theme="filled"
@@ -84,7 +89,7 @@ export class Message extends Component {
                       </Tooltip>
                       <Tooltip title="248833990">
                         <Icon
-                          id="hj-icon3"
+                          className="hj-icon3"
                           style={{ marginRight: 25 }}
                           type="qq-circle"
                           theme="filled"
@@ -92,7 +97,7 @@ export class Message extends Component {
                       </Tooltip>
                       <Tooltip title="https://www.yuque.com/gensan">
                         <Icon
-                          id="hj-icon4"
+                          className="hj-icon4"
                           style={{ marginRight: 25 }}
                           type="yuque"
                           theme="filled"
@@ -100,7 +105,7 @@ export class Message extends Component {
                       </Tooltip>
                       <Tooltip title="文明人不看微博">
                         <Icon
-                          id="hj-icon5"
+                          className="hj-icon5"
                           type="weibo-circle"
                           theme="filled"
                         />
