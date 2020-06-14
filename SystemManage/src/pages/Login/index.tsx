@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Icon, Input, Button, Row, Col, Spin } from 'antd';
 import { connect } from 'dva';
-import styles from './index.less';
 import ParticlesBg from 'particles-bg';
+import styles from './index.less';
 import { FormType, DispatchType, IRouteComponentProps } from '@/models/connect';
 
 function hasErrors(fieldsError: any) {
@@ -47,131 +47,100 @@ const Login: React.FC<Iprops> = props => {
   } = props.form;
   const usernameError = isFieldTouched('username') && getFieldError('username');
   const passwordError = isFieldTouched('password') && getFieldError('password');
-  return React.createElement(
-    'div',
-    { className: styles.container },
-    React.createElement(Spin, {
-      indicator: React.createElement(Icon, {
-        type: 'loading',
-        style: { fontSize: 60, color: '#fff' },
-        spin: true,
-      }),
-      size: 'large',
-      tip: 'Loading...',
-      spinning: loading,
-      style: {
-        position: 'absolute',
-        zIndex: 99,
-        marginTop: '-100px',
-        color: '#fff',
-        fontSize: 20,
-      },
-    }),
-    React.createElement(ParticlesBg, { type: 'thick', bg: true }),
-    React.createElement(
-      Form,
-      { layout: 'inline', onSubmit: handleSubmit, style: { width: '350px' } },
-      React.createElement(
-        Row,
-        { justify: 'center', align: 'middle', style: { width: '350px' } },
-        React.createElement(
-          Col,
-          { style: { textAlign: 'center' } },
-          React.createElement(Icon, {
-            type: 'apple',
-            theme: 'filled',
-            style: { color: '#fff', fontSize: '70px' },
-          }),
-        ),
-        React.createElement(
-          Col,
-          null,
-          React.createElement(
-            'h1',
-            {
-              style: {
-                color: '#fff',
-                textAlign: 'center',
-                marginTop: '20px',
-              },
-            },
-            'Management \u00A0Systems',
-          ),
-        ),
-        React.createElement(
-          Col,
-          { style: { textAlign: 'center' } },
-          React.createElement(
-            Form.Item,
-            {
-              validateStatus: usernameError ? 'error' : '',
-              help: usernameError || '',
-            },
-            getFieldDecorator('username', {
-              rules: [
-                { required: true, message: 'Please input your username!' },
-              ],
-            })(
-              React.createElement(Input, {
-                size: 'large',
-                style: { width: '350px', marginTop: '20px' },
-                prefix: React.createElement(Icon, {
-                  type: 'user',
-                  style: { color: 'rgba(0,0,0,.25)' },
-                }),
-                placeholder: 'Username',
-              }),
-            ),
-          ),
-        ),
-        React.createElement(
-          Col,
-          { style: { textAlign: 'center' } },
-          React.createElement(
-            Form.Item,
-            {
-              validateStatus: passwordError ? 'error' : '',
-              help: passwordError || '',
-            },
-            getFieldDecorator('password', {
-              rules: [
-                { required: true, message: 'Please input your Password!' },
-              ],
-            })(
-              React.createElement(Input, {
-                size: 'large',
-                style: { width: '350px', marginTop: '30px' },
-                prefix: React.createElement(Icon, {
-                  type: 'lock',
-                  style: { color: 'rgba(0,0,0,.25)' },
-                }),
-                type: 'password',
-                placeholder: 'Password',
-              }),
-            ),
-          ),
-        ),
-        React.createElement(
-          Col,
-          { style: { textAlign: 'center' } },
-          React.createElement(
-            Form.Item,
-            null,
-            React.createElement(
-              Button,
-              {
-                size: 'large',
-                style: { width: '350px', marginTop: '30px' },
-                type: 'primary',
-                htmlType: 'submit',
-                disabled: hasErrors(getFieldsError()),
-              },
-              'Log in',
-            ),
-          ),
-        ),
-      ),
-    ),
+
+  return (
+    <div className={styles.container}>
+      <ParticlesBg type="thick" bg={true} />
+      <Spin
+        indicator={<Icon type="loading" style={{ fontSize: 60, color: '#fff' }} spin />}
+        size="large"
+        spinning={loading}
+        style={{
+          position: 'absolute',
+          zIndex: 99,
+          marginTop: '-300px',
+          color: '#fff',
+          fontSize: 20,
+        }}
+      >
+        <Form
+          layout="inline"
+          onSubmit={handleSubmit}
+          style={{ width: '350px' }}
+        >
+          <Row justify="center" align="middle" style={{ width: '350px' }}>
+            <Col style={{ textAlign: 'center' }}>
+              <Icon
+                style={{ color: '#fff', fontSize: '70px' }}
+                type="apple"
+                theme="filled"
+              />
+            </Col>
+            <Col>
+              <h1
+                style={{
+                  color: '#fff',
+                  textAlign: 'center',
+                  marginTop: '20px',
+                }}
+              >
+                Management Systems
+              </h1>
+            </Col>
+            <Form.Item
+              validateStatus={usernameError ? 'error' : ''}
+              help={usernameError || ''}
+            >
+              {getFieldDecorator('username', {
+                rules: [
+                  { required: true, message: 'Please input your username!' },
+                ],
+              })(
+                <Input
+                  style={{ width: '350px', marginTop: '20px' }}
+                  size="large"
+                  prefix={
+                    <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                  }
+                  placeholder="Username"
+                />,
+              )}
+            </Form.Item>
+            <Form.Item
+              validateStatus={passwordError ? 'error' : ''}
+              help={passwordError || ''}
+            >
+              {getFieldDecorator('password', {
+                rules: [
+                  { required: true, message: 'Please input your Password!' },
+                ],
+              })(
+                <Input
+                  style={{ width: '350px', marginTop: '20px' }}
+                  size="large"
+                  prefix={
+                    <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                  }
+                  type="password"
+                  placeholder="Password"
+                />,
+              )}
+            </Form.Item>
+            <Form.Item>
+              <Button
+                size="large"
+                style={{ width: '350px', marginTop: '30px' }}
+                type="primary"
+                htmlType="submit"
+                disabled={hasErrors(getFieldsError())}
+              >
+                Log in
+              </Button>
+            </Form.Item>
+          </Row>
+        </Form>
+      </Spin>
+    </div>
   );
 };
 export default connect()(Form.create({ name: 'horizontal_login' })(Login));

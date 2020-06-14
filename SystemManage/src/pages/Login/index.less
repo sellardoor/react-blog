@@ -1,11 +1,17 @@
-.container{
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 200px;
-    :global{
-        .ant-input, .ant-btn{
-            border-radius: 100px;
-        }
+.container {
+  :global {
+    .ant-spin-blur::after {
+      opacity: 0;
     }
+  }
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 300px;
+  :global {
+    .ant-input,
+    .ant-btn {
+      border-radius: 100px;
+    }
+  }
 }
