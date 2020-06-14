@@ -1,7 +1,7 @@
 import React from 'react';
-import { Row, Breadcrumb } from 'antd'
+import { Row, Breadcrumb } from 'antd';
 
-export default function index() {
+export default () => {
   return (
     <div
       style={{
@@ -19,4 +19,4 @@ export default function index() {
       </Row>
     </div>
   );
-}
+};

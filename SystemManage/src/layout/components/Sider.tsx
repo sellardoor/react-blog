@@ -1,10 +1,14 @@
 import React from 'react';
-import { Layout, Menu, Icon, Button } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'umi';
 
 const { Sider: SiderComp } = Layout;
 
-const Sider = props => {
+interface Iprops {
+  idx: string;
+}
+
+const Sider: React.FC<Iprops> = props => {
   return (
     <SiderComp>
       <div style={{ height: '60px' }}>

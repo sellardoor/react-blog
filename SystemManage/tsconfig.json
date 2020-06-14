@@ -8,7 +8,7 @@
     "esModuleInterop": true,
     "sourceMap": false,
     "baseUrl": "./",
-    // "strict": true,
+    "strict": true,
     "paths": {
       "@/*": ["src/*"],
       "@@/*": ["src/.umi/*"]
@@ -19,7 +19,7 @@
     "mock/**/*",
     "src/**/*",
     "config/**/*",
-    ".umirc.js",
+    ".umirc.ts",
     "typings.d.ts"
   ]
 }

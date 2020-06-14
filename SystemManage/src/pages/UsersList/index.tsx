@@ -1,30 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Breadcrumb, Button, Table, Tag } from 'antd';
-import { Link } from 'umi';
-import { initUsersListApi } from '@/server/users';
+import { Row, Breadcrumb, Table, Tag } from 'antd';
+import { initUsersListApi } from '@/services/users';
 import moment from 'moment';
+
+interface UsersType {
+  date: string;
+  email: string;
+  key: string;
+  origin: string;
+  recentlogin: string;
+  root: string;
+  username: string;
+}
+
+interface ResponseUserType {
+  avatar: string;
+  date: number;
+  email: string;
+  origin: string;
+  password: string;
+  recentlogin: number;
+  root: string;
+  username: string;
+  _id: string;
+  [key: string]: any;
+}
 
 const { Column } = Table;
 export default function index() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<UsersType[]>([]);
   useEffect(() => {
     initUsersListApi().then(res => {
       if (res?.success) {
-        const resultdata = res.result.map(item => {
-          return {
-            key: item._id,
-            username: item.username,
-            email: item.email,
-            root: item.root,
-            origin: item.origin,
-            date: item?.date
-              ? moment(item.date).format('YYYY-MM-DD HH:mm:ss')
-              : '',
-            recentlogin: item?.recentlogin
-              ? moment(item.recentlogin).format('YYYY-MM-DD HH:mm:ss')
-              : '',
-          };
-        });
+        const resultdata: UsersType[] = res.result.map(
+          (item: ResponseUserType) => {
+            console.log(item);
+            return {
+              key: item._id,
+              username: item.username,
+              email: item.email,
+              root: item.root,
+              origin: item.origin,
+              date: item?.date
+                ? moment(item.date).format('YYYY-MM-DD HH:mm:ss')
+                : '',
+              recentlogin: item?.recentlogin
+                ? moment(item.recentlogin).format('YYYY-MM-DD HH:mm:ss')
+                : '',
+            };
+          },
+        );
         setData(resultdata);
       }
     });

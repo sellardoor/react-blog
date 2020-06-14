@@ -1,7 +1,6 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
 
-
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -41,40 +40,33 @@ const request = extend({
   errorHandler,
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
-
 });
 
 // request拦截器, 改变url 或 options.
-request.interceptors.request.use(async (url, options) => {
-
-  let c_token = localStorage.getItem("Authorization");
+request.interceptors.request.use((url, options) => {
+  let c_token = localStorage.getItem('Authorization');
   if (c_token) {
     const headers = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': c_token
+      Accept: 'application/json',
+      Authorization: c_token,
     };
-    return (
-      {
-        url: url,
-        options: { ...options, headers, },
-      }
-    );
+    return {
+      url: url,
+      options: { ...options, headers },
+    };
   } else {
     const headers = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': c_token
+      Accept: 'application/json',
+      Authorization: c_token,
     };
-    return (
-      {
-        url: url,
-        options: { ...options },
-      }
-    );
+    return {
+      url: url,
+      options: { ...options },
+    };
   }
-
-})
+});
 
 // response拦截器, 处理response
 // request.interceptors.response.use((response, options) => {
@@ -84,6 +76,5 @@ request.interceptors.request.use(async (url, options) => {
 //   }
 //   return response;
 // });
-
 
 export default request;

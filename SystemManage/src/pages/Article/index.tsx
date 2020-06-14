@@ -14,15 +14,15 @@ import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai-sublime.css';
 import './index.less';
-import { uploadArticleApi } from '@/server/articleList';
+import { uploadArticleApi } from '@/services/articleList';
 import { Link } from 'umi';
-import { CDN, UPLOADURL } from '@/utils/constants'
+import { CDN, UPLOADURL } from '@/utils/constants';
+import { IRouteComponentProps } from '@/models/connect';
 
-const Article = props => {
+const Article = (props: IRouteComponentProps) => {
   useEffect(() => {
     const div = document.getElementById('contentdiv');
-    div.scrollTop = div.scrollHeight;
-    console.log(CDN)
+    div!.scrollTop = div!.scrollHeight;
   });
   const renderer = new marked.Renderer();
 
@@ -31,7 +31,6 @@ const Article = props => {
     gfm: true,
     pedantic: false,
     sanitize: false,
-    tables: true,
     breaks: false,
     smartLists: true,
     smartypants: false,
@@ -40,20 +39,24 @@ const Article = props => {
     },
   });
 
-  const [text, setText] = useState('');
-  const [title, setTitle] = useState('');
-  const [info, setInfo] = useState('');
-  const [type, setType] = useState('');
-  const [avatar, setAvatar] = useState('');
-  const [fileList, setFileList] = useState([]);
+  const [text, setText] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
+  const [info, setInfo] = useState<string>('');
+  const [type, setType] = useState<string>('');
+  const [avatar, setAvatar] = useState<string>('');
+  const [fileList, setFileList] = useState<any[]>([]);
 
-  const TextChange = e => setText(e.target.value);
-  const titleChange = e => setTitle(e.target.value);
-  const infoChange = e => setInfo(e.target.value);
-  const typeChange = e => setType(e.target.value);
+  const TextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setText(e.target.value);
+  const titleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTitle(e.target.value);
+  const infoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setInfo(e.target.value);
+  const typeChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setType(e.target.value);
   const [load, setLoad] = useState(false);
 
-  const uploadChange = info => {
+  const uploadChange = (info: any) => {
     let fileList = [...info.fileList];
     fileList = fileList.slice(-1);
     fileList = fileList.map(file => {
@@ -64,27 +67,25 @@ const Article = props => {
     });
     if (info.file.status === 'done') {
       const { response } = info.file;
-      console.log(response)
       setAvatar(`${CDN}${response?.data?.data?.key ?? ''}`);
       message.success(`${info.file.name} 上传成功`);
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} 上传失败`);
     }
-    setFileList(fileList)
-  }
+    setFileList(fileList);
+  };
 
-  const beforeUpload = file => {
-    const isJpgOrPng =
-        file.type === 'image/jpeg' || file.type === 'image/png';
-      if (!isJpgOrPng) {
-        message.error('封面支持的格式为JPG/PNG');
-      }
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        message.error('最大支持2MB!');
-      }
-      return isJpgOrPng && isLt2M;
-  }
+  const beforeUpload = (file: any) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('封面支持的格式为JPG/PNG');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('最大支持2MB!');
+    }
+    return isJpgOrPng && isLt2M;
+  };
 
   const handleSubmit = () => {
     if (!title) {
@@ -175,14 +176,14 @@ const Article = props => {
           <Col span={8}>
             <p style={{ marginBottom: 5 }}>上传封面 :</p>
             <Upload
-            name= 'file'
-            action= {UPLOADURL}
-            headers= {{
-              authorization: 'authorization-text',
-            }}
-            onChange={uploadChange}
-            beforeUpload={beforeUpload}
-            fileList={fileList}
+              name="file"
+              action={UPLOADURL}
+              headers={{
+                authorization: 'authorization-text',
+              }}
+              onChange={uploadChange}
+              beforeUpload={beforeUpload}
+              fileList={fileList}
             >
               <Button>
                 <Icon type="upload" /> 上传

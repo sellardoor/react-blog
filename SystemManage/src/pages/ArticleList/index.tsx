@@ -5,34 +5,59 @@ import {
   Col,
   Table,
   Divider,
-  Result,
   Spin,
   Popconfirm,
   message,
   Button,
-  Icon
+  Icon,
 } from 'antd';
-import { articleListApi, articleDeleteApi, setArticleHotApi, removeArticleHotApi } from '@/server/articleList';
+import {
+  articleListApi,
+  articleDeleteApi,
+  setArticleHotApi,
+  removeArticleHotApi,
+} from '@/services/articleList';
 import moment from 'moment';
 import { Link } from 'umi';
 
 const { Column } = Table;
 
-export default function ArticleList(props) {
-  const [load, setLoad] = useState(false);
-  const [data, setData] = useState([]);
+interface DataType {
+  date: string;
+  hot: boolean;
+  key: string;
+  title: string;
+  type: string;
+}
+interface ResultItemType {
+  content: string;
+  date: number;
+  hot: true;
+  img: string;
+  info: string;
+  msg: number;
+  title: string;
+  type: string;
+  view: number;
+  _id: string;
+  [key: string]: any;
+}
+
+export default function ArticleList() {
+  const [load, setLoad] = useState<boolean>(false);
+  const [data, setData] = useState<DataType[]>([]);
   // 初始化列表
   useEffect(() => {
     articleListApi().then(res => {
       setLoad(true);
       if (res?.success) {
-        const resDate = res.result.map(item => {
+        const resDate = res.result.map((item: ResultItemType) => {
           return {
             key: item._id,
             title: item.title,
             type: item.type,
             date: moment(item.date).format('YYYY-MM-DD HH:mm:ss'),
-            hot: item.hot
+            hot: item.hot,
           };
         });
         setData(resDate);
@@ -41,14 +66,14 @@ export default function ArticleList(props) {
     });
   }, []);
   // 删除文章
-  const confirm = key => {
+  const confirm = (key: string) => {
     setLoad(true);
     articleDeleteApi({ _id: key }).then(res => {
       if (res?.success) {
         message.success('删除成功');
         articleListApi().then(res => {
           if (res?.success) {
-            const resDate = res.result.map(item => {
+            const resDate = res.result.map((item: ResultItemType) => {
               return {
                 key: item._id,
                 title: item.title,
@@ -65,14 +90,14 @@ export default function ArticleList(props) {
     });
   };
   // 设为热门
-  const setHotarticle = key => {
+  const setHotarticle = (key: string) => {
     setLoad(true);
-    setArticleHotApi({_id: key}).then(res => {
-      if(res?.success) {
-        message.success('成功设为热门专栏文章')
+    setArticleHotApi({ _id: key }).then(res => {
+      if (res?.success) {
+        message.success('成功设为热门专栏文章');
         articleListApi().then(res => {
           if (res?.success) {
-            const resDate = res.result.map(item => {
+            const resDate = res.result.map((item: ResultItemType) => {
               return {
                 key: item._id,
                 title: item.title,
@@ -86,17 +111,17 @@ export default function ArticleList(props) {
           }
         });
       }
-    })
-  }
+    });
+  };
   // 取消热门
-  const removeHotarticle = key => {
+  const removeHotarticle = (key: string) => {
     setLoad(true);
-    removeArticleHotApi({_id: key}).then(res => {
-      if(res?.success) {
-        message.success('成功取消热门专栏文章')
+    removeArticleHotApi({ _id: key }).then(res => {
+      if (res?.success) {
+        message.success('成功取消热门专栏文章');
         articleListApi().then(res => {
           if (res?.success) {
-            const resDate = res.result.map(item => {
+            const resDate = res.result.map((item: ResultItemType) => {
               return {
                 key: item._id,
                 title: item.title,
@@ -110,8 +135,8 @@ export default function ArticleList(props) {
           }
         });
       }
-    })
-  }
+    });
+  };
   return (
     <Spin size="large" spinning={load}>
       <div
@@ -133,11 +158,9 @@ export default function ArticleList(props) {
           <h1>文章列表</h1>
         </Row>
         <Row>
-          <Col style={{textAlign:'right'}}>
-            <Button type='primary'>
-              <Link to='/articlelist/uploadarticle'>
-              写文章
-              </Link>
+          <Col style={{ textAlign: 'right' }}>
+            <Button type="primary">
+              <Link to="/articlelist/uploadarticle">写文章</Link>
             </Button>
           </Col>
         </Row>
@@ -149,15 +172,17 @@ export default function ArticleList(props) {
               dataIndex="title"
               key="title"
             />
-            <Column 
-              width="15%" 
-              title="热门文章" 
-              key="hot" 
+            <Column
+              width="15%"
+              title="热门文章"
+              key="hot"
               render={obj => {
-                if(obj.hot){
-                  return (<Icon style={{color: 'red'}} type="fire" theme='filled' />)
-                }else {
-                  return (<Icon type="fire" />)
+                if (obj.hot) {
+                  return (
+                    <Icon style={{ color: 'red' }} type="fire" theme="filled" />
+                  );
+                } else {
+                  return <Icon type="fire" />;
                 }
               }}
             />
@@ -168,7 +193,9 @@ export default function ArticleList(props) {
               key="action"
               render={obj => (
                 <span>
-                  <Link to={'/articlelist/articledetail?_id=' + obj.key}>详情</Link>
+                  <Link to={'/articlelist/articledetail?_id=' + obj.key}>
+                    详情
+                  </Link>
                   <Divider type="vertical" />
                   <Popconfirm
                     title="确定要删除吗?"
@@ -179,7 +206,9 @@ export default function ArticleList(props) {
                     <a>删除</a>
                   </Popconfirm>
                   <Divider type="vertical" />
-                  <Link to={'/articlelist/articleedit?_id=' + obj.key}>修改</Link>
+                  <Link to={'/articlelist/articleedit?_id=' + obj.key}>
+                    修改
+                  </Link>
                   <Divider type="vertical" />
                   <Popconfirm
                     title="是否设为热门专栏文章?"

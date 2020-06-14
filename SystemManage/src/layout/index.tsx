@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import { Layout, Icon, Badge, Affix, Dropdown, Menu } from 'antd';
 import Sider from './components/Sider';
-import styles from './index.less';
+import './index.less';
+import { IRouteComponentProps } from '@/models/connect';
 
 const { Header, Content } = Layout;
 
-const Layouts = props => {
+type Iprops = IRouteComponentProps;
+
+const Layouts: React.FC<Iprops> = props => {
   useEffect(() => {
-    document.getElementById('root').style.height = '100%';
+    document.getElementById('root')!.style.height = '100%';
   }, []);
   const handleOut = () => {
     localStorage.removeItem('Authorization');

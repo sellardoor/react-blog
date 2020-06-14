@@ -4,17 +4,19 @@ import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai-sublime.css';
 import '../Article/index.less';
-import { articleDetailApi } from '@/server/articleList';
+import { articleDetailApi } from '@/services/articleList';
 import { Link } from 'umi';
+import { IRouteComponentProps } from '@/models/connect';
 
-export default function index(props) {
-  const [load, setLoad] = useState(false);
-  const [text, setText] = useState('');
-  const [head, setHead] = useState('');
+export default function index(props: IRouteComponentProps) {
+  const [load, setLoad] = useState<boolean>(false);
+  const [text, setText] = useState<string>('');
+  const [head, setHead] = useState<string>('');
 
   useEffect(() => {
     setLoad(true);
-    articleDetailApi(props.location.query).then(res => {
+    const { _id = '' }: any = props.location.query;
+    articleDetailApi({ _id }).then(res => {
       if (res?.success && res.result.length > 0) {
         setText(res.result[0].content);
         setHead(res.result[0].title);
@@ -30,7 +32,6 @@ export default function index(props) {
     gfm: true,
     pedantic: false,
     sanitize: false,
-    tables: true,
     breaks: false,
     smartLists: true,
     smartypants: false,

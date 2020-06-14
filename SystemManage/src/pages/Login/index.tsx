@@ -3,20 +3,30 @@ import { Form, Icon, Input, Button, Row, Col, Spin } from 'antd';
 import { connect } from 'dva';
 import styles from './index.less';
 import ParticlesBg from 'particles-bg';
-function hasErrors(fieldsError) {
+import { FormType, DispatchType, IRouteComponentProps } from '@/models/connect';
+
+function hasErrors(fieldsError: any) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
-const Login = props => {
-  const [loading, setloading] = useState(false);
+
+type Iprops = FormType &
+  DispatchType &
+  IRouteComponentProps & {
+    [key: string]: any;
+  };
+
+const Login: React.FC<Iprops> = props => {
+  const { dispatch } = props;
+  const [loading, setloading] = useState<boolean>(false);
   useEffect(() => {
-    document.getElementById('root').style.height = '100%';
+    document.getElementById('root')!.style.height = '100%';
     props.form.validateFields();
   }, []);
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        props.handleLogin(values).then(() => {
+        dispatch({ type: 'login/handleLogin', payload: values }).then(() => {
           setloading(true);
           if (localStorage.getItem('Authorization')) {
             setTimeout(() => {
@@ -164,13 +174,4 @@ const Login = props => {
     ),
   );
 };
-const mapStateFromProps = ({ login }) => ({
-  isLogin: login.isLogin,
-});
-const mapDispatchFromProps = {
-  handleLogin: payload => ({ type: 'login/handleLogin', payload }),
-};
-export default connect(
-  mapStateFromProps,
-  mapDispatchFromProps,
-)(Form.create({ name: 'horizontal_login' })(Login));
+export default connect()(Form.create({ name: 'horizontal_login' })(Login));
