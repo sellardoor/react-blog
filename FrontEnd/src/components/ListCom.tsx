@@ -4,7 +4,7 @@
  * @date 2020/06/04
  */
 import React, { useEffect, useState } from 'react';
-import { Icon, Spin, Card, Col, Row } from 'antd';
+import { Icon, Spin, Card, Col, Row, Tag } from 'antd';
 import { initIndexArticleListApi } from '@/services/article';
 import './index.less';
 import moment from 'moment';
@@ -13,6 +13,7 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai-sublime.css';
 import '../pages/index.less';
 import LazyLoad from 'react-lazyload';
+import CountUp from 'react-countup';
 
 interface DataProps {
   date: number;
@@ -112,18 +113,33 @@ export default function ListCom() {
                     {item.title}
                   </div>
                   <div style={{ marginBottom: 10, fontSize: 12 }}>
-                    <Icon
-                      style={{ marginRight: 5, color: '#666' }}
-                      type="eye"
-                      theme="filled"
-                    />
-                    <span style={{ marginRight: 15 }}>{item.view}</span>
-                    <Icon
-                      style={{ marginRight: 5, color: '#666' }}
-                      type="wechat"
-                      theme="filled"
-                    />
-                    <span>{item.msg}条</span>
+                    <Tag color="#24c2cb">
+                      <Icon
+                        style={{ marginRight: 5, color: '#fff' }}
+                        type="eye"
+                        theme="filled"
+                      />
+                      <span>
+                        <LazyLoad offset={0}>
+                          <CountUp duration={3} start={0} end={item.view} />
+                        </LazyLoad>
+                      </span>
+                    </Tag>
+                    <Tag color="#2db7f5">
+                      <Icon
+                        style={{
+                          marginRight: 5,
+                          color: '#fff',
+                        }}
+                        type="wechat"
+                        theme="filled"
+                      />
+                      <span>
+                        <LazyLoad offset={0}>
+                          <CountUp duration={3} start={0} end={item.msg} />条
+                        </LazyLoad>
+                      </span>
+                    </Tag>
                   </div>
                   <div
                     dangerouslySetInnerHTML={{ __html: marked(item.info) }}

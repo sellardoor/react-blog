@@ -25,6 +25,7 @@ import Instagram from '@/components/Instagram';
 import { initIndexArticleListApi } from '@/services/article';
 import moment from 'moment';
 import { Link } from 'umi';
+import CountUp from 'react-countup';
 
 export interface ArticleType {
   content: string;
@@ -117,7 +118,10 @@ export default function index() {
                   color="#24c2cb"
                   style={{ fontSize: 18, paddingBottom: 20 }}
                 >
-                  <span>Total {total} items</span>
+                  <span>
+                    Total <CountUp duration={3} start={0} end={total} />{' '}
+                    items
+                  </span>
                 </Timeline.Item>
                 {Object.keys(data).map(item => {
                   return (
@@ -133,7 +137,12 @@ export default function index() {
                         style={{ fontSize: 20, paddingBottom: 40 }}
                       >
                         <p style={{ margin: 0, lineHeight: '20px' }}>
-                          {parseInt(item)}...
+                          <CountUp
+                            duration={3}
+                            start={1000}
+                            end={parseInt(item)}
+                          />
+                          ...
                         </p>
                       </Timeline.Item>
                       {data[item].map(items => {

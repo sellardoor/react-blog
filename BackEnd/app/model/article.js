@@ -13,6 +13,7 @@ module.exports = app => {
     hot: { type: Boolean },
     view: { type: Number },
     msg: { type: Number },
+    editDate: { type: Number },
   });
   return mongoose.model('Article', ArticleSchema);
 };

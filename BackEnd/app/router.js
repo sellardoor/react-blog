@@ -39,4 +39,5 @@ module.exports = app => {
   router.post('/api/systems/removeArticleHot', controller.systems.article.removeArticleHot);
   router.post('/api/systems/qiniu', controller.systems.article.qiniu);
   router.get('/api/systems/users/init', controller.systems.users.init);
+  router.post('/api/systems/searchArticle', controller.systems.article.searchArticle);
 };

@@ -196,7 +196,7 @@ const ArticleList: React.FC<Iprops> = props => {
                     }}
                   >
                     <div>{item.title}</div>
-                    <div>{moment(item.date).format('YYYY-MM-DD HH:mm:ss')}</div>
+                    <div>{moment(item.date).format('YYYY-MM-DD')}</div>
                   </List.Item>
                 )}
               />

@@ -3,6 +3,14 @@
  * @author sellardoor
  * @date 2020/6/13
  */
+.tagsCom {
+  :global {
+    .ant-tag:hover {
+      background: #24c2cb !important;
+      color: #fff !important;
+    }
+  }
+}
 :global {
   .ant-badge {
     margin-right: 10px !important;
@@ -10,47 +18,55 @@
   .ant-list-item {
     cursor: pointer;
   }
-  .ant-menu-horizontal > .ant-menu-item > a:hover{
+  .ant-menu-horizontal > .ant-menu-item > a:hover {
     color: #24c2cb !important;
     border-top: 2px solid #24c2cb !important;
   }
-  .hj-icon1:hover, .hj-icon2:hover, .hj-icon3:hover, .hj-icon4:hover, .hj-icon5:hover {
+  .hj-icon1:hover,
+  .hj-icon2:hover,
+  .hj-icon3:hover,
+  .hj-icon4:hover,
+  .hj-icon5:hover {
     color: #24c2cb;
     cursor: pointer;
   }
-  .ant-list-something-after-last-item .ant-spin-container > .ant-list-items > .ant-list-item:last-child{
+  .ant-list-something-after-last-item
+    .ant-spin-container
+    > .ant-list-items
+    > .ant-list-item:last-child {
     border-bottom: none !important;
   }
-  .ant-card-body{
+  .ant-card-body {
     display: flex;
   }
-  .ant-divider-horizontal.ant-divider-with-text-center::before, .ant-divider-horizontal.ant-divider-with-text-center::after{
+  .ant-divider-horizontal.ant-divider-with-text-center::before,
+  .ant-divider-horizontal.ant-divider-with-text-center::after {
     border-top: 1px solid #24c2cb !important;
   }
-  .ant-tag:hover{
-    background: #24c2cb !important;
-    color: #fff !important;
-  }
-  .ant-btn-primary{
+
+  .ant-btn-primary {
     background: #24c2cb !important;
     border-color: #24c2cb;
     color: #fff !important;
   }
-  .ant-btn-primary:active, .ant-btn-primary:hover{
+  .ant-btn-primary:active,
+  .ant-btn-primary:hover {
     border-color: #24c2cb !important;
     color: #fff !important;
   }
-  .ant-btn-primary:visited{
+  .ant-btn-primary:visited {
     border-color: #24c2cb !important;
-    color: #fff !important; 
-  }
-  .ant-btn-primary:focus{
     color: #fff !important;
   }
-  .ant-input:focus, .ant-input:hover, .ant-input:active{
+  .ant-btn-primary:focus {
+    color: #fff !important;
+  }
+  .ant-input:focus,
+  .ant-input:hover,
+  .ant-input:active {
     border-color: #24c2cb !important;
   }
-  .ant-modal-title{
+  .ant-modal-title {
     color: #24c2cb !important;
   }
 }
@@ -73,7 +89,6 @@
     opacity: 0;
   }
 }
-
 
 .info:hover {
   &:before {
@@ -104,9 +119,9 @@
     opacity: 1;
   }
 }
-.uesr{
-  :global{
-    .ant-card-body{
+.uesr {
+  :global {
+    .ant-card-body {
       padding: 0px;
     }
   }

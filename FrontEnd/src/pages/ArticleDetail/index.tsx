@@ -105,7 +105,7 @@ const ArticleDetail: React.FC<ArticleDetailType> = props => {
                 theme="filled"
               />
               <span style={{ marginRight: 15 }}>
-                {moment(detail.date).format('YYYY-MM-DD HH:mm:ss')}
+                {moment(detail.date).format('YYYY-MM-DD')}
               </span>
               <Icon
                 style={{ marginRight: 5, color: '#888' }}

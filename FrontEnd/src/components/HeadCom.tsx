@@ -163,7 +163,7 @@ const HeadCom: React.FC<Iprops> = props => {
             >
               <Link to="/message" style={{ color: '#000', width: '100%' }}>
                 <span id="hj-menu2" style={{ fontSize: '16px' }}>
-                  留&nbsp;言
+                  关&nbsp;于
                 </span>
               </Link>
             </Menu.Item>

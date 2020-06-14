@@ -120,6 +120,22 @@ class ArticleController extends Controller {
       };
     }
   }
+  async searchArticle() {
+    const { ctx } = this;
+    const { title, type, hot, date, editDate } = ctx.request.body;
+    const sqlObj = {};
+    // eslint-disable-next-line
+    title ? sqlObj.title = eval('/' + ctx.request.body.title + '/i') : undefined;
+    type ? type === '全部' ? undefined : sqlObj.type = type : undefined;
+    hot ? hot === 'all' ? undefined : hot === 'true' ? sqlObj.hot = true : hot === 'false' ? sqlObj.hot = false : undefined : undefined;
+    date ? sqlObj.date = { $gte: date[0], $lte: date[1] } : undefined;
+    editDate ? sqlObj.editDate = { $gte: editDate[0], $lte: editDate[1] } : undefined;
+    const result = await ctx.model.Article.find(sqlObj);
+    ctx.body = {
+      success: true,
+      result,
+    };
+  }
 }
 
 module.exports = ArticleController;

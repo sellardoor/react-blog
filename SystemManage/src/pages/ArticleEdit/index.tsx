@@ -138,6 +138,7 @@ const ArticleEdit = (props: IRouteComponentProps) => {
         content: text,
         type,
         img: avatar,
+        editDate: +new Date(),
       },
     }).then(res => {
       if (res?.success) {

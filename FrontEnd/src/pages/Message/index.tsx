@@ -12,7 +12,17 @@ import TitleCom from '@/components/TitleCom';
 import UserCom from '@/components/UserCom';
 import TagsCom from '@/components/TagsCom';
 import Instagram from '@/components/Instagram';
-import { Row, Col, Breadcrumb, Divider, Icon, Tooltip } from 'antd';
+import { AboutBlog } from '@/utils/constants';
+import {
+  Row,
+  Col,
+  Breadcrumb,
+  Divider,
+  Icon,
+  Tooltip,
+  Descriptions,
+  Timeline,
+} from 'antd';
 import CommentsComp from './components/CommentsComp';
 
 export class Message extends Component {
@@ -41,26 +51,87 @@ export class Message extends Component {
               >
                 <Breadcrumb>
                   <Breadcrumb.Item>首页</Breadcrumb.Item>
-                  <Breadcrumb.Item>留言板</Breadcrumb.Item>
+                  <Breadcrumb.Item>关于</Breadcrumb.Item>
                 </Breadcrumb>
-                <div>
-                  <img
-                    style={{ width: '100%', marginTop: 50 }}
-                    src="http://cdn.sellardoor.cn/about-hero.jpg"
-                    alt=""
-                  />
+                <div style={{ padding: '0px 40px' }}>
+                  <p
+                    style={{
+                      marginTop: 50,
+                      fontSize: 20,
+                      borderLeft: '2px solid #24c2cb',
+                      padding: '6px 20px',
+                      background: '#f2f2f2',
+                    }}
+                  >
+                    关于
+                  </p>
+                  <Descriptions layout="vertical">
+                    <Descriptions.Item label="姓名">陈恒军</Descriptions.Item>
+                    <Descriptions.Item label="职业">web前端</Descriptions.Item>
+                    <Descriptions.Item label="地址">
+                      成都, 四川
+                    </Descriptions.Item>
+                    <Descriptions.Item span={3} label="微信">
+                      18584812344
+                    </Descriptions.Item>
+                    <Descriptions.Item span={3} label="关于">
+                      <p>
+                        该网站技术栈主要包括: umi, dva, antd, hooks, typescript,
+                        egg, mongodb
+                      </p>
+                      <p>
+                        博客功能包括: 文章浏览, 搜索, 评论, 用户登录注册,
+                        支持Oauth第三方github登录, 优化包括: external,
+                        nginx代码压缩, 图片压缩, 静态资源CDN.
+                      </p>
+                      <p>
+                        后台管理功能包括: 文章浏览, 搜索, 删除, 修改, 新增,
+                        热门文章管理等, 用户管理操作, 支持markdown.
+                      </p>
+                      <p>
+                        后端功能包括: 提供相应接口, Jwt鉴权, CDN图片上传,
+                        egg-cors跨域处理, egg-mongoose数据库处理.
+                      </p>
+                    </Descriptions.Item>
+                  </Descriptions>
+                  <Timeline>
+                    <Timeline.Item
+                      dot={
+                        <Icon
+                          type="clock-circle-o"
+                          style={{ fontSize: '16px' }}
+                        />
+                      }
+                      color="red"
+                    >
+                      网站建设时间线
+                    </Timeline.Item>
+                    {AboutBlog.map(item => {
+                      return (
+                        <Timeline.Item color="#24c2cb">
+                          <span style={{ fontSize: 12, marginRight: 16 }}>
+                            {item.date}
+                          </span>
+                          <span>{item.content}</span>
+                        </Timeline.Item>
+                      );
+                    })}
+                  </Timeline>
                 </div>
-                <p
-                  style={{
-                    marginTop: 50,
-                    fontSize: 26,
-                    borderLeft: '2px solid #24c2cb',
-                    padding: '10px 20px',
-                    background: '#f2f2f2',
-                  }}
+                <Divider
+                  orientation="left"
+                  style={{ color: '#666', marginTop: 100 }}
                 >
-                  一个普通的留言板
-                </p>
+                  <span
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: '#666',
+                    }}
+                  >
+                    评论区
+                  </span>
+                </Divider>
                 <div>
                   <CommentsComp />
                   <Divider style={{ color: '#666' }}>

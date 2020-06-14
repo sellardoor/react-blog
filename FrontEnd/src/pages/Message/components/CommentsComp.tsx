@@ -66,7 +66,7 @@ const EditCom: React.FC<EditComType> = props => {
               </Form.Item>
               <Form.Item>
                 <Button htmlType="submit" onClick={onSubmit} type="primary">
-                  Add Comment
+                  留言
                 </Button>
               </Form.Item>
             </>
@@ -82,7 +82,7 @@ const EditCom: React.FC<EditComType> = props => {
               </Form.Item>
               <Form.Item>
                 <Button htmlType="submit" onClick={onSubmit} type="primary">
-                  Add Comment
+                  留言
                 </Button>
               </Form.Item>
             </>

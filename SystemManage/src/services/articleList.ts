@@ -41,6 +41,7 @@ interface ArticleUpdateType {
     info: string;
     title: string;
     type: string;
+    editDate: number;
   };
 }
 export async function articleUpdateApi(data: ArticleUpdateType) {
@@ -83,6 +84,22 @@ export async function setArticleHotApi(data: { _id: string }) {
  */
 export async function removeArticleHotApi(data: { _id: string }) {
   return request('/api/systems/removeArticleHot', {
+    method: 'post',
+    data,
+  });
+}
+/**
+ * @description 搜索
+ */
+interface SearchArticleApiType {
+  title?: string;
+  hot?: string;
+  type?: string;
+  date?: string;
+  editDate?: string;
+}
+export async function searchArticleApi(data: SearchArticleApiType) {
+  return request('/api/systems/searchArticle', {
     method: 'post',
     data,
   });

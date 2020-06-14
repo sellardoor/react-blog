@@ -10,6 +10,7 @@ import {
   message,
   Button,
   Icon,
+  Tag,
 } from 'antd';
 import {
   articleListApi,
@@ -18,72 +19,51 @@ import {
   removeArticleHotApi,
 } from '@/services/articleList';
 import moment from 'moment';
-import { Link } from 'umi';
+import { Link, connect } from 'umi';
+import ArticleListForm from './components/ArticleListForm';
+import { ResultItemType } from './index.d';
+import { connectState, DispatchType } from '@/models/connect';
 
 const { Column } = Table;
 
-interface DataType {
-  date: string;
-  hot: boolean;
-  key: string;
-  title: string;
-  type: string;
-}
-interface ResultItemType {
-  content: string;
-  date: number;
-  hot: true;
-  img: string;
-  info: string;
-  msg: number;
-  title: string;
-  type: string;
-  view: number;
-  _id: string;
-  [key: string]: any;
-}
+type Iprops = ReturnType<typeof mapStateToProps> & DispatchType;
 
-export default function ArticleList() {
-  const [load, setLoad] = useState<boolean>(false);
-  const [data, setData] = useState<DataType[]>([]);
+const ArticleList: React.FC<Iprops> = props => {
+  const { dispatch } = props;
   // 初始化列表
   useEffect(() => {
-    articleListApi().then(res => {
-      setLoad(true);
-      if (res?.success) {
-        const resDate = res.result.map((item: ResultItemType) => {
-          return {
-            key: item._id,
-            title: item.title,
-            type: item.type,
-            date: moment(item.date).format('YYYY-MM-DD HH:mm:ss'),
-            hot: item.hot,
-          };
-        });
-        setData(resDate);
-        setLoad(false);
-      }
+    dispatch({ type: 'article/setload', payload: { load: true } });
+    dispatch({ type: 'article/initArticleList' }).then(() => {
+      dispatch({ type: 'article/setload', payload: { load: false } });
     });
   }, []);
   // 删除文章
   const confirm = (key: string) => {
-    setLoad(true);
+    dispatch({ type: 'article/setload', payload: { load: true } });
     articleDeleteApi({ _id: key }).then(res => {
       if (res?.success) {
         message.success('删除成功');
         articleListApi().then(res => {
           if (res?.success) {
-            const resDate = res.result.map((item: ResultItemType) => {
+            const resData = res.result.map((item: ResultItemType) => {
               return {
                 key: item._id,
                 title: item.title,
                 type: item.type,
                 date: moment(item.date).format('YYYY-MM-DD HH:mm:ss'),
                 hot: item.hot,
+                editDate: item.editDate
+                  ? moment(item.editDate).format('YYYY-MM-DD HH:mm:ss')
+                  : '',
               };
             });
-            setData(resDate);
-            setLoad(false);
+            dispatch({
+              type: 'article/initArticle',
+              payload: {
+                data: resData,
+              },
+            });
+            dispatch({ type: 'article/setload', payload: { load: false } });
           }
         });
       }
@@ -91,23 +71,31 @@ export default function ArticleList() {
   };
   // 设为热门
   const setHotarticle = (key: string) => {
-    setLoad(true);
+    dispatch({ type: 'article/setload', payload: { load: true } });
     setArticleHotApi({ _id: key }).then(res => {
       if (res?.success) {
         message.success('成功设为热门专栏文章');
         articleListApi().then(res => {
           if (res?.success) {
-            const resDate = res.result.map((item: ResultItemType) => {
+            const resData = res.result.map((item: ResultItemType) => {
               return {
                 key: item._id,
                 title: item.title,
                 type: item.type,
                 date: moment(item.date).format('YYYY-MM-DD HH:mm:ss'),
                 hot: item.hot,
+                editDate: item.editDate
+                  ? moment(item.editDate).format('YYYY-MM-DD HH:mm:ss')
+                  : '',
               };
             });
-            setData(resDate);
-            setLoad(false);
+            dispatch({
+              type: 'article/initArticle',
+              payload: {
+                data: resData,
+              },
+            });
+            dispatch({ type: 'article/setload', payload: { load: false } });
           }
         });
       }
@@ -115,30 +103,38 @@ export default function ArticleList() {
   };
   // 取消热门
   const removeHotarticle = (key: string) => {
-    setLoad(true);
+    dispatch({ type: 'article/setload', payload: { load: true } });
     removeArticleHotApi({ _id: key }).then(res => {
       if (res?.success) {
         message.success('成功取消热门专栏文章');
         articleListApi().then(res => {
           if (res?.success) {
-            const resDate = res.result.map((item: ResultItemType) => {
+            const resData = res.result.map((item: ResultItemType) => {
               return {
                 key: item._id,
                 title: item.title,
                 type: item.type,
                 date: moment(item.date).format('YYYY-MM-DD HH:mm:ss'),
                 hot: item.hot,
+                editDate: item.editDate
+                  ? moment(item.editDate).format('YYYY-MM-DD HH:mm:ss')
+                  : '',
               };
             });
-            setData(resDate);
-            setLoad(false);
+            dispatch({
+              type: 'article/initArticle',
+              payload: {
+                data: resData,
+              },
+            });
+            dispatch({ type: 'article/setload', payload: { load: false } });
           }
         });
       }
     });
   };
   return (
-    <Spin size="large" spinning={load}>
+    <Spin size="large" spinning={props.load}>
       <div
         style={{
           background: '#fff',
@@ -157,6 +153,9 @@ export default function ArticleList() {
         <Row style={{ marginTop: 20, fontSize: 20 }}>
           <h1>文章列表</h1>
         </Row>
+        <Row style={{ marginBottom: 50 }}>
+          <ArticleListForm />
+        </Row>
         <Row>
           <Col style={{ textAlign: 'right' }}>
             <Button type="primary">
@@ -165,9 +164,9 @@ export default function ArticleList() {
           </Col>
         </Row>
         <Row style={{ marginTop: 30 }}>
-          <Table dataSource={data}>
+          <Table dataSource={props.data}>
             <Column
-              width="30%"
+              width="20%"
               title="文章标题"
               dataIndex="title"
               key="title"
@@ -186,8 +185,21 @@ export default function ArticleList() {
                 }
               }}
             />
-            <Column width="15%" title="文章类型" dataIndex="type" key="type" />
+            <Column
+              width="15%"
+              title="文章类型"
+              key="type"
+              render={obj => {
+                return <Tag color="#2db7f5">{obj.type}</Tag>;
+              }}
+            />
             <Column width="15%" title="创建时间" dataIndex="date" key="date" />
+            <Column
+              width="15%"
+              title="修改时间"
+              dataIndex="editDate"
+              key="editDate"
+            />
             <Column
               title="操作"
               key="action"
@@ -227,4 +239,11 @@ export default function ArticleList() {
       </div>
     </Spin>
   );
-}
+};
+
+const mapStateToProps = ({ article }: connectState) => ({
+  type: article.type,
+  data: article.data,
+  load: article.load,
+});
+export default connect(mapStateToProps)(ArticleList);

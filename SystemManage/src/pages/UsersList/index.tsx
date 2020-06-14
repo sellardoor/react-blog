@@ -34,7 +34,6 @@ export default function index() {
       if (res?.success) {
         const resultdata: UsersType[] = res.result.map(
           (item: ResponseUserType) => {
-            console.log(item);
             return {
               key: item._id,
               username: item.username,

@@ -6,8 +6,9 @@
 import React, { useEffect, useState } from 'react';
 import { Divider, Tag, Badge } from 'antd';
 import { initTagsApi } from '@/services/tags';
-import './index.less';
+import styles from './index.less';
 import { Link } from 'umi';
+
 
 interface DataProps {
   [key: string]: number;
@@ -24,6 +25,7 @@ export default function TagsCom() {
   }, []);
   return (
     <div
+      className={styles.tagsCom}
       style={{
         background: '#fff',
         borderRadius: 10,

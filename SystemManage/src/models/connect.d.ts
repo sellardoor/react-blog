@@ -6,18 +6,21 @@
 import { LoginModelState } from './login';
 import { Dispatch, IRouteComponentProps } from 'umi';
 import { FormComponentProps } from 'antd/es/form';
+import { ArticleModelState } from './article';
 
 export interface Loading {
   global: boolean;
   effects: { [key: string]: boolean | undefined };
   models: {
     login?: boolean;
+    article?: boolean;
   };
 }
 
 export interface connectState {
   loading: Loading;
   login: LoginModelState;
+  article: ArticleModelState;
 }
 
 /**

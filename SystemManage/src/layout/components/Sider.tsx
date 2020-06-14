@@ -44,7 +44,7 @@ const Sider: React.FC<Iprops> = props => {
         </Menu.Item>
         <Menu.Item key="/userslist">
           <Link to="/userslist">
-            <Icon type="fire" />
+            <Icon type="user" />
             <span>用户管理</span>
           </Link>
         </Menu.Item>

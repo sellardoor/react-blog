@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Breadcrumb } from 'antd';
+import { Row, Breadcrumb, Col } from 'antd';
 
 export default () => {
   return (
@@ -16,6 +16,9 @@ export default () => {
         <Breadcrumb>
           <Breadcrumb.Item>首页</Breadcrumb.Item>
         </Breadcrumb>
+        <Col>
+        后续补上可视化数据
+        </Col>
       </Row>
     </div>
   );
