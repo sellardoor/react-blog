@@ -11,7 +11,7 @@ import moment from 'moment';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai-sublime.css';
-import '../pages/index.less';
+import styles from '../pages/index.less';
 import LazyLoad from 'react-lazyload';
 import CountUp from 'react-countup';
 
@@ -68,6 +68,7 @@ export default function ListCom() {
               hoverable={true}
               bordered={false}
               style={{ marginBottom: 20, marginRight: 20 }}
+              className={styles.cardCss}
             >
               <Row>
                 <Col xs={0} sm={0} md={0} lg={0} xl={8}>

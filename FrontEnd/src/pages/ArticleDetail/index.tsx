@@ -16,7 +16,7 @@ import FooterCom from '@/components/FooterCom';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai-sublime.css';
-import '../index.less';
+import styles from '../index.less';
 import { articleDetailApi } from '@/services/article';
 import moment from 'moment';
 import CommentsComp from './components/CommentsComp';
@@ -122,6 +122,7 @@ const ArticleDetail: React.FC<ArticleDetailType> = props => {
             </div>
             <Spin spinning={load} size="large">
               <div
+                className={styles.contentDetail}
                 style={{ marginTop: 50, paddingLeft: 20, paddingRight: 20 }}
                 dangerouslySetInnerHTML={{
                   __html: marked(detail.content || ''),

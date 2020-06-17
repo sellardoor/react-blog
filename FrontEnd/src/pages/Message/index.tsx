@@ -71,26 +71,23 @@ export class Message extends Component {
                     <Descriptions.Item label="地址">
                       成都, 四川
                     </Descriptions.Item>
-                    <Descriptions.Item span={3} label="微信">
-                      18584812344
-                    </Descriptions.Item>
-                    <Descriptions.Item span={3} label="关于">
-                      <p>
-                        该网站技术栈主要包括: umi, dva, antd, hooks, typescript,
-                        egg, mongodb
+                    <Descriptions.Item label="关于">
+                      <p style={{textIndent: 28}}>
+                      •&nbsp;该网站技术栈主要包括: umi, dva, antd, hooks,
+                        typescript,egg, mongodb
                       </p>
-                      <p>
-                        博客功能包括: 文章浏览, 搜索, 评论, 用户登录注册,
-                        支持Oauth第三方github登录, 优化包括: external,
-                        nginx代码压缩, 图片压缩, 静态资源CDN.
+                      <p style={{textIndent: 28}}>
+                      •&nbsp;博客功能包括: 文章浏览, 搜索, 评论,
+                        用户登录注册,支持Oauth第三方github登录, 优化包括:
+                        external,nginx代码压缩, 图片压缩, 静态资源CDN.
                       </p>
-                      <p>
-                        后台管理功能包括: 文章浏览, 搜索, 删除, 修改, 新增,
-                        热门文章管理等, 用户管理操作, 支持markdown.
+                      <p style={{textIndent: 28}}>
+                      •&nbsp;后台管理功能包括: 文章浏览, 搜索, 删除, 修改,
+                        新增,热门文章管理等, 用户管理操作, 支持markdown.
                       </p>
-                      <p>
-                        后端功能包括: 提供相应接口, Jwt鉴权, CDN图片上传,
-                        egg-cors跨域处理, egg-mongoose数据库处理.
+                      <p style={{textIndent: 28}}>
+                      •&nbsp;后端功能包括: 提供相应接口, Jwt鉴权,
+                        CDN图片上传,egg-cors跨域处理, egg-mongoose数据库处理.
                       </p>
                     </Descriptions.Item>
                   </Descriptions>
