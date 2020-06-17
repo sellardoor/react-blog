@@ -18,11 +18,11 @@ const options = {
   force: true,
   callbackBodyType: 'application/json',
 };
-const putPolicy = new qiniu.rs.PutPolicy(options);
-const uploadToken = putPolicy.uploadToken(mac);
 
 class qiniuService extends Service {
   async uploadFiles(data) {
+    const putPolicy = new qiniu.rs.PutPolicy(options);
+    const uploadToken = putPolicy.uploadToken(mac);
     const timestamp = new Date().getTime(); // 当前时间戳
     const randomNum = Math.ceil(Math.random() * 1000); // 取1000以下的随机数
 
@@ -34,7 +34,6 @@ class qiniuService extends Service {
         extname;
       const formUploader = new qiniu.form_up.FormUploader(config);
       const putExtra = new qiniu.form_up.PutExtra();
-
       const result = await new Promise((resolve, reject) => {
         formUploader.putStream(
           uploadToken,
@@ -53,7 +52,6 @@ class qiniuService extends Service {
           }
         );
       });
-
       if (result !== '') {
         return {
           data: result,

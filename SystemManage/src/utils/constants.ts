@@ -13,7 +13,7 @@ export const CDN: string = 'http://cdn.sellardoor.cn/';
  * @dev http://127.0.0.1:7001/api/systems/qiniu
  * @prod http://node.sellardoor.cn/api/systems/qiniu
  */
-export const UPLOADURL: string = 'http://59.110.43.170:7001/api/systems/qiniu';
+export const UPLOADURL: string = 'http://node.sellardoor.cn/api/systems/qiniu';
 /**
  * @description proxy地址
  * @dev http://127.0.0.1:7001
