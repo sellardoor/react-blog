@@ -1,5 +1,5 @@
 # [个人博客](http://sellardoor.cn)
-![icon](https://img.shields.io/badge/author-sellardoor-blue)![icon](https://img.shields.io/badge/version-1.0-ff69b4)
+![icon](https://img.shields.io/badge/author-sellardoor-blue)  ![icon](https://img.shields.io/badge/version-1.0-ff69b4)
 
 ## 项目信息
 ### 项目背景
