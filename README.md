@@ -20,6 +20,23 @@
 - 前端：支持`Oauth`，`highlight.js` + `marked`展示`markdown`，路由守卫`token`页面级验证，请求拦截器请求携带`token`，优化包括：图片懒加载，`externals`按需引入第三方库的`cdn`，静态资源上传七牛云`cdn`，`nginx`压缩。动效：数字滚动。
 - 后端：提供相应接口，`Jwt`鉴权，七牛云`CDN`图片上传，`cors`跨域处理， `mongoose`数据库操作。
 
+### 项目目录
+```
+.
+├── package.json    包含插件和插件集
+├── .umirc.ts       配置文件
+├── dist            执行 umi build 后，产物默认会存放在这里
+├── mock            存储 mock 文件
+├── public          此目录下所有文件会被 copy 到输出路径
+└── src
+    ├── .umi                临时文件目录
+    ├── components          全局公用组件   
+    ├── pages               页面
+    ├── models              全局状态
+    ├── services            接口服务
+    └── utils               工具类
+```
+
 ## 项目部署
 
 ### 前端
