@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@types/highlight.js": "^9.12.4",
-    "@types/react-css-modules": "^4.6.2",
     "@types/react-lazyload": "^2.6.0",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.2.2",
