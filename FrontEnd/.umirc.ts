@@ -17,7 +17,6 @@ export default defineConfig({
     { path: '/articlelist', component: '@/pages/ArticleList', exact: true },
     { path: '/message', component: '@/pages/Message', exact: true },
     { path: '/file', component: '@/pages/File', exact: true },
-    { path: '/test', component: '@/pages/Test', exact: true },
   ],
   externals: {
     [`highlight.js`]: 'window.hljs',
