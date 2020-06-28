@@ -5,7 +5,7 @@
  */
 import React, { useEffect, useState } from 'react';
 import { Icon, Spin, Card, Col, Row, Tag } from 'antd';
-import { initIndexArticleListApi } from '@/services/article';
+import { hotArticleApi } from '@/services/article';
 import './index.less';
 import moment from 'moment';
 import marked from 'marked';
@@ -32,12 +32,12 @@ export default function ListCom() {
   const [load, setLoad] = useState<boolean>(false);
   useEffect(() => {
     setLoad(true);
-    initIndexArticleListApi().then(res => {
+    hotArticleApi().then(res => {
       if (res?.success) {
-        setData(res.result.list);
+        setData(res.result);
         setLoad(false);
       }
-    });
+    })
   }, []);
 
   const articleDetail = (_id: string) => {
