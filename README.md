@@ -47,7 +47,37 @@
 - [centOS服务器mongodb的安装与使用](https://juejin.im/post/5ecbc331e51d457871619dc0)
 
 ## 项目地址
+博客地址：
 [sellardoor.cn](http://sellardoor.cn)
+
+后台管理地址：
+[system.sellardoor.cn](system.sellardoor.cn)
+
+## 项目参数
+### 后台管理信息
+
+ - 账号：admin，密码：admin
+
+### 远程数据库信息
+
+ - 账号，密码，ip，port，数据库名 => sellardoor:bigbang86@59.110.43.170:27017/admin
+
+### 七牛云上传信息
+
+ - accessKey = 'aZ_QrZ1Idx9U1Y7yTgugztYRnRBdNrujjDCqDaT3'
+
+ - secretKey = 'bkMobvDIpM14IO-Y0SM-jKDlTOwGQUVFOJwGezDb'
+
+ - bucket = 'sellardoor'
+ 
+ ### github oauth信息
+ 
+  - client_id: 'd094df5206d99f67e373'
+  
+  - client_secret: '89540a292fec85c8c951882a8b7149b9f06907ed'
+  
+  ### 这些信息代码也有，就是真实参数，因为网站本就是学习目的，没做隐藏，让大家更直观学习，后台啥的，数据库啥的瞎搞没用，不重要。
+  
 ## 页面UI
 ![UI](https://user-gold-cdn.xitu.io/2020/6/19/172cc52bf20c0fcc?w=567&h=903&f=png&s=101144)
 
